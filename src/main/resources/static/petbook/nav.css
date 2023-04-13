@@ -1,9 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&display=swap');
-
-
-* {
-    font-family: 'Nanum Pen Script', cursive;
-}
+/*nav 바 부분 */
 
 .global-nav {
     background-color: #ffffff;
@@ -14,38 +9,15 @@
     padding: 20px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
     border: 1px solid blanchedalmond;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 9999;
+    opacity: 0.9;
 }
 
-.logo a {
-    font-size: 45px;
-    font-weight: bold;
-    color: #24c3f8;
-    text-decoration: none;
-}
-
-
-.menu {
-    display: flex;
-    list-style: none;
-    margin: 0;
-    padding: 0;
-}
-
-.menu li {
-    margin-right: 30px;
-}
-
-.menu li:last-child {
-    margin-right: 0;
-}
-
-.menu li a {
-    font-size: 28px;
-    font-weight: 500;
-    color: #000000;
-    text-decoration: none;
-    padding: 10px 20px;
-    transition: background-color 0.3s ease-in-out;
+.global-nav:hover {
+    opacity: 1; /* 마우스 오버시 내비바 투명도 1로 설정 */
 }
 
 .menu li a:hover {
@@ -67,8 +39,7 @@
 }
 
 .user a:first-child {
-    margin-right: 10px;
-    background-color: none;
+    margin-right: 10px;    background-color: none;
     border-radius: 5px;
 }
 
@@ -88,3 +59,4 @@
 .user a:last-child:hover {
     background-color: #d9d9d9;
 }
+

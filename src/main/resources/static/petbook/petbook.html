@@ -6,11 +6,15 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet"  href="petbook.css">
-    <link rel="stylesheet"  href="nav.css">
+    <link rel="stylesheet" type="text/css" href="petbook.css">
+    <link rel="stylesheet" type="text/css" href="nav.css">
 </head>
 
 <body>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
 <nav class="global-nav">
     <div class="logo">
         <a href="#">PETBAYO</a>
@@ -30,6 +34,27 @@
 
 <div class="container">
     <h1>PETBOOK</h1>
+    <div class="search-container">
+        <div class="search-input-container">
+            <input type="text" id="search-input" placeholder="검색어를 입력하세요">
+            <button id="search-button">검색</button>
+        </div>
+        <div class="search-category-container">
+            <select id="search-category">
+                <option value="all" selected>전체</option>
+                <option value="dog">개</option>
+                <option value="cat">고양이</option>
+                <option value="other">기타</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="result-container">
+        <ul id="result-list">
+            <!-- 검색 결과가 여기에 추가됩니다 -->
+        </ul>
+    </div>
+
     <div class="row">
         <div class="col-md-4">
             <div class="card">
@@ -38,6 +63,7 @@
                     <h5 class="card-title">포메라니안</h5>
                     <p class="card-text">작성자: 최인하</p>
                     <button class="btn btn-primary" data-toggle="modal" data-target="#modal1">상세보기</button>
+                    <button class="btn btn-danger" data-toggle="modal" data-target="#modal1">등록</button>
                 </div>
             </div>
         </div>
@@ -266,11 +292,16 @@
                 <p>작성자: 최인하</p>
                 <p>포메라니안은 작은 크기와 푸른 눈, 털이 풍성하고 부드러운 두건 모양의 머리 등으로 인해 인기 있는 재스민 견종입니다.
 
-                    이들은 토착적으로 독일의 포메라니아 지방에서 유래한 것으로 알려져 있으며, 18세기 후반에 영국으로 수출되어 유행을 탔습니다. 이후 19세기에는 영국 여성들 사이에서 특히 유행하게 되었고, 귀여운 모습으로 인해 인기가 지속되어 왔습니다.
+                    이들은 토착적으로 독일의 포메라니아 지방에서 유래한 것으로 알려져 있으며, 18세기 후반에 영국으로 수출되어 유행을 탔습니다. 이후 19세기에는 영국 여성들 사이에서 특히
+                    유행하게 되었고, 귀여운 모습으로 인해 인기가 지속되어 왔습니다.
 
-                    포메라니안은 활발하고 호기심 많은 성격을 가지고 있으며, 주인에게 매우 애정 어린 종입니다. 이들은 경계심이 강하고 똑똑하여 훈련하기 쉽습니다. 또한, 작은 크기 때문에 아파트에서도 쉽게 기를 수 있으며, 건강한 개체들은 수명이 꽤 길 수 있습니다.
+                    포메라니안은 활발하고 호기심 많은 성격을 가지고 있으며, 주인에게 매우 애정 어린 종입니다. 이들은 경계심이 강하고 똑똑하여 훈련하기 쉽습니다. 또한, 작은 크기 때문에
+                    아파트에서도 쉽게 기를 수 있으며, 건강한 개체들은 수명이 꽤 길 수 있습니다.
 
-                    그러나, 털이 풍성하기 때문에 손질에 신경을 써주어야 하며, 알러지가 있을 경우 문제가 될 수도 있습니다. 또한, 너무 작아서 아이들과 함께 지내기에는 부적합할 수 있습니다..</p>
+                    그러나, 털이 풍성하기 때문에 손질에 신경을 써주어야 하며, 알러지가 있을 경우 문제가 될 수도 있습니다. 또한, 너무 작아서 아이들과 함께 지내기에는 부적합할 수
+                    있습니다..</p>
+                <button class="btn btn-primary" data-toggle="modal">수정</button>
+                <button class="btn btn-primary" data-toggle="modal">삭제</button>
             </div>
         </div>
     </div>
@@ -287,6 +318,7 @@
                 <img src="image/2.jpg" alt="Album 2">
                 <p>Artist: Artist 2</p>
                 <p>우우웁.</p>
+
             </div>
         </div>
     </div>
@@ -308,9 +340,7 @@
     </div>
 </div>
 
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
 </body>
 
 </html>

@@ -1,5 +1,8 @@
+@import url('https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&display=swap');
+
 .container {
     padding: 20px;
+    margin-top: 120px;
 }
 
 h1 {
@@ -18,7 +21,7 @@ h1 {
 }
 
 .card-img-top {
-    height: 200px;
+    height: 350px;
     object-fit: cover;
 }
 
@@ -77,4 +80,169 @@ h1 {
     .card {
         margin-bottom: 40px;
     }
+}
+
+.search-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+#search-input {
+    flex: 1;
+    margin-right: 10px;
+}
+
+#search-category {
+    margin-right: 10px;
+}
+
+.result-container {
+    margin-bottom: 20px;
+}
+
+
+
+
+
+* {
+    font-family: 'Nanum Pen Script', cursive;
+}
+
+
+
+.logo a {
+    font-size: 45px;
+    font-weight: bold;
+    color: #24c3f8;
+    text-decoration: none;
+}
+
+
+.menu {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.menu li {
+    margin-right: 30px;
+}
+
+.menu li:last-child {
+    margin-right: 0;
+}
+
+.menu li a {
+    font-size: 28px;
+    font-weight: 500;
+    color: #000000;
+    text-decoration: none;
+    padding: 10px 20px;
+    transition: background-color 0.3s ease-in-out;
+}
+
+
+
+/* 검색창 */
+.search-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    max-width: 700px;
+    margin: 0 auto;
+    display: flex;
+    flex: 1;
+
+}
+
+.search-input-container {
+    display: flex;
+    align-items: center;
+    flex: 1;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+#search-input {
+    flex: 1;
+    padding: 10px;
+    border: none;
+    outline: none;
+}
+
+#search-button {
+    padding: 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 0 3px 3px 0;
+    cursor: pointer;
+}
+
+.search-category-container {
+    position: relative;
+    display: inline-block;
+    margin-left: 10px;
+}
+
+#search-category {
+    position: relative;
+    z-index: 1;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    background-color: #fff;
+    cursor: pointer;
+}
+
+#search-category:after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 5px 5px 0 5px;
+    border-color: #000 transparent transparent transparent;
+    z-index: 2;
+}
+
+#search-category:focus {
+    outline: none;
+    border-color: #007bff;
+}
+
+#search-category:focus + .search-category-dropdown {
+    display: block;
+}
+
+.search-category-dropdown {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 3;
+    min-width: 100%;
+    padding: 5px 0;
+    margin: 0;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.search-category-dropdown li {
+    display: block;
+    padding: 5px;
+    cursor: pointer;
+}
+
+.search-category-dropdown li:hover {
+    background-color: #f5f5f5;
 }
