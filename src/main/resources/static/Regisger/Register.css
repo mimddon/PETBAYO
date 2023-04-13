@@ -1,0 +1,193 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap');
+*{
+    margin: 0;
+    padding: 0;
+    font-family: 'poppins',sans-serif;
+}
+section{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    width: 100%;
+}
+.form-box{
+    position: relative;
+    width: 0px;
+    height: 450px;
+    background: transparent;
+    border: 2px solid rgba(255,255,255,0.5);
+    border-radius: 20px;
+    backdrop-filter: blur(15px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+h2{
+    font-size: 2em;
+    color: #24C3F8;
+    text-align: center;
+}
+.inputbox{
+    position: relative;
+    margin: 30px 0;
+    width: 310px;
+    border-bottom: 2px solid #000;
+}
+.inputbox label{
+    position: absolute;
+    top: 50%;
+    left: 5px;
+    transform: translateY(-50%);
+    color: #000;
+    font-size: 1em;
+    pointer-events: none;
+    transition: .5s;
+}
+input:focus ~ label,
+input:valid ~ label{
+top: -5px;
+}
+.inputbox input {
+    width: 100%;
+    height: 50px;
+    background: transparent;
+    border: none;
+    outline: none;
+    font-size: 1em;
+    padding:0 35px 0 5px;
+    color: #000;
+}
+.inputbox ion-icon{
+    position: absolute;
+    right: 8px;
+    color: #000;
+    font-size: 1.2em;
+    top: 20px;
+}
+.maintain{
+    margin: -15px 0 15px ;
+    font-size: .9em;
+    color: #000;
+    display: flex;
+    justify-content: space-between;
+}
+.maintain label input{
+    margin-right: 3px;
+}
+.maintain label a{
+    color: #000;
+    text-decoration: none;
+}
+.maintain label input{
+    margin-right: 3px;
+}
+.maintain label a{
+    color: #000;
+    text-decoration: none;
+}
+.forget-button{
+    font-size: .9em;
+    color: #000;
+    text-align: center;
+    margin: 25px 0 10px;
+}
+.forget-button label input{
+    margin-right: 3px;
+}
+.forget-button label a{
+    color: #000;
+    text-decoration: none;
+}
+.forget-button label input{
+    margin-right: 3px;
+}
+.forget-button label a{
+    color: #000;
+    text-decoration: none;
+}
+button{
+    width: 100%;
+    height: 40px;
+    border-radius: 40px;
+    background: #24C3F8;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    font-size: 1em;
+    font-weight: 600;
+}
+.register{
+    font-size: .9em;
+    color: #000;
+    text-align: center;
+    margin: 25px 0 10px;
+}
+.register p a{
+    text-decoration: none;
+    color: #000;
+    font-weight: 600;
+}
+.register p a:hover{
+    text-decoration: none;
+}
+input {
+    margin-top: 0.4rem;
+    transform: translateY(5%);
+}
+.gender{
+    position: relative;
+    text-align: center;
+    display: inline-block;
+    justify-content: center;
+    transform: translateY(-15%);
+    margin: 30px 0;
+    width: 310px;
+}
+.gender1{
+    display: inline-block;
+    justify-content: center;
+    margin: 25px 0 10px;
+}
+.Birth{
+    position: relative;
+    text-align: center;
+    display: inline-block;
+    justify-content: center;
+    transform: translateY(-30%);
+    margin: 30px 0;
+    width: 310px;
+    margin: 10px 0 10px;
+}
+.aa{
+    border-bottom: 2px solid #000;
+    transform: translateY(-500%);
+}
+.bb{
+    border-bottom: 2px solid #000;
+    transform: translateY(-1300%);
+}
+.reg{
+    transform: translateY(50%);
+}
+.p{
+    transform: translateY(50%);
+}
+.email-s{
+    white-space:nowrap;
+    width: 100px;
+    transform: translateX(-20%);
+}
+.email-e{
+    white-space:nowrap;
+    transform: translateY(0%);
+}
+.gnd{
+    white-space:nowrap;
+    width: 100px;
+    transform: translateX(50%);
+}
+.Y{
+    transform: translateY(-7%);
+}

@@ -67,8 +67,7 @@
 }
 
 .user a:first-child {
-    margin-right: 10px;
-    background-color: none;
+    margin-right: 10px;    background-color: none;
     border-radius: 5px;
 }
 
