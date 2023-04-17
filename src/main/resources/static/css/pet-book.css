@@ -1,4 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&display=swap');
 
 .container {
     padding: 20px;
@@ -9,7 +8,7 @@ h1 {
     text-align: center;
     margin-bottom: 40px;
 }
-
+/* 앨범 */
 .card {
     margin-bottom: 20px;
     border: none;
@@ -45,7 +44,7 @@ h1 {
     background-color: #0069d9;
     border-color: #0062cc;
 }
-
+/* 모달 */
 .modal-body p {
     font-size:1.5rem;
 }
@@ -81,7 +80,7 @@ h1 {
         margin-bottom: 40px;
     }
 }
-
+/* 검색창 */
 .search-container {
     display: flex;
     align-items: center;
@@ -102,50 +101,6 @@ h1 {
 }
 
 
-
-
-
-* {
-    font-family: 'Nanum Pen Script', cursive;
-}
-
-
-
-.logo a {
-    font-size: 45px;
-    font-weight: bold;
-    color: #24c3f8;
-    text-decoration: none;
-}
-
-
-.menu {
-    display: flex;
-    list-style: none;
-    margin: 0;
-    padding: 0;
-}
-
-.menu li {
-    margin-right: 30px;
-}
-
-.menu li:last-child {
-    margin-right: 0;
-}
-
-.menu li a {
-    font-size: 28px;
-    font-weight: 500;
-    color: #000000;
-    text-decoration: none;
-    padding: 10px 20px;
-    transition: background-color 0.3s ease-in-out;
-}
-
-
-
-/* 검색창 */
 .search-container {
     display: flex;
     align-items: center;
