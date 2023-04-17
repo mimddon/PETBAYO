@@ -11,4 +11,21 @@ public class MainController {
         return "main";
     }
 
+    @RequestMapping("/pet-care")
+    public String petCare() {
+        return "/pet-care";
+    }
+    @RequestMapping("/pet-book")
+    public String petBook() {
+        return "/pet-book";
+    }
+    @RequestMapping("/register")
+    public String register() {
+        return "/register";
+    }
+    @RequestMapping("/login")
+    public String login() {
+        return "/login";
+    }
+
 }
