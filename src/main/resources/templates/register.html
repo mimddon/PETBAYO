@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="register.css">
+  <link rel="stylesheet" href="/css/register.css">
   <title>PETBAYO</title>
 </head>
 <body>
@@ -14,8 +14,8 @@
       <div class="inputbox" style="display: inline-block">
         <div class="email-e">
           <ion-icon name="at-circle-outline"></ion-icon>
-          <input type="id" required>
-          <label class="id">Email</label>
+          <input type="id" id="email" name=" email" required>
+          <label for="email">Email</label>
           <button class="email-s" type="button">인증하기</button>
         </div>
       </div>
@@ -23,17 +23,18 @@
         <div class="Y">
           <div class="inputbox">
             <ion-icon name="lock-closed-outline"></ion-icon>
-            <input type="password" required>
-            <label class="pw">Password</label>
+            <input type="password" id="pw" name="password" required>
+            <label for="pw">Password</label>
           </div>
           <div class="inputbox">
             <ion-icon name="lock-closed-outline"></ion-icon>
-            <input type="password" required>
-            <label class="pw">Re-Eenter Password</label>
+            <input type="password" id="rePw" name="Re-Enter Password" required>
+            <label for="rePw">Re-Eenter Password</label>
           </div>
           <div class="gender">
             <ion-icon name="male-female-outline"></ion-icon>
-            <label class="gender">Gender</label>
+            <input type="gender" id="gender" name="gender" required>
+            <label for="gender">Gender</label>
             <div class="gnd">
               <button type='button' value="MAN" class="btn btn-navy navbar-btn gender1" onclick='alert("남성을 선택하셨습니다.")'>MAN</button>
               <button type='button' value="WOMEN" class="btn btn-navy navbar-btn gender1" onclick='alert("여성을 선택하셨습니다.")'>WOMEN</button>
@@ -48,6 +49,13 @@
             </div>
           </div>
           <div class="aa"></div>
+
+          <div>
+            <div>
+              <input type="Address" id="Address" name="Address" required>
+              <label for="Address">Address</label>
+            </div>
+          </div>
 
           <button class="reg">회원가입</button>
           <a href="#"></a>

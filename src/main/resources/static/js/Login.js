@@ -1,23 +1,25 @@
-$(document).ready(function() {
-    $('#email-login-form').submit(function(e) {
+$(function() {
+    $('#loginForm').submit(function(e) {
         e.preventDefault();
-        var email = $('#email').val();
+
         $.ajax({
-            type: "POST",
-            url: "/email-login",
-            data: {
-                email: email
-            },
-            success: function(result) {
-                if (result === 'success') {
-                    alert('로그인에 성공하였습니다.');
-                    window.location.href = '#';
+            type: 'POST',
+            url: '/login',
+            contentType: 'application/json',
+            data: JSON.stringify({
+                email: $('#email').val(),
+                password: $('#password').val(),
+                rememberMe: $('#rememberMe').is(':checked')
+            }),
+            success: function(response) {
+                if (response.success) {
+                    // 로그인 성공 시 처리할 코드
                 } else {
-                    alert('로그인에 실패하였습니다.');
+                    alert(response.message);
                 }
             },
-            error: function(jqXHR, textStatus, errorThrown) {
-                alert('서버와의 통신이 실패하였습니다.');
+            error: function() {
+                alert('서버와 통신 중 오류가 발생했습니다.');
             }
         });
     });
