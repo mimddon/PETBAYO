@@ -36,7 +36,27 @@
         </div>
     </div>
     <div class="map-container" id="mapContainer">
+    </div>
 
+        <table>
+            <thead>
+            <tr>
+                <th>제목</th>
+                <th>작성자</th>
+                <th>작성일</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="care : ${careList}">
+                <td th:text="${care.text_id}"></td>
+                <td th:text="${care.title}"></td>
+                <td th:text="${care.content}"></td>
+            </tr>
+            </tbody>
+        </table>
+
+    <div class="mt-2">
+        <a href="careCreate.html" class="btn btn-sm btn-primary">등록</a> <a href=".." class="btn btn-sm btn-warning">이전</a>
     </div>
     <!-- 메인 컨텐츠 내용 -->
 
