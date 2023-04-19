@@ -13,7 +13,7 @@ public class MainController {
 
     @RequestMapping("/pet-care")
     public String petCare() {
-        return "care/careList";
+        return "/pet-care";
     }
     @RequestMapping("/pet-book")
     public String petBook() {
