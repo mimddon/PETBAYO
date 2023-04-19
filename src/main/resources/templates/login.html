@@ -10,7 +10,7 @@
 <section>
     <div class="form-box">
         <div class="form-value">
-            <form action="main">
+            <form action="/login" method="POST">
                 <h2>Login</h2>
                 <div class="inputbox">
                     <ion-icon name="at-circle-outline"></ion-icon>
@@ -22,10 +22,6 @@
                     <input type="password" id="pw" name="password" required>
                     <label for="pw">Password</label>
                 </div>
-                <div class="maintain">
-                    <input type="checkbox" id="rememberMe" name="rememberMe">
-                    <label for="rememberMe">내 정보 기억하기</label>
-                </div>
                 <div class="forget-button">
                     <label>
                         <a href="#" style="text-decoration:none">아이디 찾기</a>
@@ -34,9 +30,8 @@
                     </label>
                 </div>
                 <div>
-                    <button type="submit">로그인</button>
+                    <button type='button'>로그인</button>
                 </div>
-                <a href="main.html"></a>
                 <div class="register">
                     <p>아이디가 없으신가요? <a href="register">회원가입</a></p>
                 </div>

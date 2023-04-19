@@ -37,6 +37,7 @@ public class LoginController {
         private boolean rememberMe;
 
         public String getEmail() {
+
             return email;
         }
 
@@ -45,6 +46,7 @@ public class LoginController {
         }
 
         public String getPassword() {
+
             return password;
         }
 
@@ -53,10 +55,12 @@ public class LoginController {
         }
 
         public boolean isRememberMe() {
+
             return rememberMe;
         }
 
         public void setRememberMe(boolean rememberMe) {
+
             this.rememberMe = rememberMe;
         }
     }
