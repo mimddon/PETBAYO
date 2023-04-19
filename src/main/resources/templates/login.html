@@ -1,40 +1,39 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="login.css">
+    <link rel="stylesheet" href="/css/login.css">
     <title>PETBAYO</title>
 </head>
 <body oncontextmenu="return false" ondragstart="return false" onselectstart="return false">
 <section>
     <div class="form-box">
         <div class="form-value">
-            <form action="">
+            <form action="/login" method="POST">
                 <h2>Login</h2>
                 <div class="inputbox">
                     <ion-icon name="at-circle-outline"></ion-icon>
-                    <input type="id" required>
-                    <label class="id">Email</label>
+                    <input type="id" id="email" name="email" required>
+                    <label for="email">Email</label>
                 </div>
                 <div class="inputbox">
                     <ion-icon name="lock-closed-outline"></ion-icon>
-                    <input type="password" required>
-                    <label class="pw">Password</label>
-                </div>
-                <div class="maintain">
-                    <label class="idChk"><input type="checkbox"> 내 정보 기억하기</label>
+                    <input type="password" id="pw" name="password" required>
+                    <label for="pw">Password</label>
                 </div>
                 <div class="forget-button">
                     <label>
                         <a href="#" style="text-decoration:none">아이디 찾기</a>
                         <a style="...">|</a>
-                        <a href="#" style="text-decoration:none">비밀번호 찾기</a></label>
+                        <a href="#" style="text-decoration:none">비밀번호 찾기</a>
+                    </label>
                 </div>
-                <button>로그인</button>
-                <a href="main.html"></a>
+                <div>
+                    <button type='button'>로그인</button>
+                </div>
                 <div class="register">
-                    <p>아이디가 없으신가요? <a href="Register/register.html">회원가입</a></p>
+                    <p>아이디가 없으신가요? <a href="register">회원가입</a></p>
                 </div>
             </form>
         </div>
