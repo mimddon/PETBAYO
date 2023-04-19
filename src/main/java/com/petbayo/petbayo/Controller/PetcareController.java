@@ -17,7 +17,7 @@ public class PetcareController {
     @Autowired
     private PetcareService careService;
 
-    @GetMapping("/care/list")
+    @GetMapping("/care/careList")
     public String careList(Model model) {
         List<Care> care = careService.careList();
         model.addAttribute("care", care);
@@ -32,7 +32,7 @@ public class PetcareController {
     public String add(Care item) {
         careService.careCreate(item);
 
-        return "redirect: care/careCreate";
+        return "redirect: /care/careCreate";
     }
 
     @GetMapping("care/delete/{text_id}")
