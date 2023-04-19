@@ -1,35 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.petbayo.petbayo.resources.mybatis.care">
+<mapper namespace="care">
 
     <resultMap id="CareResultMap" type="com.petbayo.petbayo.Model.Care">
-        <id column="text_id" property="text_id"/>
+        <id column="text_id" property="textId"/>
         <result column="title" property="title"/>
         <result column="content" property="content"/>
         <result column="location" property="location"/>
         <result column="price" property="price"/>
-        <result column="user_id" property="user_id"/>
+        <result column="user_id" property="userID"/>
     </resultMap>
 
     <select id="careList" resultMap="CareResultMap">
-        SELECT * FROM care WHERE text_id = #{text_id}
+        SELECT text_id, title, content FROM petcare
     </select>
 
-    <insert id="careCreate" parameterType="com.petbayo.petbayo.Model.Care">
-        INSERT INTO care (text_id, title, content, location, price, user_id)
-        VALUES (#{text_id}, #{title}, #{content}, #{location}, #{price}, #{user_id})
+    <insert id="create" parameterType="com.petbayo.petbayo.Model.Care">
+        INSERT INTO petcare (text_id, title, content, location, price, user_id)
+        VALUES (#{textId}, #{title}, #{content}, #{location}, #{price}, #{userId})
     </insert>
 
     <update id="careUpdate" parameterType="com.petbayo.petbayo.Model.Care">
         UPDATE care
         SET title = #{title}, content = #{content}, location = #{location},
-        price = #{price}, user_id = #{user_id}
-        WHERE text_id = #{text_id}
+        price = #{price}, user_id = #{userId}
+        WHERE text_id = #{textId}
     </update>
 
     <delete id="careDelete" parameterType="int">
-        DELETE FROM care WHERE text_id = #{text_id}
+        DELETE FROM care WHERE text_id = #{textId}
     </delete>
 
 </mapper>

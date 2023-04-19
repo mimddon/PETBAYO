@@ -4,6 +4,7 @@ import com.petbayo.petbayo.Model.Care;
 import com.petbayo.petbayo.Repository.PetcareRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 
 import java.util.List;
 
@@ -20,11 +21,11 @@ public class PetcareServiceImpl implements  PetcareService {
 
     @Override
     public void careCreate(Care item) {
-
+        petcareRepository.careCreate(item);
     }
 
     @Override
-    public Care careItem(int text_id) {
+    public Care careItem(int textId) {
         return null;
     }
 
@@ -34,7 +35,7 @@ public class PetcareServiceImpl implements  PetcareService {
     }
 
     @Override
-    public void careDelete(int text_id) {
+    public void careDelete(int textId) {
 
     }
 }

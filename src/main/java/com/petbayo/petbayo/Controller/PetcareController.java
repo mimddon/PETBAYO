@@ -2,6 +2,7 @@ package com.petbayo.petbayo.Controller;
 
 import com.petbayo.petbayo.Model.Care;
 import com.petbayo.petbayo.Service.PetcareService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,10 +13,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import java.util.List;
 
 @Controller
+@Slf4j
 public class PetcareController {
 
     @Autowired
     private PetcareService careService;
+
 
     @GetMapping("/care/careList")
     public String careList(Model model) {
@@ -32,14 +35,14 @@ public class PetcareController {
     public String add(Care item) {
         careService.careCreate(item);
 
-        return "redirect: /care/careCreate";
+        return "redirect:/care/careList";
     }
 
-    @GetMapping("care/delete/{text_id}")
-    public String careDelete(@PathVariable int text_id) {
-        careService.careDelete(text_id);
+    @GetMapping("care/delete/{textId}")
+    public String careDelete(@PathVariable int textId) {
+        careService.careDelete(textId);
 
-        return "redirect: delete";
+        return "redirect: /care/careList";
     }
 
 

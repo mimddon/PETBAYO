@@ -1,19 +1,19 @@
 package com.petbayo.petbayo.Model;
 
 public class Care {
-    private int text_id;
+    private int textId;
     private String title;
     private String content;
     private Float location;
     private int price;
-    private int user_id;
+    private int userId;
 
-    public int getText_id() {
-        return text_id;
+    public int getTextId() {
+        return textId;
     }
 
-    public void setText_id(int text_id) {
-        this.text_id = text_id;
+    public void setTextId(int textId) {
+        this.textId = textId;
     }
 
     public String getTitle() {
@@ -48,11 +48,11 @@ public class Care {
         this.price = price;
     }
 
-    public int getUser_id() {
-        return user_id;
+    public int getUserId() {
+        return userId;
     }
 
-    public void setUser_id(int user_id) {
-        this.user_id = user_id;
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 }

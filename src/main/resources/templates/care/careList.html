@@ -41,14 +41,19 @@
         <table>
             <thead>
             <tr>
-                <th>제목</th>
-                <th>작성자</th>
-                <th>작성일</th>
+                <th>Text Id</th>
+                <th>Title</th>
+                <th>Content</th>
             </tr>
             </thead>
             <tbody>
-            <tr th:each="care : ${careList}">
-                <td th:text="${care.text_id}"></td>
+
+            <tr th:if="${#lists.isEmpty(care)}">
+                <td colspan="3">No data</td>
+            </tr>
+
+            <tr th:each="care : ${care}">
+                <td th:text="${care.textId}"></td>
                 <td th:text="${care.title}"></td>
                 <td th:text="${care.content}"></td>
             </tr>

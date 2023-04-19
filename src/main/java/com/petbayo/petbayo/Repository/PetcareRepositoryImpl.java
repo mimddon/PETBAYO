@@ -4,6 +4,7 @@ import com.petbayo.petbayo.Model.Care;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.ui.Model;
 
 import java.util.List;
 
@@ -15,7 +16,7 @@ public class PetcareRepositoryImpl implements PetcareRepository {
 
     @Override
     public List<Care> careList() {
-        return sql.selectList("pet-care");
+        return sql.selectList("care.careList");
     }
 
     @Override
@@ -24,8 +25,8 @@ public class PetcareRepositoryImpl implements PetcareRepository {
     }
 
     @Override
-    public Care careItem(int text_id) {
-        return sql.selectOne("care.item", text_id);
+    public Care careItem(int textId) {
+        return sql.selectOne("care.item", textId);
     }
 
     @Override
@@ -34,7 +35,7 @@ public class PetcareRepositoryImpl implements PetcareRepository {
     }
 
     @Override
-    public void careDelete(int text_id) {
-        sql.delete("care.delete", text_id);
+    public void careDelete(int textId) {
+        sql.delete("care.delete", textId);
     }
 }
