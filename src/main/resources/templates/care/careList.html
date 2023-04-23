@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="/css/pet-care.css">
     <link rel="stylesheet" type="text/css" href="/css/nav.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
 <header>
@@ -32,33 +33,88 @@
     <div class="sidebar">
         <h2>추천 돌봄이</h2>
         <div class="recommendation">
-            <p>현재 <span id="recommendationCount">10</span>명의 돌봄이가 추천되었습니다.</p>
+            <p>현재 <span id="recommendationCount"></span>명의 돌봄이가 추천되었습니다.</p>
         </div>
     </div>
     <div class="map-container" id="mapContainer">
     </div>
 
-        <table>
-            <thead>
-            <tr>
-                <th>Text Id</th>
-                <th>Title</th>
-                <th>Content</th>
-            </tr>
-            </thead>
-            <tbody>
+    <div id="map" style="width:70%;height:1080px;"></div>
+    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=1dc4acb769231477d585bb172afb8241"></script>
 
-            <tr th:if="${#lists.isEmpty(care)}">
-                <td colspan="3">No data</td>
-            </tr>
+    <script>
+        var mapContainer = document.getElementById('map'), // 지도를 표시할 div
+            mapOption = {
+                center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+                level: 3 // 지도의 확대 레벨
+            };
 
-            <tr th:each="care : ${care}">
-                <td th:text="${care.textId}"></td>
-                <td th:text="${care.title}"></td>
-                <td th:text="${care.content}"></td>
-            </tr>
-            </tbody>
-        </table>
+        var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+
+        // 마커를 표시할 위치와 title 객체 배열입니다
+        var positions = [];
+
+        // 마커 이미지의 이미지 주소입니다
+        var imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png";
+
+        $.ajax({
+            type: 'GET',
+            url: '/api/care',
+            dataType: 'json',
+            success: function(data) {
+                // 가져온 데이터를 positions 배열에 추가한다.
+                for (var i = 0; i < data.length; i++) {
+                    positions.push({
+                        title: data[i].title,
+                        latlng: new kakao.maps.LatLng(data[i].latitude, data[i].longitude)
+                    });
+                }
+                console.log(positions);
+
+                    var imageSize = new kakao.maps.Size(24, 35);
+
+                    var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
+
+                    console.log('marker position:', positions[1].latlng);
+
+
+                    markerImage.onload = function() {
+                        console.log('Marker image loaded successfully!');
+
+                        for (var i = 0; i < positions.length; i ++) {
+                            var marker = new kakao.maps.Marker({
+                                map: map,
+                                position: positions[i].latlng,
+                                title : positions[i].title,
+                                image : markerImage
+                            });
+
+                        }
+
+                    };
+
+
+                console.log(data);
+
+            }
+        });
+    </script>
+
+
+
+    <table>
+        <tbody>
+             <tr th:each="care : ${care}">
+                <td th:text="${care.longitude}" style=""></td>
+                <td th:text="${care.latitude}" style=""></td>
+
+
+
+
+             </tr>
+        </tbody>
+    </table>
+
 
     <div class="mt-2">
         <a href="/careCreate" class="btn btn-sm btn-primary">등록</a> <a href=".." class="btn btn-sm btn-warning">이전</a>

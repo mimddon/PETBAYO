@@ -7,23 +7,24 @@
         <id column="text_id" property="textId"/>
         <result column="title" property="title"/>
         <result column="content" property="content"/>
-        <result column="location" property="location"/>
+        <result column="longitude" property="longitude"/>
+        <result column="latitude" property="latitude"/>
         <result column="price" property="price"/>
         <result column="user_id" property="userID"/>
     </resultMap>
 
     <select id="careList" resultMap="CareResultMap">
-        SELECT text_id, title, content FROM petcare
+        SELECT text_id, title, content, price, longitude, latitude FROM petcare
     </select>
 
     <insert id="create" parameterType="com.petbayo.petbayo.Model.Care">
-        INSERT INTO petcare (text_id, title, content, location, price, user_id)
-        VALUES (#{textId}, #{title}, #{content}, #{location}, #{price}, #{userId})
+        INSERT INTO petcare (text_id, title, content, longitude, latitude, price, user_id)
+        VALUES (#{textId}, #{title}, #{content}, #{longitude}, #{latitude}, #{price}, #{userId})
     </insert>
 
     <update id="careUpdate" parameterType="com.petbayo.petbayo.Model.Care">
         UPDATE care
-        SET title = #{title}, content = #{content}, location = #{location},
+        SET title = #{title}, content = #{content}, longitude = #{longitude}, latitude = #{latitude},
         price = #{price}, user_id = #{userId}
         WHERE text_id = #{textId}
     </update>

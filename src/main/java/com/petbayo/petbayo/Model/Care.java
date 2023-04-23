@@ -4,7 +4,8 @@ public class Care {
     private int textId;
     private String title;
     private String content;
-    private Float location;
+    private Float longitude;
+    private Float latitude;
     private int price;
     private int userId;
 
@@ -32,12 +33,20 @@ public class Care {
         this.content = content;
     }
 
-    public Float getLocation() {
-        return location;
+    public Float getLongitude() {
+        return longitude;
     }
 
-    public void setLocation(Float location) {
-        this.location = location;
+    public void setLongitude(Float longitude) {
+        this.longitude = longitude;
+    }
+
+    public Float getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(Float latitude) {
+        this.latitude = latitude;
     }
 
     public int getPrice() {
