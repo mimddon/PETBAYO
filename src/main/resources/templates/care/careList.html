@@ -54,47 +54,44 @@
         // 마커를 표시할 위치와 title 객체 배열입니다
         var positions = [];
 
-        // 마커 이미지의 이미지 주소입니다
-        var imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png";
-
         $.ajax({
             type: 'GET',
             url: '/api/care',
             dataType: 'json',
             success: function(data) {
                 // 가져온 데이터를 positions 배열에 추가한다.
+                console.log(data)
                 for (var i = 0; i < data.length; i++) {
                     positions.push({
                         title: data[i].title,
-                        latlng: new kakao.maps.LatLng(data[i].latitude, data[i].longitude)
+                        latlng: new kakao.maps.LatLng(data[i].longitude, data[i].latitude)
                     });
+
                 }
+
+                positions[0] = {
+                        title: '카카오',
+                        latlng: new kakao.maps.LatLng(33.450705, 126.570677)
+                    };
                 console.log(positions);
 
-                    var imageSize = new kakao.maps.Size(24, 35);
+                var imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png"; // 마커 이미지의 이미지 주소입니다
 
-                    var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
+                for (var i = 0; i < positions.length; i++) {
 
-                    console.log('marker position:', positions[1].latlng);
+                    var imageSize = new kakao.maps.Size(24, 35); //마커 이미지의 이미지 크기입니다
 
+                    var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize); // 마커 이미지를 생성합니다.
 
-                    markerImage.onload = function() {
-                        console.log('Marker image loaded successfully!');
+                    var marker = new kakao.maps.Marker({
+                        map: map,
+                        position: positions[i].latlng,
+                        title : positions[i].title,
+                        image : markerImage
+                    });
+                    console.log('marker position:', positions[i].latlng);
 
-                        for (var i = 0; i < positions.length; i ++) {
-                            var marker = new kakao.maps.Marker({
-                                map: map,
-                                position: positions[i].latlng,
-                                title : positions[i].title,
-                                image : markerImage
-                            });
-
-                        }
-
-                    };
-
-
-                console.log(data);
+                }
 
             }
         });
