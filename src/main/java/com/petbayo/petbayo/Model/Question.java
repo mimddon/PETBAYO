@@ -1,12 +1,8 @@
 package com.petbayo.petbayo.Model;
 
 import java.time.LocalDateTime;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
+
 import org.hibernate.annotations.CreationTimestamp;
 
 @Entity
@@ -16,14 +12,17 @@ public class Question {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int qsId;
 
+    @Column(length = 256)
     private String qsTitle;
 
     @CreationTimestamp
     private LocalDateTime createdDate;
 
-    private String process;
+    @Enumerated(EnumType.STRING)
+    private Process process;
 
-    private String disclosure;
+    @Enumerated(EnumType.STRING)
+    private Disclosure disclosure;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
@@ -53,19 +52,19 @@ public class Question {
         this.createdDate = createdDate;
     }
 
-    public String getProcess() {
+    public Process getProcess() {
         return process;
     }
 
-    public void setProcess(String process) {
+    public void setProcess(Process process) {
         this.process = process;
     }
 
-    public String getDisclosure() {
+    public Disclosure getDisclosure() {
         return disclosure;
     }
 
-    public void setDisclosure(String disclosure) {
+    public void setDisclosure(Disclosure disclosure) {
         this.disclosure = disclosure;
     }
 
@@ -75,6 +74,17 @@ public class Question {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public enum Process {
+        R, // 'R' - 처리중 (Processing)
+        P, // 'P' - 대기중 (Pending)
+        C  // 'C' - 처리완료 (Completed)
+    }
+
+    public enum Disclosure {
+        O, // 'O' - 공개 (Open)
+        X  // 'X' - 비공개 (Closed)
     }
 
 }
