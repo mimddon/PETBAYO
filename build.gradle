@@ -2,11 +2,20 @@ plugins {
     id 'java'
     id 'org.springframework.boot' version '2.7.10'
     id 'io.spring.dependency-management' version '1.0.15.RELEASE'
+    id 'war'
 }
 
 group = 'com.petbayo'
 version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '11'
+sourceCompatibility = '1.8'
+apply plugin: 'war'
+
+bootWar {
+    archiveBaseName = 'web'
+    archiveFileName = 'web.war'
+    archiveVersion = "0.0.0"
+}
+
 
 configurations {
     compileOnly {
@@ -27,6 +36,11 @@ dependencies {
     runtimeOnly 'org.mariadb.jdbc:mariadb-java-client'
     annotationProcessor 'org.projectlombok:lombok'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-tomcat
+    compileOnly 'org.springframework.boot:spring-boot-starter-tomcat'
+     providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat:'
+
+
 }
 
 tasks.named('test') {
