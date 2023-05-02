@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.Arrays;
 import java.util.List;
 
 @Controller
@@ -42,6 +43,7 @@ public class QuestionController {
     public String update(@PathVariable int qsId, Model model) {
         Question question = questionService.item(qsId);
         model.addAttribute("question", question);
+        model.addAttribute("processList", Arrays.asList(Process.values()));
         return "question/update";
     }
 
