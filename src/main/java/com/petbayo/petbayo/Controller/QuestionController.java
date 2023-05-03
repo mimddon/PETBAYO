@@ -30,6 +30,8 @@ public class QuestionController {
     @GetMapping("/add")
     public String add(Model model) {
         model.addAttribute("question", new Question());
+        model.addAttribute("processList", Arrays.asList(Question.Disclosure.values()));
+        model.addAttribute("disclosureList", Arrays.asList(Question.Disclosure.values()));
         return "question/add";
     }
 
@@ -43,7 +45,8 @@ public class QuestionController {
     public String update(@PathVariable int qsId, Model model) {
         Question question = questionService.item(qsId);
         model.addAttribute("question", question);
-        model.addAttribute("processList", Arrays.asList(Process.values()));
+        model.addAttribute("processList", Arrays.asList(Question.Process.values()));
+        model.addAttribute("disclosureList", Arrays.asList(Question.Disclosure.values()));
         return "question/update";
     }
 
