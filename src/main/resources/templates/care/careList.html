@@ -64,7 +64,9 @@
                 for (var i = 0; i < data.length; i++) {
                     positions.push({
                         title: data[i].title,
-                        latlng: new kakao.maps.LatLng(data[i].longitude, data[i].latitude)
+                        latlng: new kakao.maps.LatLng(data[i].longitude, data[i].latitude),
+                        content: data[i].content,
+                        price: data[i].price
                     });
 
                 }
@@ -87,10 +89,45 @@
                         map: map,
                         position: positions[i].latlng,
                         title : positions[i].title,
-                        image : markerImage
+                        image : markerImage,
+                        clickable: true,
+                        content : positions[i].content,
+                        price : positions[i].price
                     });
                     console.log('marker position:', positions[i].latlng);
 
+
+                }
+                for (var i = 0; i < positions.length; i++) {
+                    var iwContent = '<div style="padding:5px;"><table>\n' +
+                            '        <tbody>\n' +
+                            '            <tr>\n' +
+                            '                <td>제목</td>\n' +
+                            '                <td>' + positions[i].title + '</td>\n' +
+                            '            </tr>\n' +
+                            '            <tr>\n' +
+                            '                <td>내용</td>\n' +
+                            '                <td>' + positions[i].content + '</td>\n' +
+                            '            </tr>\n' +
+                            '            <tr>\n' +
+                            '                <td>가격</td>\n' +
+                            '                <td>' + positions[i].price + '</td>\n' +
+                            '            </tr>\n' +
+                            '        </tbody>\n' +
+                            '    </table></div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+                        iwRemoveable = true; // removeable 속성을 ture 로 설정하면 인포윈도우를 닫을 수 있는 x버튼이 표시됩니다
+
+// 인포윈도우를 생성합니다
+                    var infowindow = new kakao.maps.InfoWindow({
+                        content : iwContent[i],
+                        removable : iwRemoveable
+                    });
+
+// 마커에 클릭이벤트를 등록합니다
+                    kakao.maps.event.addEventListener(marker, 'click', function() {
+                        // 마커 위에 인포윈도우를 표시합니다
+                        infowindow.open(map, marker);
+                    });
                 }
 
             }
@@ -102,12 +139,10 @@
     <table>
         <tbody>
              <tr th:each="care : ${care}">
-                <td th:text="${care.longitude}" style=""></td>
-                <td th:text="${care.latitude}" style=""></td>
-
-
-
-
+                <td th:text="${care.longitude}"></td>
+                <td th:text="${care.latitude}"></td>
+                 <td th:text="${care.content}"></td>
+                 <td th:text="${care.price}"></td>
              </tr>
         </tbody>
     </table>
