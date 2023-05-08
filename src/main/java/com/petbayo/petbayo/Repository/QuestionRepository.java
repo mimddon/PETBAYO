@@ -1,10 +1,11 @@
-package com.petbayo.petbayo.Service;
+package com.petbayo.petbayo.Repository;
 
 import com.petbayo.petbayo.Model.Question;
 
 import java.util.List;
 
-public interface QuestionService {
+public interface QuestionRepository {
+
     List<Question> list();
 
     void add(Question question);
@@ -14,4 +15,6 @@ public interface QuestionService {
     void update(Question question);
 
     void delete(int qsId);
+
+
 }
