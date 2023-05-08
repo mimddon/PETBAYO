@@ -1,6 +1,5 @@
 package com.petbayo.petbayo.Service;
 
-import com.petbayo.petbayo.Model.Question;
 import com.petbayo.petbayo.Repository.QuestionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

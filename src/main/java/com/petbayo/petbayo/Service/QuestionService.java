@@ -1,7 +1,5 @@
 package com.petbayo.petbayo.Service;
 
-import com.petbayo.petbayo.Model.Question;
-
 import java.util.List;
 
 public interface QuestionService {
