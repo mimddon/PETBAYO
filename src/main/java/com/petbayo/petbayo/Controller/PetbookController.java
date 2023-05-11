@@ -34,8 +34,7 @@ public class PetbookController {
         return "redirect:/book/bookList";
     }
 
-
-    @GetMapping("book/delete/{petId}")
+    @GetMapping("/book/delete/{petId}")
     public String bookDelete(@PathVariable int petId) {
         bookService.bookDelete(petId);
         return "redirect:/book/bookList";
@@ -46,10 +45,4 @@ public class PetbookController {
     public List<Book> getAllBook() {
         return bookService.bookList();
     }
-
-
-
-
-
-
 }

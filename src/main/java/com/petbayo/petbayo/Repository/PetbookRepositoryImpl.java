@@ -35,6 +35,7 @@ public class PetbookRepositoryImpl implements PetbookRepository {
 
     @Override
     public void bookDelete(int petId) {
+
         sql.delete("book.delete", petId);
     }
 }

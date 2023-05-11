@@ -24,8 +24,8 @@
         WHERE pet_id = #{petId}
     </update>
 
-    <delete id="bookDelete" parameterType="int">
-        DELETE FROM book WHERE pet_id = #{petId}
-    </delete>
+   <delete id="delete">
+       DELETE FROM petbook where pet_id=${petId}
+   </delete>
 
 </mapper>
