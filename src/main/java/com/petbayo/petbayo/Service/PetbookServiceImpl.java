@@ -24,15 +24,13 @@ public class PetbookServiceImpl implements PetbookService{
 
     @Override
     public Book bookItem(int petId) {
-        return null;
+        return petbookRepository.bookItem(petId);
     }
 
     @Override
     public void bookUpdate(Book item) {
         petbookRepository.bookUpdate(item);
-
     }
-
     @Override
     public void bookDelete(int petId) {
         petbookRepository.bookDelete(petId);

@@ -87,7 +87,7 @@
             </div>
             <div class="modal-body">
                 <p th:text="${book.description}"> </p>
-                <button class="btn btn-primary" data-toggle="modal">수정</button>
+                <a th:href="@{/book/update/{id}(id=${book.petId})}">수정</a>
             </div>
         </div>
     </div>

@@ -13,23 +13,30 @@
   </div>
 
   <form method="post">
-    <div class="form-group mt-2">
-      <label >종:</label>
-      <input id="species" name="species" type="text" class="form-control" th:value="${species}" >
-    </div>
+    <div class="container">
+      <div>
+        <h3>펫 종 수정</h3>
+      </div>
+
+      <form method="post">
+        <input type="hidden" name="petId" value="${petId}" />
+        <div class="form-group mt-2">
+          <label >종:</label>
+          <input id="species" name="species" type="text" class="form-control" th:value="${item.species}" >
+        </div>
 
 
-    <div class="form-group mt-2">
-      <label>설명</label>
-      <input id="description" name="description" type="text" class="form-control" th:value="${description}">
-    </div>
+        <div class="form-group mt-2">
+          <label>설명</label>
+          <input id="description" name="description" type="text" class="form-control" th:value="${item.description}">
+        </div>
 
-    <div class="form-group mt-3">
-      <button type="submit" class="btn btn-sm btn-primary">등록</button>
-      <a href="/book/bookList"><button type="button" class="btn btn-sm btn-secondary">취소</button></a>
+        <div class="form-group mt-3">
+          <button type="submit" class="btn btn-sm btn-primary">수정</button>
+          <a href="/book/bookList"><button type="button" class="btn btn-sm btn-secondary">취소</button></a>
+        </div>
+      </form>
     </div>
-  </form>
-</div>
 
 </body>
 </html>

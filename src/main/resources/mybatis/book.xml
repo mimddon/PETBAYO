@@ -10,7 +10,7 @@
     </resultMap>
 
     <select id="bookList" resultMap="BookResultMap">
-        SELECT pet_id, species, description FROM petbook
+        SELECT * FROM petbook
     </select>
 
     <insert id="create" parameterType="com.petbayo.petbayo.Model.Book">
@@ -27,5 +27,10 @@
    <delete id="delete">
        DELETE FROM petbook where pet_id=${petId}
    </delete>
+
+    <select id="item" parameterType="com.petbayo.petbayo.Model.Book">
+        SELECT * FROM petbook
+        WHERE pet_id = ${petId}
+    </select>
 
 </mapper>

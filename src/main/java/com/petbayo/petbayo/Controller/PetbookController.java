@@ -40,6 +40,19 @@ public class PetbookController {
         return "redirect:/book/bookList";
     }
 
+    @GetMapping("/book/update/{petId}")
+    public String bookUpdate(@PathVariable int petId, Model model) {
+        Book item = bookService.bookItem(petId);
+        model.addAttribute("item", item);
+        return "book/bookUpdate";
+    }
+
+    @PostMapping("/book/update/{petId}")
+    public String bookUpdate(@PathVariable int petId, @ModelAttribute("item") Book item) {
+        bookService.bookUpdate(item);
+        return "redirect:/book/bookList";
+    }
+
     @GetMapping("/api/book")
     @ResponseBody
     public List<Book> getAllBook() {
