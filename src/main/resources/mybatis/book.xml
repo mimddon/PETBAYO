@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="book">
+
+    <resultMap id="BookResultMap" type="com.petbayo.petbayo.Model.Book">
+        <id column="pet_id" property="petId"/>
+        <result column="species" property="species"/>
+        <result column="description" property="description"/>
+    </resultMap>
+
+    <select id="bookList" resultMap="BookResultMap">
+        SELECT pet_id, species, description FROM petbook
+    </select>
+
+    <insert id="create" parameterType="com.petbayo.petbayo.Model.Book">
+        INSERT INTO petbook (pet_id, species, description)
+        VALUES (#{petId}, #{species}, #{description})
+    </insert>
+
+    <update id="bookUpdate" parameterType="com.petbayo.petbayo.Model.Book">
+        UPDATE book
+        SET  species = #{species}, description = #{description}
+        WHERE pet_id = #{petId}
+    </update>
+
+    <delete id="bookDelete" parameterType="int">
+        DELETE FROM book WHERE pet_id = #{petId}
+    </delete>
+
+</mapper>
