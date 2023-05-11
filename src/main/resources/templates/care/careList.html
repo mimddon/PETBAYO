@@ -31,10 +31,8 @@
 </header>
 <main>
     <div class="sidebar">
-        <h2>추천 돌봄이</h2>
-        <div class="recommendation">
-            <p>현재 <span id="recommendationCount"></span>명의 돌봄이가 추천되었습니다.</p>
-        </div>
+        <div>추천 돌봄이</div>
+        <div>일반 돌봄이</div>
     </div>
     <div class="map-container" id="mapContainer">
     </div>
@@ -52,7 +50,7 @@
         var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
 
         // 마커를 표시할 위치와 title 객체 배열입니다
-        var positions = [];
+        // var positions = [];
 
         $.ajax({
             type: 'GET',
@@ -61,36 +59,66 @@
             success: function(data) {
                 // 가져온 데이터를 positions 배열에 추가한다.
                 console.log(data)
+                /*
                 for (var i = 0; i < data.length; i++) {
                     positions.push({
                         title: data[i].title,
-                        latlng: new kakao.maps.LatLng(data[i].longitude, data[i].latitude)
+                        latlng: new kakao.maps.LatLng(data[i].longitude, data[i].latitude),
+                        content: data[i].content,
+                        price: data[i].price
                     });
 
                 }
+                 */
 
-                positions[0] = {
-                        title: '카카오',
-                        latlng: new kakao.maps.LatLng(33.450705, 126.570677)
-                    };
-                console.log(positions);
+                const imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png"; // 마커 이미지의 이미지 주소입니다
 
-                var imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png"; // 마커 이미지의 이미지 주소입니다
+                for (let i = 0; i < data.length; i++) {
 
-                for (var i = 0; i < positions.length; i++) {
+                    let imageSize = new kakao.maps.Size(24, 35); //마커 이미지의 이미지 크기입니다
 
-                    var imageSize = new kakao.maps.Size(24, 35); //마커 이미지의 이미지 크기입니다
+                    let markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize); // 마커 이미지를 생성합니다.
 
-                    var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize); // 마커 이미지를 생성합니다.
-
-                    var marker = new kakao.maps.Marker({
+                    let marker = new kakao.maps.Marker({
                         map: map,
-                        position: positions[i].latlng,
-                        title : positions[i].title,
-                        image : markerImage
+                        position: new kakao.maps.LatLng(data[i].longitude, data[i].latitude),
+                        title : data[i].title,
+                        image : markerImage,
+                        clickable: true,
+                        content : data[i].content,
+                        price : data[i].price
                     });
-                    console.log('marker position:', positions[i].latlng);
 
+                    /*
+                var iwContent = [];
+
+                 for (var i = 0; i < data.length; i++) {
+                    iwContent.push({
+                        title: data[i].title,
+                        latlng: new kakao.maps.LatLng(data[i].longitude, data[i].latitude),
+                        content: data[i].content,
+                        price: data[i].price
+                    });
+
+                 }
+                 */
+
+                // for (var i = 0; i < data.length; i++) {
+                    //var iwContent = , // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+                    //    iwRemoveable = true; // removeable 속성을 ture 로 설정하면 인포윈도우를 닫을 수 있는 x버튼이 표시됩니다
+
+// 인포윈도우를 생성합니다
+                    let infowindow = new kakao.maps.InfoWindow({
+                        position: new kakao.maps.LatLng(data[i].longitude, data[i].latitude),
+                        content : `<div>${data[i].content}</div>`,
+                        removable : true
+                    });
+
+// 마커에 클릭이벤트를 등록합니다
+                    kakao.maps.event.addListener(marker, 'click', function() {
+                        // 마커 위에 인포윈도우를 표시합니다
+                        infowindow.open(map, marker);
+                    });
                 }
 
             }
@@ -102,12 +130,10 @@
     <table>
         <tbody>
              <tr th:each="care : ${care}">
-                <td th:text="${care.longitude}" style=""></td>
-                <td th:text="${care.latitude}" style=""></td>
-
-
-
-
+                <td th:text="${care.longitude}"></td>
+                <td th:text="${care.latitude}"></td>
+                 <td th:text="${care.content}"></td>
+                 <td th:text="${care.price}"></td>
              </tr>
         </tbody>
     </table>
