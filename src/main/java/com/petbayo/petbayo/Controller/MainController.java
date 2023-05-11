@@ -15,9 +15,9 @@ public class MainController {
     public String petCare() {
         return "/care/careList";
     }
-    @RequestMapping("/pet-book")
+    @RequestMapping("/bookList")
     public String petBook() {
-        return "/pet-book";
+        return "/book/bookList";
     }
     @RequestMapping("/register")
     public String register() {
