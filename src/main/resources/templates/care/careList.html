@@ -4,7 +4,6 @@
     <title>PetBayo</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="/css/pet-care.css">
     <link rel="stylesheet" type="text/css" href="/css/nav.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
@@ -34,10 +33,9 @@
         <div>추천 돌봄이</div>
         <div>일반 돌봄이</div>
     </div>
-    <div class="map-container" id="mapContainer">
-    </div>
 
-    <div id="map" style="width:70%;height:1080px;"></div>
+
+    <div id="map" style="width:70%;height:800px;"></div>
     <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=1dc4acb769231477d585bb172afb8241"></script>
 
     <script>
@@ -107,14 +105,14 @@
                     //var iwContent = , // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
                     //    iwRemoveable = true; // removeable 속성을 ture 로 설정하면 인포윈도우를 닫을 수 있는 x버튼이 표시됩니다
 
-// 인포윈도우를 생성합니다
+                    // 인포윈도우를 생성합니다
                     let infowindow = new kakao.maps.InfoWindow({
                         position: new kakao.maps.LatLng(data[i].longitude, data[i].latitude),
                         content : `<div>${data[i].content}</div>`,
                         removable : true
                     });
 
-// 마커에 클릭이벤트를 등록합니다
+                    // 마커에 클릭이벤트를 등록합니다
                     kakao.maps.event.addListener(marker, 'click', function() {
                         // 마커 위에 인포윈도우를 표시합니다
                         infowindow.open(map, marker);
@@ -130,8 +128,9 @@
     <table>
         <tbody>
              <tr th:each="care : ${care}">
-                <td th:text="${care.longitude}"></td>
-                <td th:text="${care.latitude}"></td>
+                 <td th:text="${care.title}"></td>
+                 <td th:text="${care.longitude}"></td>
+                 <td th:text="${care.latitude}"></td>
                  <td th:text="${care.content}"></td>
                  <td th:text="${care.price}"></td>
              </tr>
