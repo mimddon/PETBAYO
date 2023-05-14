@@ -35,4 +35,6 @@ public class PetbookServiceImpl implements PetbookService{
     public void bookDelete(int petId) {
         petbookRepository.bookDelete(petId);
     }
+
+
 }

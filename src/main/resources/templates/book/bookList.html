@@ -35,13 +35,16 @@
 
 <div class="container">
     <h1>PETBOOK</h1>
+
+    <form action="/book/search" method="get">
     <div class="search-container">
         <div class="search-input-container">
-            <input type="text" id="search-input" placeholder="검색어를 입력하세요">
+            <input type="text" id="search-input" name="keyword"
+                   placeholder="검색어를 입력하세요">
             <button id="search-button">검색</button>
         </div>
         <div class="search-category-container">
-            <select id="search-category">
+            <select id="search-category" name="category">
                 <option value="all" selected>전체</option>
                 <option value="dog">개</option>
                 <option value="cat">고양이</option>
@@ -49,10 +52,11 @@
             </select>
         </div>
     </div>
+    </form>
 
     <div class="result-container">
         <ul id="result-list">
-            <!-- 검색 결과가 여기에 추가됩니다 -->
+
         </ul>
     </div>
     <div class="container">

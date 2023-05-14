@@ -6,7 +6,6 @@ public class Book {
     private String description;
 
 
-
     public int getPetId() {
         return petId;
     }
