@@ -6,6 +6,14 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="/css/nav.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <style>
+        .title {font-weight:bold;display:block;}
+        .hAddr {position:absolute;left:10px;top:10px;border-radius: 2px;background:#fff;background:rgba(255,255,255,0.8);z-index:1;padding:5px;}
+        #centerAddr {display:block;margin-top:2px;font-weight: normal;}
+        .bAddr {padding:5px;text-overflow: ellipsis;overflow: hidden;white-space: nowrap;}
+    </style>
+
 </head>
 <body>
 <header>
@@ -55,9 +63,17 @@
             </table>
         </div>
     </div>
+    <div id="map" style="width:70%;height:800px;position:relative;overflow:hidden;">
+        <div class="hAddr" style="z-index: 2">
+            <span class="title">주소</span>
+            <span id="centerAddr"></span>
+        </div>
+    </div>
 
-        <div id="map" style="width:70%;height:800px;"></div>
-    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=1dc4acb769231477d585bb172afb8241"></script>
+<!--    <div id="map" style="width:70%;height:800px;"></div>-->
+
+    <!-- services 라이브러리 불러오기 -->
+    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=1dc4acb769231477d585bb172afb8241&libraries=services"></script>
 
     <script>
         var mapContainer = document.getElementById('map'), // 지도를 표시할 div
@@ -72,12 +88,12 @@
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(function(position) {
                 // 사용자의 현재 위치 좌표
-                var nlat = position.coords.latitude;
-                var nlng = position.coords.longitude;
+                var lat = position.coords.latitude;
+                var lng = position.coords.longitude;
 
                 // 지도 이동
-                var myLatLng = new kakao.maps.LatLng(nlat, nlng),
-                    message = '<div style="padding:5px;">여기에 계신가요?!</div>';
+                var myLatLng = new kakao.maps.LatLng(lat, lng),
+                    message = '<div style="padding:5px;">현재 위치가 맞습니까? 아니라면 지도를 클릭해 위치를 옮겨보세요!</div>';
 
                 displayMarker(myLatLng, message);
 
@@ -113,6 +129,44 @@
 
             // 지도 중심좌표를 접속위치로 변경합니다
             map.setCenter(myLatLng);
+        }
+
+
+        // 주소-좌표 변환 객체를 생성합니다
+        var geocoder = new kakao.maps.services.Geocoder();
+
+        var cmMarker = new kakao.maps.Marker(), // 클릭한 위치를 표시할 마커입니다
+            cmInfowindow = new kakao.maps.InfoWindow({zindex:1}); // 클릭한 위치에 대한 주소를 표시할 인포윈도우입니다
+
+        // 지도를 클릭했을 때 클릭 위치 좌표에 대한 주소정보를 표시하도록 이벤트를 등록합니다
+        kakao.maps.event.addListener(map, 'click', function(mouseEvent) {
+            searchDetailAddrFromCoords(mouseEvent.latLng, function(result, status) {
+                if (status === kakao.maps.services.Status.OK) {
+                    var detailAddr = !!result[0].road_address ? '<div>도로명주소 : ' + result[0].road_address.address_name + '</div>' : '';
+                    detailAddr += '<div>지번 주소 : ' + result[0].address.address_name + '</div>';
+
+                    var content = '<div class="bAddr">' +
+                        detailAddr +
+                        '</div>';
+
+                    var infoDiv = document.getElementById('centerAddr');
+                    infoDiv.innerHTML = content;
+
+
+                    // 마커를 클릭한 위치에 표시합니다
+                    cmMarker.setPosition(mouseEvent.latLng);
+                    cmMarker.setMap(map);
+
+                    // 인포윈도우에 클릭한 위치에 대한 법정동 상세 주소정보를 표시합니다
+                    cmInfowindow.setContent('중심위치');
+                    cmInfowindow.open(map, cmMarker);
+                }
+            });
+        });
+
+        function searchDetailAddrFromCoords(coords, callback) {
+            // 좌표로 법정동 상세 주소 정보를 요청합니다
+            geocoder.coord2Address(coords.getLng(), coords.getLat(), callback);
         }
 
         $.ajax({
