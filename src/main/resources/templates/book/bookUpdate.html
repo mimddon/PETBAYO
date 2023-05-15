@@ -13,7 +13,7 @@
   </div>
 
   <form method="post">
-    <input type="number" name="petId" th:value="${item.petId}" readonly />
+    <input type="number" name="petId" th:value="${petId}" readonly />
     <div class="form-group mt-2">
       <label for="species">종:</label>
       <input id="species" name="species" type="text" class="form-control" th:value="${item.species}" >

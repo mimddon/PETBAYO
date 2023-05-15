@@ -15,4 +15,5 @@ public interface PetbookRepository {
 
     void bookDelete(int id);
 
+
 }

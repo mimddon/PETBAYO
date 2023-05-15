@@ -27,6 +27,7 @@ public class PetbookController {
 
         return "/book/bookCreate";
     }
+
     @PostMapping("/bookCreate")
     public String add(Book item) {
         bookService.bookCreate(item);
@@ -59,3 +60,5 @@ public class PetbookController {
         return bookService.bookList();
     }
 }
+
+

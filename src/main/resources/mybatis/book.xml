@@ -18,8 +18,13 @@
         VALUES (#{petId}, #{species}, #{description})
     </insert>
 
-    <update id="bookUpdate" parameterType="com.petbayo.petbayo.Model.Book">
-        UPDATE book
+    <select id="item" resultType="com.petbayo.petbayo.Model.Book">
+        SELECT * FROM petbook
+        WHERE pet_id = #{petId}
+    </select>
+
+    <update id="update" parameterType="com.petbayo.petbayo.Model.Book">
+        UPDATE petbook
         SET  species = #{species}, description = #{description}
         WHERE pet_id = #{petId}
     </update>
@@ -28,9 +33,6 @@
        DELETE FROM petbook where pet_id=${petId}
    </delete>
 
-    <select id="item" parameterType="com.petbayo.petbayo.Model.Book">
-        SELECT * FROM petbook
-        WHERE pet_id = ${petId}
-    </select>
+
 
 </mapper>
