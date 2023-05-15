@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+</head>
+<body>
+<div>
+<dvi>
+    <h3>등록</h3>
+</dvi>
+
+    <form method="post">
+        <div>
+            <label>제목</label>
+            <input name="title" type="text">
+        </div>
+        <div>
+            <label>작성일</label>
+            <input name="date" type="createDate">
+        </div>
+
+        <div>
+            <label>공개여부</label>
+            <div>
+                <label>
+                    <input name="disclosure" type="radio" value="O">
+                    <span class="icon-public">공개</span>
+                </label>
+                <label>
+                    <input name="disclosure" type="radio" value="X">
+                    <span class="icon-private">비공개</span>
+                </label>
+            </div>
+        </div>
+
+        <div>
+            <label>작성자</label>
+            <input name="qs_id" type="text">
+        </div>
+        <div>
+            <button>등록</button>
+            <a href="list"><button type="button">취소</button></a>
+        </div>
+    </form>
+
+
+</div>
+</body>
+</html>

@@ -29,6 +29,6 @@ public class MainController {
         return "/login";
     }
     @RequestMapping("/question")
-    public String question() {return  "/question";}
+    public String question() {return  "/Question/list";}
 
 }
