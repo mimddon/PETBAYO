@@ -54,6 +54,15 @@ public class PetbookController {
         return "redirect:/book/bookList";
     }
 
+    @GetMapping("/book/search")
+    public String searchBooks(@RequestParam("keyword") String keyword,
+                              @RequestParam("category") String category,
+                              Model model) {
+        List<Book> searchResults = bookService.searchBooks(keyword, category);
+        model.addAttribute("book", searchResults);
+        return "/book/bookList";
+    }
+
     @GetMapping("/api/book")
     @ResponseBody
     public List<Book> getAllBook() {

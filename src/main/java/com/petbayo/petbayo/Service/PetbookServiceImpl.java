@@ -36,5 +36,11 @@ public class PetbookServiceImpl implements PetbookService{
         petbookRepository.bookDelete(petId);
     }
 
+    @Override
+    public List<Book> searchBooks(String keyword, String category) {
+        // 검색 로직을 구현합니다.
+        return petbookRepository.searchBooks(keyword, category);
+    }
+
 
 }

@@ -33,6 +33,14 @@
        DELETE FROM petbook where pet_id=${petId}
    </delete>
 
+    <!-- 도서 검색 쿼리 -->
+    <select id="searchBooks" resultType="com.petbayo.petbayo.Model.Book" parameterType="java.util.Map">
+        SELECT * FROM petbook
+        WHERE
+        (#{keyword} IS NULL OR species LIKE CONCAT('%', #{keyword}, '%'))
+        AND (#{category} = 'all' OR species = #{category})
+    </select>
+
 
 
 </mapper>

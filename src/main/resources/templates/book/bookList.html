@@ -43,6 +43,7 @@
                    placeholder="검색어를 입력하세요">
             <button id="search-button">검색</button>
         </div>
+        <!--search-category-container 부분 지우면 오류뜸 원인찾기 -->
         <div class="search-category-container">
             <select id="search-category" name="category">
                 <option value="all" selected>전체</option>
@@ -61,6 +62,7 @@
     </div>
     <div class="container">
     <div class="row" >
+
         <div class="col-md-4" th:each="book : ${book}" >
             <div class="card">
                 <div class="card-body">
@@ -72,13 +74,26 @@
                     </button>
                 </div>
             </div>
+
         </div>
 
-        <!-- ... -->
-    </div>
+        <!-- 검색 결과 게시글 -->
+        <div class="col-md-4" th:each="book : ${searchResults}">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title" th:text="${book.species}"></h5>
+                    <button type="button" class="btn btn-primary" data-toggle="modal"
+                            th:data-target="'#modal' + ${book.petId}">상세보기
+                    </button>
+                    <button class="btn btn-primary" data-toggle="modal"
+                            th:href="@{/book/delete/{id}(id=${book.petId})}">삭제
+                    </button>
+                </div>
+            </div>
+
 </div>
 
-<button class="btn btn-danger"><a href="/bookCreate">등록</a></button>
+
 
     <!--모달창 -->
     <div th:each="book : ${book}">
@@ -98,6 +113,8 @@
 </div>
 </div>
 </div>
+        <button class="btn btn-danger"><a href="/bookCreate">등록</a></button>
+    </div>
 </body>
 
 </html>

@@ -15,5 +15,7 @@ public interface PetbookRepository {
 
     void bookDelete(int id);
 
+    List<Book> searchBooks(String keyword, String category);
+
 
 }

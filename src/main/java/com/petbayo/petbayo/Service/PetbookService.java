@@ -17,5 +17,7 @@ public interface PetbookService {
     void bookUpdate(Book item);
 
     void bookDelete(int id);
+    List<Book> searchBooks(String keyword, String category);
+
 
 }
