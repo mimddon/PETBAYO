@@ -9,9 +9,9 @@ public interface QuestionService {
 
     void add(Question question);
 
-    Question item(int qsId);
+    Question item(Long qsId);
 
     void update(Question question);
 
-    void delete(int qsId);
+    void delete(Long qsId);
 }

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Q&A</title>
+</head>
+<body>
+<div>
+    <h3>QnA</h3>
+    <div>
+        <table>
+            <thead>
+            <tr>
+                <th>제목</th>
+                <th>작성일</th>
+                <th>작성자</th>
+                <th>공개여부</th>
+                <th>승인상태</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr th:if="${#lists.isEmpty(list)}">
+                <td colspan="5">검색된 질문이 없습니다.</td>
+            </tr>
+
+            <tr th:each="item : ${list}">
+                <td th:text="${item.qstitle}"></td>
+                <td th:text="${item.createDate}"></td>
+                <td th:text="${item.process}"></td>
+                <td th:text="${item.disclosure}"></td>
+                <td><a th:href="@{delete/{id}(id=${item.userId})}">삭제</a> <a th:href="@{update/{id}(id=${item.qsid})}">변경</a></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>

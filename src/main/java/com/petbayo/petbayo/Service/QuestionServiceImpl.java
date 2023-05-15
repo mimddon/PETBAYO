@@ -5,9 +5,11 @@ import com.petbayo.petbayo.Repository.QuestionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
+@Transactional
 public class QuestionServiceImpl implements QuestionService {
 
     @Autowired
@@ -15,26 +17,28 @@ public class QuestionServiceImpl implements QuestionService {
 
     @Override
     public List<Question> list() {
-        return questionRepository.list();
+        return questionRepository.findAll();
     }
 
     @Override
     public void add(Question question) {
-        questionRepository.add(question);
+        questionRepository.save(question);
     }
 
     @Override
-    public Question item(int qsId) {
-        return questionRepository.item(qsId);
+    public Question item(Long qsId) {
+        return questionRepository.findById(qsId).orElseThrow(()->new RuntimeException("찾을 수 없는 질문"));
     }
 
     @Override
     public void update(Question question) {
-        questionRepository.update(question);
+        Question findQ = questionRepository.findById(question.getQsId()).orElseThrow(() -> new RuntimeException());
+        findQ.update(question);
     }
 
     @Override
-    public void delete(int qsId) {
-        questionRepository.delete(qsId);
+    public void delete(Long qsId) {
+        Question findQ = questionRepository.findById(qsId).orElseThrow(() -> new RuntimeException());
+        questionRepository.delete(findQ);
     }
 }

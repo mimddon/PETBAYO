@@ -10,7 +10,7 @@ public class Question {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int qsId;
+    private Long qsId;
 
     @Column(length = 256)
     private String qsTitle;
@@ -33,11 +33,11 @@ public class Question {
 
     private Long userId;;
 
-    public int getQsId() {
+    public Long getQsId() {
         return qsId;
     }
 
-    public void setQsId(int qsId) {
+    public void setQsId(Long qsId) {
         this.qsId = qsId;
     }
 
@@ -82,4 +82,9 @@ public class Question {
         X  // 'X' - 비공개 (Closed)
     }
 
+    public void update(Question req) {
+        this.userId = req.getUserId();
+        this.qsTitle = req.getQsTitle();
+        this.process = req.getProcess();
+    }
 }
