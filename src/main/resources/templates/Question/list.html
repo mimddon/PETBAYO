@@ -14,9 +14,8 @@
                 <th>제목</th>
                 <th>작성일</th>
                 <th>작성자</th>
-                <th>공개여부</th>
                 <th>승인상태</th>
-                <th>작업</th>
+                <th>공개여부</th>
             </tr>
             </thead>
 
@@ -25,9 +24,9 @@
                 <td colspan="6">등록된 질문이 없습니다.</td>
             </tr>
 
-            <tr th:each="question : ${list}"> <!-- 변경: "item"에서 "question"으로 수정 -->
-                <td th:text="${question.qstitle}"></td>
-                <td th:text="${question.createDate}"></td>
+            <tr th:each="question : ${list}">
+                <td th:text="${question.qsTitle}"></td>
+                <td th:text="${question.createdDate}"></td>
                 <td th:text="${question.userId}"></td>
                 <td th:text="${question.process}"></td>
                 <td th:text="${question.disclosure}"></td>
@@ -48,4 +47,3 @@
 </div>
 </body>
 </html>
-

@@ -38,6 +38,7 @@ public class QuestionController {
         return "redirect:/question/list";
     }
 
+
     @GetMapping("/update/{qsId}")
     public String update(@PathVariable("qsId") Long qsId, Model model) {
         Question question = questionService.item(qsId);

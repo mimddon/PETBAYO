@@ -1,6 +1,7 @@
 package com.petbayo.petbayo.Model;
 
 import org.hibernate.annotations.CreationTimestamp;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -16,7 +17,11 @@ public class Question {
     @Column(length = 256)
     private String qsTitle;
 
+    @Column(columnDefinition = "LONGTEXT")
+    private String content;
+
     @CreationTimestamp
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     private LocalDateTime createdDate;
 
     @Enumerated(EnumType.STRING)
@@ -48,6 +53,14 @@ public class Question {
 
     public void setQsTitle(String qsTitle) {
         this.qsTitle = qsTitle;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
     }
 
     public LocalDateTime getCreatedDate() {
