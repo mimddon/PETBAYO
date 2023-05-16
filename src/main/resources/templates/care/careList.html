@@ -6,10 +6,17 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="/css/nav.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <style>
+        .title {font-weight:bold;display:block;}
+        .hAddr {position:absolute;left:10px;top:10px;border-radius: 2px;background:#fff;background:rgba(255,255,255,0.8);z-index:1;padding:5px;}
+        #centerAddr {display:block;margin-top:2px;font-weight: normal;}
+        .bAddr {padding:5px;text-overflow: ellipsis;overflow: hidden;white-space: nowrap;}
+    </style>
+
 </head>
 <body>
 <header>
-    <h1 class="logo">PetBayo</h1>
     <nav class="global-nav">
         <div class="logo">
             <a href="#">PETBAYO</a>
@@ -28,15 +35,45 @@
     </nav>
 
 </header>
-<main>
-    <div class="sidebar">
-        <div>추천 돌봄이</div>
-        <div>일반 돌봄이</div>
+<main style="width: 1200px; margin: 0 auto">
+    <div style="width: 30%; float: left">
+        <div style="text-align: center; font-size: 24px;">
+
+            <h2>추천 돌봄이</h2>
+
+
+        </div>
+        <div style="text-align: center; font-size: 24px;">
+            <h2>일반 돌봄이</h2>
+            <table>
+                <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Content</th>
+                    <th>Price</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="care:${care}">
+                    <td th:text="${care.title}"></td>
+                    <td th:text="${care.content}"></td>
+                    <td th:text="${care.price}"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div id="map" style="width:70%;height:800px;position:relative;overflow:hidden;">
+        <div class="hAddr" style="z-index: 2">
+            <span class="title">주소</span>
+            <span id="centerAddr"></span>
+        </div>
     </div>
 
+<!--    <div id="map" style="width:70%;height:800px;"></div>-->
 
-    <div id="map" style="width:70%;height:800px;"></div>
-    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=1dc4acb769231477d585bb172afb8241"></script>
+    <!-- services 라이브러리 불러오기 -->
+    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=1dc4acb769231477d585bb172afb8241&libraries=services"></script>
 
     <script>
         var mapContainer = document.getElementById('map'), // 지도를 표시할 div
@@ -47,27 +84,106 @@
 
         var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
 
-        // 마커를 표시할 위치와 title 객체 배열입니다
-        // var positions = [];
+        // 사용자의 위치 정보 가져오기
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function(position) {
+                // 사용자의 현재 위치 좌표
+                var lat = position.coords.latitude;
+                var lng = position.coords.longitude;
+
+                // 지도 이동
+                var myLatLng = new kakao.maps.LatLng(lat, lng),
+                    message = '<div style="padding:5px;">위치를 옮기고 싶다면 지도를 클릭해 위치를 옮겨보세요!</div>';
+
+                displayMarker(myLatLng, message);
+            });
+        } else {
+            var myLatLng = new kakao.maps.LatLng(33.450701, 126.570667),
+                message = '현재 위치를 불러올 수 없어요'
+
+            displayMarker(myLatLng, message);
+            //(지도위에 콘솔)서비스 받고싶은 장소를 선택해주세요!
+        }
+
+        var myMarker = null;
+        var myInfowindow = null;
+
+        // 지도에 마커와 인포윈도우를 표시하는 함수입니다
+        function displayMarker(myLatLng, message) {
+
+            // 마커를 생성합니다
+            myMarker = new kakao.maps.Marker({
+                map: map,
+                position: myLatLng
+            });
+
+            var iwContent = message, // 인포윈도우에 표시할 내용
+                iwRemoveable = true;
+
+            // 인포윈도우를 생성합니다
+            myInfowindow = new kakao.maps.InfoWindow({
+                content : iwContent,
+                removable : iwRemoveable
+            });
+
+            // 인포윈도우를 마커위에 표시합니다
+            myInfowindow.open(map, myMarker);
+
+            // 지도 중심좌표를 접속위치로 변경합니다
+            map.setCenter(myLatLng);
+
+
+        }
+
+
+        // 주소-좌표 변환 객체를 생성합니다
+        var geocoder = new kakao.maps.services.Geocoder();
+
+        var cmMarker = new kakao.maps.Marker(), // 클릭한 위치를 표시할 마커입니다
+            cmInfowindow = new kakao.maps.InfoWindow({zindex:1}); // 클릭한 위치에 대한 주소를 표시할 인포윈도우입니다
+
+        // 지도를 클릭했을 때 클릭 위치 좌표에 대한 주소정보를 표시하도록 이벤트를 등록합니다
+        kakao.maps.event.addListener(map, 'click', function(mouseEvent) {
+            searchDetailAddrFromCoords(mouseEvent.latLng, function(result, status) {
+                if (status === kakao.maps.services.Status.OK) {
+                    var detailAddr = !!result[0].road_address ? '<div>도로명주소 : ' + result[0].road_address.address_name + '</div>' : '';
+                    detailAddr += '<div>지번 주소 : ' + result[0].address.address_name + '</div>';
+
+                    var content = '<div class="bAddr">' +
+                        detailAddr +
+                        '</div>';
+
+                    var infoDiv = document.getElementById('centerAddr');
+                    infoDiv.innerHTML = content;
+
+
+                    // 마커를 클릭한 위치에 표시합니다
+                    cmMarker.setPosition(mouseEvent.latLng);
+                    cmMarker.setMap(map);
+
+                    if(cmMarker) {
+                        myMarker.setMap(null);
+                        myInfowindow.setMap(null);
+                    }
+
+                    // 인포윈도우에 클릭한 위치에 대한 법정동 상세 주소정보를 표시합니다
+                    cmInfowindow.setContent('내위치');
+                    cmInfowindow.open(map, cmMarker);
+                }
+            });
+        });
+
+        function searchDetailAddrFromCoords(coords, callback) {
+            // 좌표로 법정동 상세 주소 정보를 요청합니다
+            geocoder.coord2Address(coords.getLng(), coords.getLat(), callback);
+        }
 
         $.ajax({
             type: 'GET',
             url: '/api/care',
             dataType: 'json',
             success: function(data) {
-                // 가져온 데이터를 positions 배열에 추가한다.
                 console.log(data)
-                /*
-                for (var i = 0; i < data.length; i++) {
-                    positions.push({
-                        title: data[i].title,
-                        latlng: new kakao.maps.LatLng(data[i].longitude, data[i].latitude),
-                        content: data[i].content,
-                        price: data[i].price
-                    });
-
-                }
-                 */
 
                 const imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png"; // 마커 이미지의 이미지 주소입니다
 
@@ -87,35 +203,21 @@
                         price : data[i].price
                     });
 
-                    /*
-                var iwContent = [];
-
-                 for (var i = 0; i < data.length; i++) {
-                    iwContent.push({
-                        title: data[i].title,
-                        latlng: new kakao.maps.LatLng(data[i].longitude, data[i].latitude),
-                        content: data[i].content,
-                        price: data[i].price
-                    });
-
-                 }
-                 */
-
-                // for (var i = 0; i < data.length; i++) {
-                    //var iwContent = , // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
-                    //    iwRemoveable = true; // removeable 속성을 ture 로 설정하면 인포윈도우를 닫을 수 있는 x버튼이 표시됩니다
-
                     // 인포윈도우를 생성합니다
                     let infowindow = new kakao.maps.InfoWindow({
                         position: new kakao.maps.LatLng(data[i].longitude, data[i].latitude),
-                        content : `<div>${data[i].content}</div>`,
-                        removable : true
+                        content : `<div>${data[i].title}</div><div>${data[i].content}</div><div>${data[i].price}</div>`,
                     });
 
                     // 마커에 클릭이벤트를 등록합니다
                     kakao.maps.event.addListener(marker, 'click', function() {
-                        // 마커 위에 인포윈도우를 표시합니다
-                        infowindow.open(map, marker);
+                        if (infowindow.getMap()) {
+                            // 이미 열린 인포윈도우가 있다면 닫습니다
+                            infowindow.close();
+                        } else {
+                            // 마커 위에 인포윈도우를 표시합니다
+                            infowindow.open(map, marker);
+                        }
                     });
                 }
 
@@ -125,17 +227,7 @@
 
 
 
-    <table>
-        <tbody>
-             <tr th:each="care : ${care}">
-                 <td th:text="${care.title}"></td>
-                 <td th:text="${care.longitude}"></td>
-                 <td th:text="${care.latitude}"></td>
-                 <td th:text="${care.content}"></td>
-                 <td th:text="${care.price}"></td>
-             </tr>
-        </tbody>
-    </table>
+
 
 
     <div class="mt-2">
