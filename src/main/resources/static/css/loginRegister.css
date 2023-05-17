@@ -1,0 +1,215 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+    font-family: 'poppins', sans-serif;
+}
+body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    transition: .5s;
+
+    background: url('background1.jpg')no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+body.active{
+    background: url('background.jpg')no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+.container{
+    position: relative;
+    width: 800px;
+    height: 500px;
+    margin: 20px;
+}
+.blueColor{
+    position: absolute;
+    top: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 420px;
+    background: rgba(255, 255, 255, .2);
+    box-shadow: 0 5px 45px rgba(0, 0, 0, .15);
+}
+.blueColor .box{
+    position: relative;
+    width: 50%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.form-box{
+    position: absolute;
+    background: #fff;
+    height: 100%;
+    width: 50%;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 5px 45px rgba(0, 0, 0, 0.25);
+    transition: ease-in-out .5s;
+    overflow: hidden;
+}
+.form-box.active{
+    left: 50%;
+}
+.box h2{
+    color: #fff;
+    font-size: 1.2em;
+    font-weight: 500;
+    margin-bottom: 10px;
+}
+.blueColor .box button{
+    padding: 10px 20px;
+    background: #fff;
+    color: #000;
+    font-size: 16px;
+    font-weight: 500;
+    border: none;
+    cursor: pointer;
+}
+.form-box .form{
+    position: absolute;
+    width: 80%;
+    transition: .5s;
+    padding: 40px;
+}
+.form-box .signinform{
+    left: 0%;
+    transition-delay: .25s;
+}
+.form-box.active .signinform{
+    left: 100%;
+    transition-delay: 0;
+}
+.form-box .signupform{
+    left: -100%;
+    transition-delay: 0;
+}
+.form-box.active .signupform{
+    left: 0%;
+    transition-delay: .25s;
+}
+.form-box .form form{
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+
+}
+.form form input{
+    margin-bottom: 20px;
+    padding: 10px;
+    outline: none;
+    border: 1px solid #acacac;
+}
+.form form h3{
+    text-align: center;
+    font-size: 1.5em;
+    font-weight: 500;
+    margin-bottom: 20px;
+}
+.form form input[type="submit"]{
+    background: #acacac;
+    border: none;
+    max-width: 100px;
+    color: #fff;
+    cursor: pointer;
+}
+.form form input[value="Sign Up"]{
+    background: #acacac;
+    border: none;
+    max-width: 100px;
+    color: #fff;
+    cursor: pointer;
+}
+a{
+    color: #333;
+    font-size: 14px;
+}
+.birth-1{
+    position: relative;
+    display: inline-block;
+    border-bottom: 1px dotted black;
+}
+.birth-1 .birth-text {
+    visibility: hidden;
+    width: 120px;
+    background-color: #555;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    left: 50%;
+    margin-left: -60px;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+.birth-1 .birth-text {
+    visibility: visible;
+    opacity: 1;
+}
+.btn{
+    padding: 10.5px 41px;
+    background: #acacac;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 500;
+    border: none;
+    cursor: pointer;
+}
+
+.gender-buttons {
+    display: flex;
+    justify-content: center;
+}
+
+.gender-button {
+    background-color: #f5f5f5;
+    border: none;
+    border-radius: 5px;
+    color: #333;
+    cursor: pointer;
+    font-size: 14px;
+    margin: 3px;
+    padding: 5px 20px;
+    transform:translateY(-30%);
+    transition: background-color 0.3s ease;
+}
+
+.gender-button:hover {
+    background-color: #ddd;
+}
+
+.radio-btn {
+    position: absolute;
+    left: -9999px;
+}
+
+.input-wrapper {
+    position: relative;
+}
+
+.input-wrapper:hover .input-text {
+    display: block;
+}
+
+.find{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

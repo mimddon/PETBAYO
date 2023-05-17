@@ -40,8 +40,7 @@ dependencies {
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-tomcat
     compileOnly 'org.springframework.boot:spring-boot-starter-tomcat'
-     providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat:'
-
+    providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat:'
 
 }
 
