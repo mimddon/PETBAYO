@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>펫 종 수정</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+</head>
+<body>
+
+<div class="container">
+  <div>
+    <h3>펫 종 수정</h3>
+  </div>
+
+  <form method="post">
+    <input type="number" name="petId" th:value="${petId}" readonly />
+    <div class="form-group mt-2">
+      <label for="species">종:</label>
+      <input id="species" name="species" type="text" class="form-control" th:value="${item.species}" >
+    </div>
+
+    <div class="form-group mt-2">
+      <label for="description">설명:</label>
+      <input id="description" name="description" type="text" class="form-control" th:value="${item.description}">
+    </div>
+
+    <div class="form-group mt-3">
+      <button type="submit" class="btn btn-sm btn-primary">수정</button>
+      <a href="/book/bookList"><button type="button" class="btn btn-sm btn-secondary">취소</button></a>
+    </div>
+  </form>
+</div>
+
+</body>
+</html>

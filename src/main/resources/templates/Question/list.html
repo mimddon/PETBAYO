@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Q&A</title>
+</head>
+<body>
+<div>
+    <h3>QnA</h3>
+    <div>
+        <table>
+            <thead>
+            <tr>
+                <th>제목</th>
+                <th>작성일</th>
+                <th>작성자</th>
+                <th>승인상태</th>
+                <th>공개여부</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr th:if="${list.isEmpty()}">
+                <td colspan="6">등록된 질문이 없습니다.</td>
+            </tr>
+
+            <tr th:each="question : ${list}">
+                <td th:text="${question.qsTitle}"></td>
+                <td th:text="${#temporals.format(question.createdDate, 'yyyy년 MM월 dd일')}"></td>
+                <td th:text="${question.userId}"></td>
+                <td th:text="${question.process}"></td>
+                <td th:text="${question.disclosure}"></td>
+                <td>
+                    <a th:href="@{/question/delete/{qsId}(qsId=${question.qsId})}">삭제</a>
+                    <a th:href="@{/question/update/{qsId}(qsId=${question.qsId})}">변경</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div>
+        <a href="add">등록</a>
+    </div>
+    <div>
+        <a href="..">처음으로</a>
+    </div>
+</div>
+</body>
+</html>

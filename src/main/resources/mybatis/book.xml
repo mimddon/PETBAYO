@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="book">
+
+    <resultMap id="BookResultMap" type="com.petbayo.petbayo.Model.Book">
+        <id column="pet_id" property="petId"/>
+        <result column="species" property="species"/>
+        <result column="description" property="description"/>
+    </resultMap>
+
+    <select id="bookList" resultMap="BookResultMap">
+        SELECT * FROM petbook
+    </select>
+
+    <insert id="create" parameterType="com.petbayo.petbayo.Model.Book">
+        INSERT INTO petbook (pet_id, species, description)
+        VALUES (#{petId}, #{species}, #{description})
+    </insert>
+
+    <select id="item" resultType="com.petbayo.petbayo.Model.Book">
+        SELECT * FROM petbook
+        WHERE pet_id = #{petId}
+    </select>
+
+    <update id="update" parameterType="com.petbayo.petbayo.Model.Book">
+        UPDATE petbook
+        SET  species = #{species}, description = #{description}
+        WHERE pet_id = #{petId}
+    </update>
+
+   <delete id="delete">
+       DELETE FROM petbook where pet_id=${petId}
+   </delete>
+
+    <!-- 도서 검색 쿼리 -->
+    <select id="searchBooks" resultType="com.petbayo.petbayo.Model.Book" parameterType="java.util.Map">
+        SELECT * FROM petbook
+        WHERE
+        (#{keyword} IS NULL OR species LIKE CONCAT('%', #{keyword}, '%'))
+        AND (#{category} = 'all' OR species = #{category})
+    </select>
+
+
+
+</mapper>

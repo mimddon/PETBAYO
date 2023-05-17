@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+<div>
+    <div>
+        <h3>등록</h3>
+    </div>
+
+    <form method="post" th:object="${question}" th:action="@{/question/add}">
+        <div>
+            <label>제목</label>
+            <input th:field="*{qsTitle}" type="text">
+        </div>
+        <div>
+            <label>내용</label>
+            <textarea th:field="*{content}"></textarea>
+        </div>
+        <div>
+            <label>작성일</label>
+            <input th:value="${#temporals.format(question.createdDate, 'yyyy-MM-dd')}" type="date">
+        </div>
+
+        <div>
+            <label>공개여부</label>
+            <div>
+                <label>
+                    <input type="radio" th:field="*{disclosure}" th:value="O">
+                    <span class="icon-public">공개</span>
+                </label>
+                <label>
+                    <input type="radio" th:field="*{disclosure}" th:value="X">
+                    <span class="icon-private">비공개</span>
+                </label>
+            </div>
+        </div>
+
+        <div>
+            <label>작성자</label>
+            <input th:field="*{userId}" type="text">
+        </div>
+        <div>
+            <button type="submit">등록</button>
+            <a href="/question/list"><button type="button">취소</button></a>
+        </div>
+    </form>
+</div>
+</body>
+</html>
