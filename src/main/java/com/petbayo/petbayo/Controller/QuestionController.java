@@ -6,8 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
 import java.util.Arrays;
 import java.util.List;
@@ -18,6 +18,11 @@ public class QuestionController {
 
     @Autowired
     private QuestionService questionService;
+    @PostMapping("/loginRegister")
+    public String loginSuccess() {
+        // 로그인 성공 시 리다이렉트할 경로를 "/question/list"로 변경
+        return "redirect:/question/list";
+    }
 
     @GetMapping("/list")
     public String list(Model model, Principal principal) {
@@ -37,7 +42,7 @@ public class QuestionController {
     }
 
     private boolean isAdmin(String loggedInUsername) {
-        // 관리자를 나타내는 조건을 추가하세요.
+        // 관리자를 나타내는 조건을 추가.
         // 예를 들어, "admin"이라는 사용자명을 관리자로 가정한다면:
         return "admin".equals(loggedInUsername);
     }
@@ -47,7 +52,7 @@ public class QuestionController {
         String loggedInUsername = principal != null ? principal.getName() : null;
 
         if (loggedInUsername == null) {
-             //회원 가입하지 않은 사용자는 작성 불가능하므로 로그인 페이지로 리다이렉트합니다.
+             //회원 가입하지 않은 사용자는 작성 불가능하므로 로그인 페이지로 리다이렉트
             return "redirect:/loginRegister";
         }
 
@@ -57,22 +62,35 @@ public class QuestionController {
         return "Question/add";
     }
 
-    @PostMapping("/add")
-    public String add(@ModelAttribute("question") Question question, Principal principal, RedirectAttributes redirectAttributes) {
+   /* @PostMapping("/add")
+    public String add(@ModelAttribute("question") Question question, Principal principal, HttpServletRequest request) {
         // 작성자 설정
         String loggedInUsername = principal != null ? principal.getName() : null;
 
         if (loggedInUsername == null) {
-            // 회원 가입하지 않은 사용자는 작성 불가능하므로 로그인 페이지로 리다이렉트합니다.
-            return "redirect:/login";
+            // 회원 가입하지 않은 사용자는 작성 불가능하므로 로그인 페이지로 리다이렉트
+            return "redirect:/loginRegister";
         }
 
         questionService.add(question);
 
-        // 로그인 후 메인 페이지로 이동하지 않고 내 페이지에서는 목록 페이지로 이동하기 위해 RedirectAttributes를 사용합니다.
-        redirectAttributes.addAttribute("loggedInUsername", loggedInUsername);
-        return "redirect:/question/list";
+        String targetURL = request.getHeader("referer");
+
+        return "redirect:" + targetURL;*/
     }
+  /*  @PostMapping("/loginSuccess")
+    public String loginSuccess(Principal principal) {
+        String loggedInUsername = principal != null ? principal.getName() : null;
+
+        if (loggedInUsername != null) {
+            // 로그인 성공
+            return "redirect:/question/list"; // 로그인 성공 후 이동할 경로
+        } else {
+            // 로그인 실패 또는 인증 정보가 없는 경우
+            // 처리할 로직 추가
+            return "redirect:/login"; // 로그인 페이지로 리다이렉트
+        }
+    }*/
 
     @GetMapping("/update/{qsId}")
     public String update(@PathVariable("qsId") Long qsId, Model model) {

@@ -13,6 +13,7 @@
     background-color: blue;
     padding: 10px;
     margin-right: 10px;
+
 }
 
 .white-box {
@@ -22,7 +23,7 @@
 
 .menu-item {
     display: inline;
-    color: white; /* 텍스트 색상 설정 */
+    .blue-box color: black; /* 텍스트 색상 설정 */
     margin: 0;
 }
 
