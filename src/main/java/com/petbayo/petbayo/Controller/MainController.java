@@ -8,32 +8,31 @@ public class MainController {
 
     @RequestMapping("/")
     public String mainPage() {
-
         return "main";
     }
 
     @RequestMapping("/careList")
     public String petCare() {
-
         return "/care/careList";
     }
 
-    @RequestMapping("/pet-book")
+    @RequestMapping("" +
+            "/bookList")
     public String petBook() {
-
-        return "/pet-book";
+        return "/book/bookList";
     }
 
-    @RequestMapping("/loginRegister")
-    public String loginRegister() {
+    @RequestMapping("/register")
+    public String register() {
+        return "/register";
+    }
 
-        return "/loginRegister";
+    @RequestMapping("/login")
+    public String login() {
+        return "/login";
     }
 
     @RequestMapping("/question")
-    public String question() {
-
-        return  "/question";
-    }
+    public String question() {return  "/Question/list";}
 
 }
