@@ -62,7 +62,7 @@ public class QuestionController {
         return "Question/add";
     }
 
-   /* @PostMapping("/add")
+    @PostMapping("/add")
     public String add(@ModelAttribute("question") Question question, Principal principal, HttpServletRequest request) {
         // 작성자 설정
         String loggedInUsername = principal != null ? principal.getName() : null;
@@ -76,7 +76,7 @@ public class QuestionController {
 
         String targetURL = request.getHeader("referer");
 
-        return "redirect:" + targetURL;*/
+        return "redirect:" + targetURL;
     }
   /*  @PostMapping("/loginSuccess")
     public String loginSuccess(Principal principal) {
