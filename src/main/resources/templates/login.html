@@ -5,6 +5,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/login.css">
     <title>PETBAYO</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+		$(document).ready(function() {
+			$('#login-form').submit(function(event) {
+				event.preventDefault();
+				var formData = $(this).serialize();
+				$.ajax({
+					type: 'POST',
+					url: '/login',
+					data: formData,
+					dataType: 'json',
+					success: function(response) {
+						window.location.replace(response.redirectUrl);
+					},
+					error: function(xhr, status, error) {
+						alert(xhr.responseJSON.errorMessage);
+					}
+				});
+			});
+		});
+	</script>
 </head>
 <body oncontextmenu="return false" ondragstart="return false" onselectstart="return false">
 <section>
@@ -14,12 +35,12 @@
                 <h2>Login</h2>
                 <div class="inputbox">
                     <ion-icon name="at-circle-outline"></ion-icon>
-                    <input type="id" id="email" name="email" required>
+                    <input type="email" id="email" name="user_id" required>
                     <label for="email">Email</label>
                 </div>
                 <div class="inputbox">
                     <ion-icon name="lock-closed-outline"></ion-icon>
-                    <input type="password" id="pw" name="password" required>
+                    <input type="password" id="pw" name="pwd" required>
                     <label for="pw">Password</label>
                 </div>
                 <div class="forget-button">
@@ -30,7 +51,7 @@
                     </label>
                 </div>
                 <div>
-                    <button type='button'>로그인</button>
+                    <button type="submit">로그인</button>
                 </div>
                 <div class="register">
                     <p>아이디가 없으신가요? <a href="register">회원가입</a></p>
