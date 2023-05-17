@@ -26,7 +26,7 @@
 
             <tr th:each="question : ${list}">
                 <td th:text="${question.qsTitle}"></td>
-                <td th:text="${question.createdDate}"></td>
+                <td th:text="${#temporals.format(question.createdDate, 'yyyy년 MM월 dd일')}"></td>
                 <td th:text="${question.userId}"></td>
                 <td th:text="${question.process}"></td>
                 <td th:text="${question.disclosure}"></td>

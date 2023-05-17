@@ -20,18 +20,18 @@
         </div>
         <div>
             <label>작성일</label>
-            <input th:field="*{createdDate}" type="datetime-local">
+            <input th:value="${#temporals.format(question.createdDate, 'yyyy-MM-dd')}" type="date">
         </div>
 
         <div>
             <label>공개여부</label>
             <div>
                 <label>
-                    <input th:field="*{disclosure}" type="radio" value="O">
+                    <input type="radio" th:field="*{disclosure}" th:value="O">
                     <span class="icon-public">공개</span>
                 </label>
                 <label>
-                    <input th:field="*{disclosure}" type="radio" value="X">
+                    <input type="radio" th:field="*{disclosure}" th:value="X">
                     <span class="icon-private">비공개</span>
                 </label>
             </div>
