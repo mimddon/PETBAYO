@@ -1,7 +1,6 @@
 package com.petbayo.petbayo.Model;
 
 import org.hibernate.annotations.CreationTimestamp;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -21,7 +20,6 @@ public class Question {
     private String content;
 
     @CreationTimestamp
-    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     private LocalDateTime createdDate;
 
     @Enumerated(EnumType.STRING)
@@ -30,14 +28,8 @@ public class Question {
     @Enumerated(EnumType.STRING)
     private Disclosure disclosure;
 
-    public Long getUserId() {
-        return userId;
-    }
-    public void setUserId(Long userId) {
-        this.userId = userId;
-    }
-
-    private Long userId;;
+    @Column(name = "user_id")
+    private Long userId;
 
     public Long getQsId() {
         return qsId;
@@ -70,6 +62,7 @@ public class Question {
     public void setCreatedDate(LocalDateTime createdDate) {
         this.createdDate = createdDate;
     }
+
     public Process getProcess() {
         return process;
     }
@@ -77,12 +70,21 @@ public class Question {
     public void setProcess(Process process) {
         this.process = process;
     }
+
     public Disclosure getDisclosure() {
         return disclosure;
     }
 
     public void setDisclosure(Disclosure disclosure) {
         this.disclosure = disclosure;
+    }
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
     public enum Process {

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.security.Principal;
 import java.util.Arrays;
@@ -23,15 +24,11 @@ public class QuestionController {
         List<Question> questions;
         String loggedInUsername = principal != null ? principal.getName() : null;
 
-        if (isAdmin(loggedInUsername)) {
+        if (loggedInUsername != null && isAdmin(loggedInUsername)) {
             // 관리자인 경우 모든 질문 표시
             questions = questionService.list();
         } else {
-            if (loggedInUsername == null) {
-                // 로그인하지 않은 상태이므로 로그인 페이지로 리다이렉트
-                return "redirect:/login";
-            }
-            // 작성자인 경우 작성자와 공개된 질문 표시
+            // 사용자인 경우 작성자와 공개된 질문 표시
             questions = questionService.findByUserOrDisclosure(loggedInUsername, Question.Disclosure.O);
         }
 
@@ -45,10 +42,15 @@ public class QuestionController {
         return "admin".equals(loggedInUsername);
     }
 
-
-
     @GetMapping("/add")
-    public String add(Model model) {
+    public String add(Model model, Principal principal) {
+        String loggedInUsername = principal != null ? principal.getName() : null;
+
+        if (loggedInUsername == null) {
+             //회원 가입하지 않은 사용자는 작성 불가능하므로 로그인 페이지로 리다이렉트합니다.
+            return "redirect:/loginRegister";
+        }
+
         model.addAttribute("question", new Question());
         model.addAttribute("processList", Arrays.asList(Question.Process.values()));
         model.addAttribute("disclosureList", Arrays.asList(Question.Disclosure.values()));
@@ -56,17 +58,19 @@ public class QuestionController {
     }
 
     @PostMapping("/add")
-    public String add(@ModelAttribute("question") Question question, Principal principal) {
+    public String add(@ModelAttribute("question") Question question, Principal principal, RedirectAttributes redirectAttributes) {
         // 작성자 설정
         String loggedInUsername = principal != null ? principal.getName() : null;
-        question.setUserId(loggedInUsername);
 
-        // 회원 가입하지 않은 사용자가 작성한 경우 비공개로 설정
         if (loggedInUsername == null) {
-            question.setDisclosure(Question.Disclosure.X);
+            // 회원 가입하지 않은 사용자는 작성 불가능하므로 로그인 페이지로 리다이렉트합니다.
+            return "redirect:/login";
         }
 
         questionService.add(question);
+
+        // 로그인 후 메인 페이지로 이동하지 않고 내 페이지에서는 목록 페이지로 이동하기 위해 RedirectAttributes를 사용합니다.
+        redirectAttributes.addAttribute("loggedInUsername", loggedInUsername);
         return "redirect:/question/list";
     }
 
