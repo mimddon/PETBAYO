@@ -1,6 +1,6 @@
 plugins {
     id 'java'
-    id 'org.springframework.boot' version '2.7.10'
+    id 'org.springframework.boot' version '2.7.1'
     id 'io.spring.dependency-management' version '1.0.15.RELEASE'
     id 'war'
 }
@@ -37,11 +37,10 @@ dependencies {
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
     runtimeOnly 'org.mariadb.jdbc:mariadb-java-client'
     annotationProcessor 'org.projectlombok:lombok'
-    testImplementation 'org.springframework.boot:spring-boot-starter-test'
-    // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-tomcat
     compileOnly 'org.springframework.boot:spring-boot-starter-tomcat'
     providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat:'
-
+    implementation 'org.springframework.boot:spring-boot-starter-mail'
+    implementation group: 'com.sun.mail', name: 'jakarta.mail', version: '2.0.1'
 }
 
 tasks.named('test') {

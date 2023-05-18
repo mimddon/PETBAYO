@@ -6,12 +6,13 @@ import org.springframework.stereotype.Service;
 
 import com.petbayo.petbayo.Dao.UserDao;
 import com.petbayo.petbayo.Model.User;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @AllArgsConstructor
 @Service
 public class UserServiceImpl implements UserService {
 
-    @Autowired
     UserDao dao;
 
     @Override
@@ -45,6 +46,14 @@ public class UserServiceImpl implements UserService {
         } else {
             return false;
         }
+    }
+
+    @GetMapping("/mailCheck")
+    @ResponseBody
+    public String mailCheck(String email) {
+        System.out.println("이메일 인증 요청이 들어옴!");
+        System.out.println("이메일 인증 이메일: " + email);
+        return "Success";
     }
 
 

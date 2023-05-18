@@ -16,12 +16,10 @@ public class MainController {
         return "/care/careList";
     }
 
-    @RequestMapping("" +
-            "/bookList")
+    @RequestMapping("" + "/bookList")
     public String petBook() {
         return "/book/bookList";
     }
-
     @RequestMapping("/register")
     public String register() {
         return "/register";
@@ -33,6 +31,8 @@ public class MainController {
     }
 
     @RequestMapping("/question")
-    public String question() {return  "/Question/list";}
+    public String question() {
+        return "/Question/list";
+    }
 
 }

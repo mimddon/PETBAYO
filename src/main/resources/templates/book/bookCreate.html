@@ -4,6 +4,8 @@
   <meta charset="UTF-8">
   <title>Title</title>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+  <!-- jquery cdn -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 </head>
 <body>
 
@@ -12,7 +14,7 @@
     <h3>펫 종 등록</h3>
   </div>
 
-  <form method="post">
+  <form method="post" enctype="multipart/form-data">
     <div class="form-group mt-2">
       <label >종:</label>
       <input id="species" name="species" type="text" class="form-control" th:value="${species}" >
@@ -23,6 +25,12 @@
       <label>설명</label>
       <input id="description" name="description" type="text" class="form-control" th:value="${description}">
     </div>
+
+    <div class="form-group mt-2">
+      <label>파일</label>
+      <input id="file" name="file" type="file" class="form-control" />
+    </div>
+
 
     <div class="form-group mt-3">
       <button type="submit" class="btn btn-sm btn-primary">등록</button>

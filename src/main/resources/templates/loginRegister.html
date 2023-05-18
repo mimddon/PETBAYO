@@ -24,8 +24,8 @@
         <div class="form signinform">
             <form method="POST" action="/">
                 <h3>Login</h3>
-                <input type="text" name="email" placeholder="Email" required>
-                <input type="password" name="pwd" placeholder="Password" required>
+                <input type="text" id="email" name="email" placeholder="Email" required>
+                <input type="password" id="pwd" name="pwd" placeholder="Password" required>
                 <input type="submit" value="Sign In">
                 <div class="find">
                     <a href="#">비밀번호 찾기</a>
@@ -37,15 +37,14 @@
         <div class="form signupform">
             <form  name="register_form" method="POST" action="/">
                 <h3>Register</h3>
-                <input type="eamil" name="email" placeholder="Email" required>
-                <div>
-                    <button type="button" class="btn" onclick="checkEmail(true)">중복확인</button>
-                    <button type="button" class="btn" onclick="checkEmail(true)">인증하기</button>
+                <div class="reg-e">
+                    <input type="email" name="email" placeholder="Email" required>
+                    <button type="button" class="btn" onclick="checkEmail(true)">ATUH</button>
                 </div>
                 <input type="password" name="pwd" placeholder="Password" required>
                 <input type="text" name="nickname" placeholder="Nickname" required>
                 <input type="date" name="birth" required>
-                <input type="submit" value="Sign Up">
+                <input type="submit"  value="Sign Up">
             </form>
         </div>
     </div>

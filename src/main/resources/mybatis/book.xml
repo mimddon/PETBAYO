@@ -7,6 +7,7 @@
         <id column="pet_id" property="petId"/>
         <result column="species" property="species"/>
         <result column="description" property="description"/>
+        <result column="image" property="image"/>
     </resultMap>
 
     <select id="bookList" resultMap="BookResultMap">
@@ -40,7 +41,6 @@
         (#{keyword} IS NULL OR species LIKE CONCAT('%', #{keyword}, '%'))
         AND (#{category} = 'all' OR species = #{category})
     </select>
-
 
 
 </mapper>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns xmlns:th="http://www.w3.org/1999/xhtml" : th="http://www.thymeleaf.org">
+<html xmlns xmlns:th="http://www.w3.org/1999/xhtml" :th="http://www.thymeleaf.org">
 
 <head>
     <title>펫북</title>
@@ -43,7 +43,7 @@
                    placeholder="검색어를 입력하세요">
             <button id="search-button">검색</button>
         </div>
-        <!--search-category-container 부분 지우면 오류뜸 원인찾기 -->
+
         <div class="search-category-container">
             <select id="search-category" name="category">
                 <option value="all" selected>전체</option>
@@ -62,7 +62,7 @@
     </div>
     <div class="container">
     <div class="row" >
-
+<!-- 전체 게시글 -->
         <div class="col-md-4" th:each="book : ${book}" >
             <div class="card">
                 <div class="card-body">
@@ -85,10 +85,8 @@
                     <button type="button" class="btn btn-primary" data-toggle="modal"
                             th:data-target="'#modal' + ${book.petId}">상세보기
                     </button>
-                    <button class="btn btn-primary" data-toggle="modal"
-                            th:href="@{/book/delete/{id}(id=${book.petId})}">삭제
-                    </button>
                 </div>
+
             </div>
 
 </div>
@@ -114,6 +112,7 @@
 </div>
 </div>
         <button class="btn btn-danger"><a href="/bookCreate">등록</a></button>
+        <button><a href="/book/bookList">이전</a></button>
     </div>
 </body>
 
