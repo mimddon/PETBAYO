@@ -1,5 +1,7 @@
+/** {
+    font-family: "Spoqa Han Sans Neo", sans-serif;
+}*/
 .container {
-    font-family: Arial, sans-serif;
     background-color: #f7f7f7;
     margin: 0 auto; /* 수평 가운데 정렬 */
     max-width: 1200px; /* 최대 너비 제한 */
@@ -13,7 +15,10 @@
     background-color: blue;
     padding: 10px;
     margin-right: 10px;
+}
 
+.blue-box h3.menu-item {
+    color: white; /* .blue-box 내부 텍스트 색상 지정 */
 }
 
 .white-box {
@@ -21,9 +26,12 @@
     padding: 10px;
 }
 
+.white-box h3.menu-item {
+    color: black; /* .white-box 내부 텍스트 색상 지정 */
+}
+
 .menu-item {
     display: inline;
-    .blue-box color: black; /* 텍스트 색상 설정 */
     margin: 0;
 }
 
@@ -62,7 +70,7 @@ tr:hover {
 
 .empty-message {
     text-align: center;
-    color: #888;
+    color: white;
     font-style: italic;
 }
 
