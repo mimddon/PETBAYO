@@ -70,8 +70,6 @@
         </div>
     </div>
 
-<!--    <div id="map" style="width:70%;height:800px;"></div>-->
-
     <!-- services 라이브러리 불러오기 -->
     <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=1dc4acb769231477d585bb172afb8241&libraries=services"></script>
 
@@ -84,9 +82,32 @@
 
         var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
 
+        var centerPosition; // 중심좌표를 담을 객체
+
+        var geocoder = new kakao.maps.services.Geocoder(); // 주소-좌표 변환 객체를 생성합니다
+
+        var cmMarker = new kakao.maps.Marker(), // 클릭한 위치를 표시할 마커입니다
+            cmInfowindow = new kakao.maps.InfoWindow({zindex:1}); // 클릭한 위치에 대한 주소를 표시할 인포윈도우입니다
+
+        var myMarker = null;
+        var myInfowindow = null;
+
+        var circle; // 반경원을 표시할 객체
+
+        // 지도 확대 축소를 제어할 수 있는  줌 컨트롤을 생성합니다
+        var zoomControl = new kakao.maps.ZoomControl();
+        map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
+
+        // 지도의 현재 확대 레벨을 가져옵니다
+        var zoomLevel = map.getLevel();
+        // 각 확대 레벨에 대한 숫자를 정의합니다
+        var number;
+
+
         // 사용자의 위치 정보 가져오기
         if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(function(position) {
+            navigator.geolocation.getCurrentPosition(
+                function(position) {
                 // 사용자의 현재 위치 좌표
                 var lat = position.coords.latitude;
                 var lng = position.coords.longitude;
@@ -95,18 +116,55 @@
                 var myLatLng = new kakao.maps.LatLng(lat, lng),
                     message = '<div style="padding:5px;">위치를 옮기고 싶다면 지도를 클릭해 위치를 옮겨보세요!</div>';
 
-                displayMarker(myLatLng, message);
-            });
-        } else {
-            var myLatLng = new kakao.maps.LatLng(33.450701, 126.570667),
-                message = '현재 위치를 불러올 수 없어요'
+                centerPosition = myLatLng;
 
-            displayMarker(myLatLng, message);
-            //(지도위에 콘솔)서비스 받고싶은 장소를 선택해주세요!
+                displayMarker(myLatLng, message);
+
+                searchDetailAddrFromCoords(myLatLng, function(result, status) {
+                    if (status === kakao.maps.services.Status.OK) {
+                        var detailAddr = !!result[0].road_address ? '<div>도로명주소 : ' + result[0].road_address.address_name + '</div>' : '';
+                        detailAddr += '<div>지번 주소 : ' + result[0].address.address_name + '</div>';
+
+                        var content = '<div class="bAddr">' +
+                            detailAddr +
+                            '</div>';
+
+                        var infoDiv = document.getElementById('centerAddr');
+                        infoDiv.innerHTML = content;
+
+                        createCircle(350);
+                    }
+                });
+            }, function (error) {
+                    var myLatLng = new kakao.maps.LatLng(36.450701, 126.570667),
+                        message = '<div>현재 위치를 불러올 수 없어요</div>'
+
+                    centerPosition = myLatLng;
+
+                    displayMarker(myLatLng, message);
+                    //(지도위에 콘솔)서비스 받고싶은 장소를 클릭해주세요!
+
+                    searchDetailAddrFromCoords(myLatLng, function(result, status) {
+                        if (status === kakao.maps.services.Status.OK) {
+                            var detailAddr = !!result[0].road_address ? '<div>도로명주소 : ' + result[0].road_address.address_name + '</div>' : '';
+                            detailAddr += '<div>지번 주소 : ' + result[0].address.address_name + '</div>';
+
+                            var content = '<div class="bAddr">' +
+                                detailAddr +
+                                '</div>';
+
+                            var infoDiv = document.getElementById('centerAddr');
+                            infoDiv.innerHTML = content;
+
+                            createCircle(350);
+                        }
+                    });
+                });
+        } else {
+            alert('이 브라우저는 위치 정보를 지원하지 않습니다.');
         }
 
-        var myMarker = null;
-        var myInfowindow = null;
+
 
         // 지도에 마커와 인포윈도우를 표시하는 함수입니다
         function displayMarker(myLatLng, message) {
@@ -132,15 +190,7 @@
             // 지도 중심좌표를 접속위치로 변경합니다
             map.setCenter(myLatLng);
 
-
         }
-
-
-        // 주소-좌표 변환 객체를 생성합니다
-        var geocoder = new kakao.maps.services.Geocoder();
-
-        var cmMarker = new kakao.maps.Marker(), // 클릭한 위치를 표시할 마커입니다
-            cmInfowindow = new kakao.maps.InfoWindow({zindex:1}); // 클릭한 위치에 대한 주소를 표시할 인포윈도우입니다
 
         // 지도를 클릭했을 때 클릭 위치 좌표에 대한 주소정보를 표시하도록 이벤트를 등록합니다
         kakao.maps.event.addListener(map, 'click', function(mouseEvent) {
@@ -156,12 +206,16 @@
                     var infoDiv = document.getElementById('centerAddr');
                     infoDiv.innerHTML = content;
 
-
                     // 마커를 클릭한 위치에 표시합니다
                     cmMarker.setPosition(mouseEvent.latLng);
                     cmMarker.setMap(map);
 
-                    if(cmMarker) {
+                    centerPosition = mouseEvent.latLng;
+
+                    // 클릭한 위치를 중심좌표로 설정
+                    map.setCenter(centerPosition);
+
+                    if(cmMarker.getMap()) {
                         myMarker.setMap(null);
                         myInfowindow.setMap(null);
                     }
@@ -169,14 +223,89 @@
                     // 인포윈도우에 클릭한 위치에 대한 법정동 상세 주소정보를 표시합니다
                     cmInfowindow.setContent('내위치');
                     cmInfowindow.open(map, cmMarker);
+
+                    if (circle) {
+                        circle.setMap(null);
+                    } // 원 지도에서 지우기
+
+                    circleChange()
+
+                    createCircle(number);
+
                 }
             });
+        });
+
+        kakao.maps.event.addListener(map, 'zoom_changed', function() {
+
+            circleChange();
+
+            if (circle) {
+                circle.setMap(null);
+            } // 원 지도에서 지우기
+
+            createCircle(number);
+
         });
 
         function searchDetailAddrFromCoords(coords, callback) {
             // 좌표로 법정동 상세 주소 정보를 요청합니다
             geocoder.coord2Address(coords.getLng(), coords.getLat(), callback);
         }
+
+        function createCircle(radius) {
+            // 원 객체 데이터 삽입
+            circle = new kakao.maps.Circle({
+                center : centerPosition, // 원의 중심좌표입니다
+                radius: radius, // 원의 반지름입니다 m 단위
+                strokeWeight: 1, // 선의 두께입니다
+                strokeColor: '#00a0e9', // 선의 색깔입니다
+                strokeOpacity: 0.1, // 선의 불투명도입니다 0에서 1 사이값이며 0에 가까울수록 투명합니다
+                strokeStyle: 'solid', // 선의 스타일입니다
+                fillColor: '#00a0e9', // 채우기 색깔입니다
+                fillOpacity: 0.2  // 채우기 불투명도입니다
+            });
+
+            circle.setMap(map); // 원을 지도에 표시합니다
+        }
+
+        function circleChange() {
+            // 지도의 현재 확대 레벨을 가져옵니다
+            zoomLevel = map.getLevel();
+
+            if (zoomLevel === 1) {
+                number = 105;
+            } else if (zoomLevel === 2) {
+                number = 210;
+            } else if (zoomLevel === 3) {
+                number = 350;
+            } else if (zoomLevel === 4) {
+                number = 700;
+            } else if (zoomLevel === 5) {
+                number = 1750;
+            } else if (zoomLevel === 6) {
+                number = 3500;
+            } else if (zoomLevel === 7) {
+                number = 7000;
+            } else if (zoomLevel === 8) {
+                number = 14000;
+            } else if (zoomLevel === 9) {
+                number = 28000;
+            } else if (zoomLevel === 10) {
+                number = 56000;
+            } else if (zoomLevel === 11) {
+                number = 112000;
+            } else if (zoomLevel === 12) {
+                number = 224000;
+            } else if (zoomLevel === 13) {
+                number = 448000;
+            } else if (zoomLevel === 14) {
+                number = 896000;
+            }
+
+        }
+
+
 
         $.ajax({
             type: 'GET',
@@ -223,12 +352,10 @@
 
             }
         });
+
+
+
     </script>
-
-
-
-
-
 
     <div class="mt-2">
         <a href="/careCreate" class="btn btn-sm btn-primary">등록</a> <a href=".." class="btn btn-sm btn-warning">이전</a>

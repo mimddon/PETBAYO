@@ -1,7 +1,6 @@
 package com.petbayo.petbayo.Controller;
 
-import javax.servlet.http.HttpSession;
-
+import com.petbayo.petbayo.Model.User;
 import com.petbayo.petbayo.Service.UserService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -9,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import com.petbayo.petbayo.Model.User;
+import javax.servlet.http.HttpSession;
 
 @Slf4j
 @AllArgsConstructor
