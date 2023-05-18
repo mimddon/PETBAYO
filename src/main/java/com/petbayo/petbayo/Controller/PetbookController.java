@@ -16,10 +16,7 @@ public class PetbookController {
 
     @Autowired
     private PetbookService bookService;
-
-    @Value("${upload-path}")
-    private String uploadPath;
-
+    
     @GetMapping("/book/bookList")
     public String bookList(Model model) {
         List<Book> book = bookService.bookList();
