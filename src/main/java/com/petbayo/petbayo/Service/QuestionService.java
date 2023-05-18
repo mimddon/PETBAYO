@@ -14,4 +14,8 @@ public interface QuestionService {
     void update(Question question);
 
     void delete(Long qsId);
+
+    List<Question> findByDisclosure(Question.Disclosure disclosure);
+
+    List<Question> findByUserOrDisclosure(String loggedInUsername, Question.Disclosure disclosure);
 }

@@ -10,6 +10,7 @@
         <result column="longitude" property="longitude"/>
         <result column="latitude" property="latitude"/>
         <result column="price" property="price"/>
+        <result column="user_id" property="userID"/>
     </resultMap>
 
     <select id="careList" resultMap="CareResultMap">

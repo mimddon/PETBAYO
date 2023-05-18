@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PETBAYO</title>
+    <script src="https://code.jquery.com/jquery-3.4.0.js"></script>
+    <link rel="stylesheet" href="/css/loginRegister.css">
+</head>
+<body>
+<div class="container">
+    <div class="blueColor">
+        <div class="box signin">
+            <h2>이미 아이디가 있으신가요?</h2>
+            <button class="signinbtn">Login</button>
+        </div>
+        <div class="box signup">
+            <h2>아이디가 없으신가요?</h2>
+            <button class="signupbtn">Register</button>
+        </div>
+    </div>
+    <div class="form-box">
+        <div class="form signinform">
+            <form method="POST" action="/">
+                <h3>Login</h3>
+                <input type="text" id="email" name="email" placeholder="Email" required>
+                <input type="password" id="pwd" name="pwd" placeholder="Password" required>
+                <input type="submit" value="Sign In">
+                <div class="find">
+                    <a href="#">비밀번호 찾기</a>
+                    <a>|</a>
+                    <a href="#">아이디 찾기</a>
+                </div>
+            </form>
+        </div>
+        <div class="form signupform">
+            <form  name="register_form" method="POST" action="/">
+                <h3>Register</h3>
+                <div class="reg-e">
+                    <input type="email" name="email" placeholder="Email" required>
+                    <button type="button" class="btn" onclick="checkEmail(true)">ATUH</button>
+                </div>
+                <input type="password" name="pwd" placeholder="Password" required>
+                <input type="text" name="nickname" placeholder="Nickname" required>
+                <input type="date" name="birth" required>
+                <input type="submit"  value="Sign Up">
+            </form>
+        </div>
+    </div>
+</div>
+<script src="/js/loginRegister.js"></script>
+
+<script>
+	let isCheck;
+
+	function checkEmail(mode) {
+		if(document.register_form.email.value == "") {
+			alert("중복검사 전에 이메일을 입력 해 주세요");
+			return;
+		}
+
+		if(mode)
+			checkEmail_Async();
+		else
+			checkEmail_Sync();
+	}
+
+	function checkEmail_Async() {
+		const form = document.register_form;
+
+		const xhr = new XMLHttpRequest();
+
+		xhr.onreadystatechange = function() {
+			console.log(xhr.readyState);
+
+			if(xhr.readyState == XMLHttpRequest.DONE) {
+				if(xhr.status == 200) {
+					const result = xhr.responseText;
+					console.log("응답: " + result);
+
+					if(result == "OK") {
+						isCheck = form.email.value;
+						alert("사용 가능한 이메일 입니다");
+					} else
+						alert("이미 사용중인 이메일 입니다");
+				}
+			}
+		};
+
+		xhr.open("GET", "checkEmail/" + form.email.value, true);
+
+		xhr.send();
+	}
+
+	function register() {
+		const form = document.register_form;
+
+		if(isCheck != form.email.value) {
+			alert("이메일 중복 검사를 하셔야 합니다");
+			return;
+		}
+
+		if(form.email.value == "") {
+			alert("이메일을 입력 해 주세요");
+			form.email.focus();
+			return;
+		}
+
+		if(form.pwd.value == "") {
+			alert("비밀번호를 입력 해 주세요");
+			form.pwd.focus();
+			return;
+		}
+
+		if(form.pwd_valid.value == "") {
+			alert("비밀번호 확인을 입력 해 주세요");
+			form.pwd_valid.focus();
+			return;
+		}
+
+		if(form.pwd.value != form.pwd_valid.value) {
+			alert("비밀번호가 일치하지 않습니다");
+			form.pwd.focus();
+			return;
+		}
+
+		form.submit();
+	}
+</script>
+</body>
+</html>

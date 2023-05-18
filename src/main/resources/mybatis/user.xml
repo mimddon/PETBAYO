@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="user">
+
+    <resultMap id="userResultMap" type="com.petbayo.petbayo.Model.User">
+        <id property="user_id" column="userId"/>
+        <result property="email" column="email"/>
+        <result property="pwd" column="pwd"/>
+        <result property="birth" column="birth"/>
+        <result property="nickname" column="nickname"/>
+    </resultMap>
+
+    <select id="login" resultMap="userResultMap">
+        SELECT * FROM user
+        WHERE email=#{email} AND pwd=#{pwd}
+    </select>
+
+    <insert id="register">
+        INSERT INTO user
+        VALUES (#{id}, #{email}, #{pwd}, #{birth}, #{nickname})
+    </insert>
+
+    <select id="checkEmail" parameterType="String" resultType="int">
+        SELECT COUNT(*) FROM user
+        WHERE email=#{email}
+    </select>
+
+</mapper>

@@ -3,9 +3,7 @@ package com.petbayo.petbayo.Service;
 import com.petbayo.petbayo.Model.Book;
 import com.petbayo.petbayo.Model.Care;
 import org.springframework.ui.Model;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
 import java.util.List;
 
 public interface PetbookService {
@@ -20,5 +18,6 @@ public interface PetbookService {
 
     void bookDelete(int id);
     List<Book> searchBooks(String keyword, String category);
+
 
 }

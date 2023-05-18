@@ -41,4 +41,14 @@ public class QuestionServiceImpl implements QuestionService {
         Question findQ = questionRepository.findById(qsId).orElseThrow(() -> new RuntimeException());
         questionRepository.delete(findQ);
     }
+
+    @Override
+    public List<Question> findByDisclosure(Question.Disclosure disclosure) {
+        return questionRepository.findByDisclosure(disclosure);
+    }
+
+    @Override
+    public List<Question> findByUserOrDisclosure(String loggedInUsername, Question.Disclosure disclosure) {
+        return questionRepository.findByUserIdOrDisclosure(loggedInUsername, disclosure);
+    }
 }

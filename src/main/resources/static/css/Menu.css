@@ -1,0 +1,23 @@
+.logo {
+    background-image: url("logo.png");
+    background-size: cover;
+    width: 150px;
+    height: 150px;
+}
+.menu {
+    display: flex;
+    justify-content: center;
+    list-style: none;
+    padding: 0;
+    margin: 20px 0 0;
+}
+
+.menu li {
+    margin: 0 50px;
+}
+
+@media (max-width: 640px) {
+    .menu {
+        justify-content: center;
+    }
+}
