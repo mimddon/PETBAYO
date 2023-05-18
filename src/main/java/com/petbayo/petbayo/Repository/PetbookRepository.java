@@ -17,5 +17,4 @@ public interface PetbookRepository {
 
     List<Book> searchBooks(String keyword, String category);
 
-
 }

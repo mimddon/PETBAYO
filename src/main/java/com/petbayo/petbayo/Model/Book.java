@@ -1,9 +1,12 @@
 package com.petbayo.petbayo.Model;
 
+import java.util.List;
+
 public class Book {
     private int petId;
     private String species;
     private String description;
+
 
 
     public int getPetId() {
