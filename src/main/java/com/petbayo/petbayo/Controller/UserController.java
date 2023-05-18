@@ -19,12 +19,12 @@ public class UserController {
     @Autowired
     UserService service;
 
-    @GetMapping("/login")
+    @GetMapping("/loginRegister")
     public String login() {
-        return "login";
+        return "loginRegister";
     }
 
-    @PostMapping("/login")
+    @PostMapping("/loginRegister")
     public String login(@RequestParam("email") String email, @RequestParam("pwd") String pwd, HttpSession session) {
         User user = new User();
         user.setEmail(email);
@@ -74,6 +74,5 @@ public class UserController {
 
         return "redirect:.";
     }
-
 
 }

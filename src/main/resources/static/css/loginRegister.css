@@ -164,13 +164,14 @@ a{
     opacity: 1;
 }
 .btn{
-    padding: 10.5px 41px;
+    padding: 10.5px 41.5px;
     background: #acacac;
     color: #fff;
     font-size: 14px;
     font-weight: 500;
     border: none;
     cursor: pointer;
+    transform: translateY(2%)
 }
 
 .gender-buttons {
@@ -211,5 +212,9 @@ a{
 .find{
     display: flex;
     justify-content: center;
+    text-decoration: none;
     align-items: center;
+}
+.reg-e{
+    white-space: nowrap;
 }
