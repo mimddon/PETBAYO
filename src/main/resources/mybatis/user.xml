@@ -4,7 +4,7 @@
 <mapper namespace="user">
 
     <resultMap id="userResultMap" type="com.petbayo.petbayo.Model.User">
-        <id property="id" column="id"/>
+        <id property="user_id" column="userId"/>
         <result property="email" column="email"/>
         <result property="pwd" column="pwd"/>
         <result property="birth" column="birth"/>
