@@ -9,7 +9,7 @@ public interface PetbookService {
 
     Long bookCreate(Book item);
 
-    Book bookItem(int petId);
+    Book bookItem(Long petId);
 
     void bookUpdate(Book item);
 

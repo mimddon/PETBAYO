@@ -77,10 +77,8 @@ public class FileUtils {
         String extension = StringUtils.getFilenameExtension(filename);
         return uuid + "." + extension;
     }
-
     /**
      * 업로드 경로 반환
-     *
      * @return 업로드 경로
      */
     private String getUploadPath() {
@@ -89,7 +87,6 @@ public class FileUtils {
 
     /**
      * 업로드 경로 반환
-     *
      * @param addPath - 추가 경로
      * @return 업로드 경로
      */

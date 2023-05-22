@@ -23,10 +23,10 @@ public class PetbookServiceImpl implements PetbookService{
     @Override
     public Long bookCreate(Book item) {
         petbookRepository.bookCreate(item);
-        return (long) item.getPetId();
+        return item.getPetId();
     }
     @Override
-    public Book bookItem(int petId) {
+    public Book bookItem(Long petId) {
         return petbookRepository.bookItem(petId);
     }
 

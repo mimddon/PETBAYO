@@ -76,7 +76,7 @@ public class PetbookController {
 
 
     @GetMapping("/book/update/{petId}")
-    public String bookUpdate(@PathVariable int petId, Model model) {
+    public String bookUpdate(@PathVariable Long petId, Model model) {
         Book item = bookService.bookItem(petId);
         model.addAttribute("item", item);
         return "book/bookUpdate";

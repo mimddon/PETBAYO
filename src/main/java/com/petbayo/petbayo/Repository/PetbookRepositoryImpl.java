@@ -26,7 +26,7 @@ public class PetbookRepositoryImpl implements PetbookRepository {
     }
 
     @Override
-    public Book bookItem(int petId) {
+    public Book bookItem(Long petId) {
         return sql.selectOne("book.item", petId);
     }
 

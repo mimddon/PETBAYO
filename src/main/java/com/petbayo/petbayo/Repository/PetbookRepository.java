@@ -10,7 +10,7 @@ public interface PetbookRepository {
 
     void bookCreate(Book item);
 
-    Book bookItem(int petId);
+    Book bookItem(Long petId);
 
     void bookUpdate(Book item);
 
