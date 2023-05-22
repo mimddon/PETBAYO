@@ -24,6 +24,25 @@
       <input id="description" name="description" type="text" class="form-control" th:value="${item.description}">
     </div>
 
+    <tr>
+      <th>첨부파일</th>
+      <td colspan="3">
+        <div class="file_list">
+          <div>
+            <div class="file_input">
+              <input type="text" readonly />
+              <label> 첨부파일
+                <input id="file" type="file" name="files" onchange="selectFile(this);" />
+              </label>
+            </div>
+            <button type="button" onclick="removeFile(this);" class="btns del_btn"><span>삭제</span></button>
+            <button type="button" onclick="addFile();" class="btns fn_add_btn"><span>파일 추가</span></button>
+          </div>
+        </div>
+      </td>
+    </tr>
+
+
     <div class="form-group mt-3">
       <button type="submit" class="btn btn-sm btn-primary">수정</button>
       <a href="/book/bookList"><button type="button" class="btn btn-sm btn-secondary">취소</button></a>

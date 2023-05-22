@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.petbayo.petbayo.Domain.FileMapper">
+
+    <resultMap id="FileResultMap" type="com.petbayo.petbayo.Domain.FileMapper">
+        <id column="id" property="id"/>
+        <result column="pet_id" property="petId"/>
+        <result column="original_name" property="originalName"/>
+        <result column="save_name" property="saveName"/>
+        <result column="size" property="size"/>
+        <result column="delete_yn" property="deleteYn"/>
+        <result column="created_date" property="createdDate"/>
+        <result column="deleted_date" property="deleteDate"/>
+    </resultMap>
+
+
+
+    <!-- 파일 정보 저장 -->
+    <insert id="saveAll" parameterType="list"  useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO petbook_file (
+        id
+        , pet_id
+        , original_name
+        , save_name
+        , size
+        , delete_yn
+        , created_date
+        , deleted_date
+        ) VALUES
+        <foreach item="file" collection="list" separator=",">
+            (
+            #{file.id}
+            , #{file.petId}
+            , #{file.originalName}
+            , #{file.saveName}
+            , #{file.size}
+            , 0
+            , NOW()
+            , NULL
+            )
+        </foreach>
+    </insert>
+
+</mapper>
