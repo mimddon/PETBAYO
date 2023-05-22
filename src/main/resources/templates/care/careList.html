@@ -12,6 +12,12 @@
         .hAddr {position:absolute;left:10px;top:10px;border-radius: 2px;background:#fff;background:rgba(255,255,255,0.8);z-index:1;padding:5px;}
         #centerAddr {display:block;margin-top:2px;font-weight: normal;}
         .bAddr {padding:5px;text-overflow: ellipsis;overflow: hidden;white-space: nowrap;}
+        .careListBox {
+            cursor: pointer;
+        }
+        .careListBox.hovered {
+            background-color: #3498db;
+        }
     </style>
 
 </head>
@@ -53,12 +59,9 @@
                     <th>Price</th>
                 </tr>
                 </thead>
-                <tbody>
-                <tr th:each="care:${care}">
-                    <td th:text="${care.title}"></td>
-                    <td th:text="${care.content}"></td>
-                    <td th:text="${care.price}"></td>
-                </tr>
+                <tbody id="careTableBody">
+
+
                 </tbody>
             </table>
         </div>
@@ -210,6 +213,8 @@
                     cmMarker.setPosition(mouseEvent.latLng);
                     cmMarker.setMap(map);
 
+                    console.log(mouseEvent.latLng);
+
                     centerPosition = mouseEvent.latLng;
 
                     // 클릭한 위치를 중심좌표로 설정
@@ -314,6 +319,21 @@
             success: function(data) {
                 console.log(data)
 
+                let tableBody = '';
+
+                for (let i = 0; i < data.length; i++) {
+                    tableBody += `
+                <tr class="careListBox" data-index="${i}">
+                    <td>${data[i].title}</td>
+                    <td>${data[i].content}</td>
+                    <td>${data[i].price}</td>
+                </tr>
+            `;
+                }
+                $('#careTableBody').html(tableBody);
+
+
+
                 const imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png"; // 마커 이미지의 이미지 주소입니다
 
                 for (let i = 0; i < data.length; i++) {
@@ -324,7 +344,7 @@
 
                     let marker = new kakao.maps.Marker({
                         map: map,
-                        position: new kakao.maps.LatLng(data[i].longitude, data[i].latitude),
+                        position: new kakao.maps.LatLng(data[i].latitude, data[i].longitude),
                         title : data[i].title,
                         image : markerImage,
                         clickable: true,
@@ -334,7 +354,7 @@
 
                     // 인포윈도우를 생성합니다
                     let infowindow = new kakao.maps.InfoWindow({
-                        position: new kakao.maps.LatLng(data[i].longitude, data[i].latitude),
+                        position: new kakao.maps.LatLng(data[i].latitude, data[i].longitude),
                         content : `<div>${data[i].title}</div><div>${data[i].content}</div><div>${data[i].price}</div>`,
                     });
 
@@ -348,7 +368,28 @@
                             infowindow.open(map, marker);
                         }
                     });
+
                 }
+                // 클릭 이벤트를 추가합니다
+                $('.careListBox').click(function() {
+                    const index = $(this).data('index');
+                    const clickedData = data[index];
+
+                    console.log(clickedData); // 클릭한 데이터에 대한 동작을 수행합니다
+                    var clickLatLng = new kakao.maps.LatLng(clickedData.latitude, clickedData.longitude);
+
+                    map.setCenter(clickLatLng); //클릭한 마커의 좌표를 중심좌표로 설정
+
+                });
+                $('.careListBox').hover(
+                    function() {
+                        $(this).addClass('hovered');
+                    },
+                    function() {
+                        $(this).removeClass('hovered');
+                    }
+                );
+
 
             }
         });
