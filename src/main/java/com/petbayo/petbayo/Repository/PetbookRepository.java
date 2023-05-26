@@ -1,6 +1,7 @@
 package com.petbayo.petbayo.Repository;
 
 import com.petbayo.petbayo.Model.Book;
+
 import java.util.List;
 
 public interface PetbookRepository {
@@ -9,12 +10,14 @@ public interface PetbookRepository {
 
     void bookCreate(Book item);
 
-    Book bookItem(int petId);
+    Book bookItem(Long petId);
 
     void bookUpdate(Book item);
 
     void bookDelete(int id);
 
     List<Book> searchBooks(String keyword, String category);
+
+
 
 }

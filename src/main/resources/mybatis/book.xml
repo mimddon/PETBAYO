@@ -14,9 +14,13 @@
         SELECT * FROM petbook
     </select>
 
-    <insert id="create" parameterType="com.petbayo.petbayo.Model.Book">
-        INSERT INTO petbook (pet_id, species, description)
-        VALUES (#{petId}, #{species}, #{description})
+    <insert id="create" parameterType="com.petbayo.petbayo.Model.Book"  useGeneratedKeys="true" keyProperty="petId">
+        INSERT INTO petbook (species, description)
+        VALUES (#{species}, #{description})
+
+        <selectKey keyProperty="petId" resultType="Long" order="AFTER">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
     </insert>
 
     <select id="item" resultType="com.petbayo.petbayo.Model.Book">

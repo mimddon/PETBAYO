@@ -7,11 +7,23 @@
     <link rel="stylesheet" type="text/css" href="/css/nav.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
+
     <style>
         .title {font-weight:bold;display:block;}
-        .hAddr {position:absolute;left:10px;top:10px;border-radius: 2px;background:#fff;background:rgba(255,255,255,0.8);z-index:1;padding:5px;}
+        .hAddr {position:absolute;left:3px;top:3px;border-radius: 3px;background:#fff;background:rgba(255,255,255,0.8);z-index:2;padding:5px;box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 2px 0px;}
+        .mAddr {cursor: pointer;width:32px;height:32px;position:absolute;right:3px;top:190px;border-radius: 3px;background-color: #ffffff;background-image: url("/img/myLocGo.svg");z-index:2;padding:5px;box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 2px 0px;}
         #centerAddr {display:block;margin-top:2px;font-weight: normal;}
         .bAddr {padding:5px;text-overflow: ellipsis;overflow: hidden;white-space: nowrap;}
+        .careListBox {
+            cursor: pointer;
+        }
+        .careListBox.hovered {
+            background-color: #3498db;
+        }
+        .custom-infowindow .custom-infowindow-close {
+            top: -1px;
+            right: -15px;
+        }
     </style>
 
 </head>
@@ -36,12 +48,9 @@
 
 </header>
 <main style="width: 1200px; margin: 0 auto">
-    <div style="width: 30%; float: left">
+    <div style="width: 30%;height:800px;float: left;border: 1px solid #000;">
         <div style="text-align: center; font-size: 24px;">
-
             <h2>추천 돌봄이</h2>
-
-
         </div>
         <div style="text-align: center; font-size: 24px;">
             <h2>일반 돌봄이</h2>
@@ -53,20 +62,20 @@
                     <th>Price</th>
                 </tr>
                 </thead>
-                <tbody>
-                <tr th:each="care:${care}">
-                    <td th:text="${care.title}"></td>
-                    <td th:text="${care.content}"></td>
-                    <td th:text="${care.price}"></td>
-                </tr>
+                <tbody id="careTableBody">
+
+
                 </tbody>
             </table>
         </div>
     </div>
     <div id="map" style="width:70%;height:800px;position:relative;overflow:hidden;">
-        <div class="hAddr" style="z-index: 2">
+        <div class="hAddr">
             <span class="title">주소</span>
             <span id="centerAddr"></span>
+        </div>
+        <div class="mAddr" id="myLocGo">
+            <div id="myLocCenter"></div>
         </div>
     </div>
 
@@ -85,9 +94,6 @@
         var centerPosition; // 중심좌표를 담을 객체
 
         var geocoder = new kakao.maps.services.Geocoder(); // 주소-좌표 변환 객체를 생성합니다
-
-        var cmMarker = new kakao.maps.Marker(), // 클릭한 위치를 표시할 마커입니다
-            cmInfowindow = new kakao.maps.InfoWindow({zindex:1}); // 클릭한 위치에 대한 주소를 표시할 인포윈도우입니다
 
         var myMarker = null;
         var myInfowindow = null;
@@ -164,15 +170,20 @@
             alert('이 브라우저는 위치 정보를 지원하지 않습니다.');
         }
 
-
-
         // 지도에 마커와 인포윈도우를 표시하는 함수입니다
         function displayMarker(myLatLng, message) {
+            const imageSrc = "/img/myLoc.svg"; // 마커 이미지의 이미지 주소입니다
+
+            let imageSize = new kakao.maps.Size(35, 35); //마커 이미지의 이미지 크기입니다
+
+            let markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize); // 마커 이미지를 생성합니다.
 
             // 마커를 생성합니다
             myMarker = new kakao.maps.Marker({
                 map: map,
-                position: myLatLng
+                image : markerImage,
+                position: myLatLng,
+                zIndex:3
             });
 
             var iwContent = message, // 인포윈도우에 표시할 내용
@@ -181,7 +192,8 @@
             // 인포윈도우를 생성합니다
             myInfowindow = new kakao.maps.InfoWindow({
                 content : iwContent,
-                removable : iwRemoveable
+                removable : iwRemoveable,
+                zIndex:3
             });
 
             // 인포윈도우를 마커위에 표시합니다
@@ -191,6 +203,9 @@
             map.setCenter(myLatLng);
 
         }
+
+        var cmMarker;
+        var cmInfowindow;
 
         // 지도를 클릭했을 때 클릭 위치 좌표에 대한 주소정보를 표시하도록 이벤트를 등록합니다
         kakao.maps.event.addListener(map, 'click', function(mouseEvent) {
@@ -205,6 +220,22 @@
 
                     var infoDiv = document.getElementById('centerAddr');
                     infoDiv.innerHTML = content;
+
+                    if(cmMarker) {
+                        cmMarker.setMap(null);
+                        cmInfowindow.setMap(null);
+                    }
+
+                    const cmImageSrc = "/img/myLoc.svg";
+                    const cmImageSize = new kakao.maps.Size(35, 35);
+                    const cmMarkerImage = new kakao.maps.MarkerImage(cmImageSrc, cmImageSize);
+
+                    cmMarker = new kakao.maps.Marker({
+                        map: map,
+                        image: cmMarkerImage,
+                        zIndex:3
+                    });
+                    cmInfowindow = new kakao.maps.InfoWindow({zIndex:3}); // 클릭한 위치에 대한 주소를 표시할 인포윈도우입니다
 
                     // 마커를 클릭한 위치에 표시합니다
                     cmMarker.setPosition(mouseEvent.latLng);
@@ -247,6 +278,12 @@
             createCircle(number);
 
         });
+
+        var myLocButton = document.getElementById('myLocGo');
+        myLocButton.addEventListener('click', function () {
+            map.setCenter(centerPosition);
+        });
+
 
         function searchDetailAddrFromCoords(coords, callback) {
             // 좌표로 법정동 상세 주소 정보를 요청합니다
@@ -306,13 +343,27 @@
         }
 
 
-
         $.ajax({
             type: 'GET',
             url: '/api/care',
             dataType: 'json',
             success: function(data) {
                 console.log(data)
+
+                let tableBody = '';
+
+                for (let i = 0; i < data.length; i++) {
+                    tableBody += `
+                <tr class="careListBox" data-index="${i}">
+                    <td>${data[i].title}</td>
+                    <td>${data[i].content}</td>
+                    <td>${data[i].price}</td>
+                </tr>
+            `;
+                }
+                $('#careTableBody').html(tableBody);
+
+
 
                 const imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png"; // 마커 이미지의 이미지 주소입니다
 
@@ -324,7 +375,7 @@
 
                     let marker = new kakao.maps.Marker({
                         map: map,
-                        position: new kakao.maps.LatLng(data[i].longitude, data[i].latitude),
+                        position: new kakao.maps.LatLng(data[i].latitude, data[i].longitude),
                         title : data[i].title,
                         image : markerImage,
                         clickable: true,
@@ -334,7 +385,7 @@
 
                     // 인포윈도우를 생성합니다
                     let infowindow = new kakao.maps.InfoWindow({
-                        position: new kakao.maps.LatLng(data[i].longitude, data[i].latitude),
+                        position: new kakao.maps.LatLng(data[i].latitude, data[i].longitude),
                         content : `<div>${data[i].title}</div><div>${data[i].content}</div><div>${data[i].price}</div>`,
                     });
 
@@ -348,7 +399,35 @@
                             infowindow.open(map, marker);
                         }
                     });
+                    //let numA = new kakao.maps.LatLng(data[i].latitude, data[i].longitude);
+
                 }
+                var numB = new kakao.maps.LatLng(data[3].latitude, data[3].longitude);
+                console.log(centerPosition);
+                console.log(numB);
+
+                let distanceA = kakao.maps.geometry.distance(centerPosition, numB);
+                console.log(distanceA);
+                // 클릭 이벤트를 추가합니다
+                $('.careListBox').click(function() {
+                    const index = $(this).data('index');
+                    const clickedData = data[index];
+
+                    console.log(clickedData); // 클릭한 데이터에 대한 동작을 수행합니다
+                    var clickLatLng = new kakao.maps.LatLng(clickedData.latitude, clickedData.longitude);
+
+                    map.setCenter(clickLatLng); //클릭한 마커의 좌표를 중심좌표로 설정
+
+                });
+                $('.careListBox').hover(
+                    function() {
+                        $(this).addClass('hovered');
+                    },
+                    function() {
+                        $(this).removeClass('hovered');
+                    }
+                );
+
 
             }
         });
@@ -358,7 +437,7 @@
     </script>
 
     <div class="mt-2">
-        <a href="/careCreate" class="btn btn-sm btn-primary">등록</a> <a href=".." class="btn btn-sm btn-warning">이전</a>
+        <a href="/careCreate" class="btn btn-sm btn-primary" style="width: 50px;">글쓰기</a>
     </div>
     <!-- 메인 컨텐츠 내용 -->
 

@@ -1,19 +1,42 @@
+header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: white;
+    padding: 10px;
+}
+
 .logo {
     background-image: url("logo.png");
     background-size: cover;
     width: 150px;
     height: 150px;
 }
+
 .menu {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
     display: flex;
     justify-content: center;
-    list-style: none;
-    padding: 0;
-    margin: 20px 0 0;
 }
 
 .menu li {
-    margin: 0 50px;
+    margin: 0 85px;
+}
+
+.menu li a {
+    text-decoration: none;
+    color: #333;
+    padding: 10px 15px;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+    font-family: "Spoqa Han Sans Neo", sans-serif;
+    background-color: white;
+}
+
+.menu li a:hover {
+    background-color: #ddd;
 }
 
 @media (max-width: 640px) {

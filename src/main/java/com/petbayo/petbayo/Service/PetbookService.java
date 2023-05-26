@@ -1,18 +1,15 @@
 package com.petbayo.petbayo.Service;
 
 import com.petbayo.petbayo.Model.Book;
-import com.petbayo.petbayo.Model.Care;
-import org.springframework.ui.Model;
-
 import java.util.List;
 
 public interface PetbookService {
 
     List<Book> bookList();
 
-    void bookCreate(Book item);
+    Long bookCreate(Book item);
 
-    Book bookItem(int petId);
+    Book bookItem(Long petId);
 
     void bookUpdate(Book item);
 

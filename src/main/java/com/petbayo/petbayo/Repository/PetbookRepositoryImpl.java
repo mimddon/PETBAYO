@@ -5,9 +5,6 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -29,7 +26,7 @@ public class PetbookRepositoryImpl implements PetbookRepository {
     }
 
     @Override
-    public Book bookItem(int petId) {
+    public Book bookItem(Long petId) {
         return sql.selectOne("book.item", petId);
     }
 
@@ -53,6 +50,8 @@ public class PetbookRepositoryImpl implements PetbookRepository {
         parameters.put("category", category);
         return sql.selectList("book.searchBooks", parameters);
     }
+
+
 
 
 }
