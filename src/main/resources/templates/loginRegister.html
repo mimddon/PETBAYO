@@ -7,6 +7,20 @@
     <title>PETBAYO</title>
     <script src="https://code.jquery.com/jquery-3.4.0.js"></script>
     <link rel="stylesheet" href="/css/loginRegister.css">
+    <script>
+        function showSelectedGender() {
+            var genderRadios = document.getElementsByName('gender');
+
+            for (var i = 0; i < genderRadios.length; i++) {
+                var radio = genderRadios[i];
+                if (radio.checked) {
+                    var genderText = radio.value === 'male' ? '남성' : '여성';
+                    alert(genderText + '을 선택하셨습니다');
+                    break;
+                }
+            }
+        }
+    </script>
 </head>
 <body>
 <div class="container">
@@ -24,8 +38,8 @@
         <div class="form signinform">
             <form method="POST" action="/">
                 <h3>Login</h3>
-                <input type="text" id="email" name="email" placeholder="Email" required>
-                <input type="password" id="pwd" name="pwd" placeholder="Password" required>
+                <input type="text" name="email" placeholder="Email" required>
+                <input type="password" name="pwd" placeholder="Password" required>
                 <input type="submit" value="Sign In">
                 <div class="find">
                     <a href="#">비밀번호 찾기</a>
@@ -35,16 +49,51 @@
             </form>
         </div>
         <div class="form signupform">
-            <form  name="register_form" method="POST" action="/">
+            <form  name="register_form" method="POST" action="/loginRegister">
                 <h3>Register</h3>
                 <div class="reg-e">
                     <input type="email" name="email" placeholder="Email" required>
-                    <button type="button" class="btn" onclick="checkEmail(true)">ATUH</button>
+                    <button type="button" class="btn-auth" onclick="checkEmail(true)">AUTH</button>
                 </div>
-                <input type="password" name="pwd" placeholder="Password" required>
-                <input type="text" name="nickname" placeholder="Nickname" required>
-                <input type="date" name="birth" required>
-                <input type="submit"  value="Sign Up">
+
+                <input type="password" name="pwd" id="pwd" placeholder="Password" onchange="isSame()" required>
+
+                <div class="reg-e">
+                    <input type="password" id="pwdChk" onchange="isSame()" placeholder="Confirm-Password" required>&nbsp;&nbsp;
+                    <span id="same"></span>
+                </div>
+
+                <div class="reg-e">
+                    <input type="text" name="nickname" placeholder="Nickname" required>
+                    <button type="button" class="btn" onclick="checkNickname(true)">AUTH</button>
+                </div>
+
+                <div>
+                    <script>
+                        function onlyNumber(){
+                            if(
+                                (event.keyCode > 47 && event.keyCode < 58 )
+                                || event.keyCode == 8
+                                || event.keyCode == 37
+                                || event.keyCode == 39
+                                || event.keyCode == 46
+                            ) {
+
+                            } else {
+                                event.returnValue = false;
+                            }
+                        }
+                    </script>
+                    <input type="text" name="birth" id="birth" maxlength="6" onkeydown="return onlyNumber();" placeholder="Birth  /  Example: 990101" required>
+
+                    <input type="radio" id="male" name="gender" value="male" class="radio-btn" required>
+                    <label for="male" class="btn-gender">남자</label>
+
+                    <input type="radio" id="female" name="gender" value="female" class="radio-btn" required>
+                    <label for="female" class="btn-gender">여자</label>
+                </div>
+
+                <input type="submit" value="Sign Up" onclick="register()">
             </form>
         </div>
     </div>
@@ -52,81 +101,149 @@
 <script src="/js/loginRegister.js"></script>
 
 <script>
-	let isCheck;
+let isEmailCheck = false;
+let isNicknameCheck = false;
 
-	function checkEmail(mode) {
-		if(document.register_form.email.value == "") {
-			alert("중복검사 전에 이메일을 입력 해 주세요");
-			return;
-		}
+function checkEmail(mode) {
+    const email = document.register_form.email.value;
 
-		if(mode)
-			checkEmail_Async();
-		else
-			checkEmail_Sync();
-	}
+    if (email === "") {
+        alert("중복검사 전에 이메일을 입력 해 주세요");
+        return;
+    }
 
-	function checkEmail_Async() {
-		const form = document.register_form;
+    if (mode) {
+        checkEmail_Async();
+    } else {
+        checkEmail_Sync();
+    }
+}
 
-		const xhr = new XMLHttpRequest();
+function checkEmail_Async() {
+    const form = document.register_form;
 
-		xhr.onreadystatechange = function() {
-			console.log(xhr.readyState);
+    const xhr = new XMLHttpRequest();
 
-			if(xhr.readyState == XMLHttpRequest.DONE) {
-				if(xhr.status == 200) {
-					const result = xhr.responseText;
-					console.log("응답: " + result);
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState === XMLHttpRequest.DONE) {
+            if (xhr.status === 200) {
+                const result = xhr.responseText;
+                console.log("응답: " + result);
 
-					if(result == "OK") {
-						isCheck = form.email.value;
-						alert("사용 가능한 이메일 입니다");
-					} else
-						alert("이미 사용중인 이메일 입니다");
-				}
-			}
-		};
+                if (result === "OK") {
+                    isEmailCheck = true;
+                    alert("사용 가능한 이메일 입니다");
+                } else {
+                    isEmailCheck = false;
+                    alert("이미 사용중인 이메일 입니다");
+                }
+            }
+        }
+    };
 
-		xhr.open("GET", "checkEmail/" + form.email.value, true);
+    xhr.open("GET", "checkEmail/" + form.email.value, true);
+    xhr.send();
+}
 
-		xhr.send();
-	}
+function checkNickname(mode) {
+    const nickname = document.register_form.nickname.value;
 
-	function register() {
-		const form = document.register_form;
+    if (nickname === "") {
+        alert("중복검사 전에 닉네임을 입력 해 주세요");
+        return;
+    }
 
-		if(isCheck != form.email.value) {
-			alert("이메일 중복 검사를 하셔야 합니다");
-			return;
-		}
+    if (mode) {
+        checkNickname_Async();
+    } else {
+        checkNickname_Sync();
+    }
+}
 
-		if(form.email.value == "") {
-			alert("이메일을 입력 해 주세요");
-			form.email.focus();
-			return;
-		}
+function checkNickname_Async() {
+    const form = document.register_form;
 
-		if(form.pwd.value == "") {
-			alert("비밀번호를 입력 해 주세요");
-			form.pwd.focus();
-			return;
-		}
+    const xhr = new XMLHttpRequest();
 
-		if(form.pwd_valid.value == "") {
-			alert("비밀번호 확인을 입력 해 주세요");
-			form.pwd_valid.focus();
-			return;
-		}
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState === XMLHttpRequest.DONE) {
+            if (xhr.status === 200) {
+                const result = xhr.responseText;
+                console.log("응답: " + result);
 
-		if(form.pwd.value != form.pwd_valid.value) {
-			alert("비밀번호가 일치하지 않습니다");
-			form.pwd.focus();
-			return;
-		}
+                if (result === "OK") {
+                    isNicknameCheck = true;
+                    alert("사용 가능한 닉네임 입니다");
+                } else {
+                    isNicknameCheck = false;
+                    alert("이미 사용중인 닉네임 입니다");
+                }
+            }
+        }
+    };
 
-		form.submit();
-	}
+    xhr.open("GET", "checkNickname/" + form.nickname.value, true);
+    xhr.send();
+}
+
+function register() {
+    const form = document.register_form;
+
+    if (!isEmailCheck) {
+        alert("이메일 중복 검사를 하셔야 합니다");
+        return;
+    }
+
+    if (!isNicknameCheck) {
+        alert("닉네임 중복 검사를 하셔야 합니다");
+        return;
+    }
+
+    if (form.email.value === "") {
+        alert("이메일을 입력 해 주세요");
+        form.email.focus();
+        return;
+    }
+
+    if (form.nickname.value === "") {
+        alert("닉네임을 입력 해 주세요");
+        form.nickname.focus();
+        return;
+    }
+
+    form.submit();
+}
+
 </script>
+
+<script>
+    var genderRadios = document.getElementsByName('gender');
+    for (var i = 0; i < genderRadios.length; i++) {
+        genderRadios[i].addEventListener('change', showSelectedGender);
+    }
+</script>
+
+<script>
+function isSame() {
+    var pwd = document.getElementById('pwd').value;
+
+    if (pwd.length < 6 || pwd.length > 16) {
+        alert('비밀번호는 6글자 이상, 16글자 이하만 이용 가능합니다.');
+        document.getElementById('pwd').value=document.getElementById('pwdChk').value='';
+        document.getElementById('same').innerHTML='';
+    }
+    if(document.getElementById('pwd').value!='' && document.getElementById('pwdChk').value!='') {
+        if(document.getElementById('pwd').value==document.getElementById('pwdChk').value) {
+            document.getElementById('same').innerHTML='비밀번호 일치';
+            document.getElementById('same').style.color='blue';
+        }
+        else {
+            document.getElementById('same').innerHTML='비밀번호 불일치';
+            document.getElementById('same').style.color='red';
+        }
+    }
+}
+</script>
+
 </body>
 </html>

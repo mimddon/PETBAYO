@@ -6,7 +6,9 @@ public interface UserService {
 
     boolean login(User user);
 
-    void register(User item);
+    boolean register(User item);
 
     boolean checkEmail(String email);
+
+    boolean checkNickname(String nickname);
 }
