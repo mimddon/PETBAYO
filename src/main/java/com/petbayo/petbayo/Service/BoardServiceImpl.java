@@ -3,7 +3,6 @@ package com.petbayo.petbayo.Service;
 import com.petbayo.petbayo.Model.Board;
 import com.petbayo.petbayo.Repository.BoardRepository;
 import com.petbayo.petbayo.pager.Pager;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -13,7 +12,6 @@ import java.util.List;
 public class BoardServiceImpl implements BoardService {
     private final BoardRepository boardRepository;
 
-    @Autowired
     public BoardServiceImpl(BoardRepository boardRepository) {
         this.boardRepository = boardRepository;
     }

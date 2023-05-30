@@ -17,30 +17,32 @@
             <th scope="col">작성일</th>
             <th scope="col">처리상태</th>
             <th scope="col">공개여부</th>
-
         </tr>
         </thead>
         <tbody>
-        <tr class="text-center" th:each="post : ${postList}">
+        <tr class="text-center" th:each="post : ${boardList}">
             <th scope="row">
                 <span th:text="${post.qsId}"></span>
             </th>
             <td>
-                <a th:href="@{'/post/' + ${post.qsId}}">
+                <a th:href="@{'/board/update/' + ${post.qsId}}">
                     <span th:text="${post.qsTitle}"></span>
                 </a>
             </td>
             <td>
-                <span th:text="${post.content}"></span>
+                <span th:text="${post.userId}"></span>
             </td>
             <td>
                 <span th:text="${#temporals.format(post.createdDate, 'yyyy-MM-dd HH:mm')}"></span>
             </td>
             <td>
-                <!-- 처리상태에 대한 로직을 여기에 추가하세요 -->
+                <span th:if="${post.process == 'PROCESSING'}">처리중</span>
+                <span th:if="${post.process == 'PENDING'}">대기중</span>
+                <span th:if="${post.process == 'COMPLETED'}">처리완료</span>
             </td>
             <td>
-                <!-- 공개여부에 대한 로직을 여기에 추가하세요 -->
+                <span th:if="${post.disclosure == 'OPEN'}">공개</span>
+                <span th:if="${post.disclosure == 'CLOSED'}">비공개</span>
             </td>
         </tr>
         </tbody>
@@ -48,7 +50,7 @@
     <div class="row">
         <div class="col-auto mr-auto"></div>
         <div class="col-auto">
-            <a class="btn btn-primary" th:href="@{/post}" role="button">글쓰기</a>
+            <a class="btn btn-primary" th:href="@{/board/add}" role="button">글쓰기</a>
         </div>
     </div>
 </div>

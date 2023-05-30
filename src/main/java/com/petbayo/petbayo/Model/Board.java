@@ -5,19 +5,33 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
+import javax.persistence.*;
 import java.util.Date;
 
+@Entity
 @Getter
 @Setter
 @ToString
 @NoArgsConstructor
 public class Board {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int qsId;
+
     private int userId;
+
+    @Column(length = 1000)
     private String content;
+
     private String qsTitle;
+
+    @Temporal(TemporalType.TIMESTAMP)
     private Date createdDate;
+
+    @Enumerated(EnumType.STRING)
     private Process process;
+
+    @Enumerated(EnumType.STRING)
     private Disclosure disclosure;
 
     public enum Process {
