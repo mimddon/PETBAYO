@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>게시판 - 목록</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css">
+</head>
+<body>
+<header th:insert="common/header.html"></header>
+<div class="container">
+    <table class="table">
+        <thead class="thead-light">
+        <tr class="text-center">
+            <th scope="col">번호</th>
+            <th scope="col">제목</th>
+            <th scope="col">작성자</th>
+            <th scope="col">작성일</th>
+            <th scope="col">처리상태</th>
+            <th scope="col">공개여부</th>
+
+        </tr>
+        </thead>
+        <tbody>
+        <tr class="text-center" th:each="post : ${postList}">
+            <th scope="row">
+                <span th:text="${post.qsId}"></span>
+            </th>
+            <td>
+                <a th:href="@{'/post/' + ${post.qsId}}">
+                    <span th:text="${post.qsTitle}"></span>
+                </a>
+            </td>
+            <td>
+                <span th:text="${post.content}"></span>
+            </td>
+            <td>
+                <span th:text="${#temporals.format(post.createdDate, 'yyyy-MM-dd HH:mm')}"></span>
+            </td>
+            <td>
+                <!-- 처리상태에 대한 로직을 여기에 추가하세요 -->
+            </td>
+            <td>
+                <!-- 공개여부에 대한 로직을 여기에 추가하세요 -->
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <div class="row">
+        <div class="col-auto mr-auto"></div>
+        <div class="col-auto">
+            <a class="btn btn-primary" th:href="@{/post}" role="button">글쓰기</a>
+        </div>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

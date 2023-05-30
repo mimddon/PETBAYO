@@ -32,7 +32,7 @@ public class MainController {
 
     @RequestMapping("/question")
     public String question() {
-        return "/Question/list";
+        return "/board/list";
     }
 
 }
