@@ -81,6 +81,12 @@
       <input id="description" name="description" type="text" class="form-control" th:value="${description}">
     </div>
 
+
+    <div class="form-group mt-2">
+      <label>작성자</label>
+      <input id="writer" name="writer" type="text" class="form-control" th:value="${writer}">
+    </div>
+
     <tr>
       <th>첨부파일</th>
       <td colspan="3">
@@ -89,7 +95,7 @@
             <div class="file_input">
               <input type="text" readonly />
               <label> 첨부파일
-                <input id="file" type="file" name="files" onchange="selectFile(this);"/>
+                <input id="file" type="file" name="files" onchange="selectFile(this);" th:value="${files}"/>
               </label>
             </div>
             <button type="button" onclick="removeFile(this);" class="btns del_btn"><span>삭제</span></button>

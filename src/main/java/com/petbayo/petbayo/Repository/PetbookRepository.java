@@ -10,11 +10,11 @@ public interface PetbookRepository {
 
     void bookCreate(Book item);
 
-    Book bookItem(Long petId);
+    Book bookItem(int petId);
 
     void bookUpdate(Book item);
 
-    void bookDelete(int id);
+    void bookDelete(int petId);
 
     List<Book> searchBooks(String keyword, String category);
 

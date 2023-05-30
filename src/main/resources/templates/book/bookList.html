@@ -44,7 +44,7 @@
                        placeholder="검색어를 입력하세요">
                 <button id="search-button">검색</button>
             </div>
-
+            <!--search-category-container 부분 지우면 오류뜸 원인찾기 -->
             <div class="search-category-container">
                 <select id="search-category" name="category">
                     <option value="all" selected>전체</option>
@@ -68,6 +68,7 @@
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title" th:text="${book.species}"></h5>
+                        <p class="card-text" th:text="${book.writer}"></p>
                         <button type="button" class="btn btn-primary"
                                 data-toggle="modal" th:data-target="'#modal' + ${book.petId}">상세보기</button>
                         <button class="btn btn-primary" data-toggle="modal">
@@ -83,6 +84,7 @@
         <div class="card">
             <div class="card-body">
                 <h5 class="card-title" th:text="${book.species}"></h5>
+                <p class="card-text" th:text="${book.writer}"></p>
                 <button type="button" class="btn btn-primary" data-toggle="modal"
                         th:data-target="'#modal' + ${book.petId}">상세보기
                 </button>
@@ -104,6 +106,7 @@
                 <div class="modal-content" >
                     <div class="modal-header">
                         <h5 class="modal-title" th:text="${book.species}"></h5>
+                        <p class="card-text" th:text="${book.writer}"></p>
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                     </div>
                     <div class="modal-body">
