@@ -5,7 +5,6 @@ import com.petbayo.petbayo.Repository.BoardRepository;
 import com.petbayo.petbayo.pager.Pager;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
 import java.util.List;
 
 @Service
@@ -23,9 +22,10 @@ public class BoardServiceImpl implements BoardService {
 
     @Override
     public void add(Board item) {
-        item.setCreatedDate(new Date());
+        item.setCreatedDate();
         boardRepository.save(item);
     }
+
 
     @Override
     public Board getBoardById(int qsId) {

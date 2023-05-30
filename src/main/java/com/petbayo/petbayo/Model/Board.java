@@ -50,4 +50,7 @@ public class Board {
         this.qsTitle = req.getQsTitle();
         this.process = req.getProcess();
     }
+    public void setCreatedDate() {
+        this.createdDate = new Date();
+    }
 }

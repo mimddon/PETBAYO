@@ -32,9 +32,10 @@
             <td>
                 <span th:text="${post.userId}"></span>
             </td>
-
             <td>
-            <span th:text="${#dates.format(board.createdDate, 'yyyy-MM-dd HH:mm')}"> </span>
+                <span th:text="${#dates.format(post.createdDate, 'yyyy-MM-dd HH:mm')}"></span>
+            </td>
+            <td>
                 <span th:if="${post.process == 'PROCESSING'}">처리중</span>
                 <span th:if="${post.process == 'PENDING'}">대기중</span>
                 <span th:if="${post.process == 'COMPLETED'}">처리완료</span>
