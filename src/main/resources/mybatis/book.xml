@@ -3,22 +3,25 @@
 
 <mapper namespace="book">
 
-    <resultMap id="BookResultMap" type="com.petbayo.petbayo.Model.Book">
+    <resultMap id="BookResultMap" type="com.petbayo.petbayo.Model.Book" autoMapping="true">
         <id column="pet_id" property="petId"/>
         <result column="species" property="species"/>
         <result column="description" property="description"/>
-        <result column="image" property="image"/>
+        <result column="writer" property="writer"/>
+
     </resultMap>
+
+
 
     <select id="bookList" resultMap="BookResultMap">
         SELECT * FROM petbook
     </select>
 
     <insert id="create" parameterType="com.petbayo.petbayo.Model.Book"  useGeneratedKeys="true" keyProperty="petId">
-        INSERT INTO petbook (species, description)
-        VALUES (#{species}, #{description})
+        INSERT INTO petbook (species, description, writer)
+        VALUES (#{species}, #{description}, #{writer})
 
-        <selectKey keyProperty="petId" resultType="Long" order="AFTER">
+        <selectKey keyProperty="petId" resultType="Integer" order="AFTER">
             SELECT LAST_INSERT_ID()
         </selectKey>
     </insert>
@@ -30,7 +33,7 @@
 
     <update id="update" parameterType="com.petbayo.petbayo.Model.Book">
         UPDATE petbook
-        SET  species = #{species}, description = #{description}
+        SET  species = #{species}, description = #{description}, writer = #{writer}
         WHERE pet_id = #{petId}
     </update>
 

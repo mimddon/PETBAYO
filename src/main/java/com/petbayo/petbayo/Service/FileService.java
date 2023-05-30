@@ -16,7 +16,7 @@ public class FileService {
 
 
     @Transactional
-    public void saveFiles(final Long petId, final List<FileRequest> files) {
+    public void saveFiles(final int petId, final List<FileRequest> files) {
         if (CollectionUtils.isEmpty(files)) {
             return;
         }
@@ -25,5 +25,7 @@ public class FileService {
         }
         fileMapper.saveAll(files);
     }
+
+
 
 }

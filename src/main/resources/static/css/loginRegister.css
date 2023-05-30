@@ -171,7 +171,17 @@ a{
     font-weight: 500;
     border: none;
     cursor: pointer;
-    transform: translateY(2%)
+}
+
+.btn-auth{
+    padding: 10.5px 41.5px;
+    background: #acacac;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 500;
+    border: none;
+    cursor: pointer;
+    transform: translateY(2%);
 }
 
 .gender-buttons {
@@ -190,10 +200,6 @@ a{
     padding: 5px 20px;
     transform:translateY(-30%);
     transition: background-color 0.3s ease;
-}
-
-.gender-button:hover {
-    background-color: #ddd;
 }
 
 .radio-btn {
@@ -217,4 +223,14 @@ a{
 }
 .reg-e{
     white-space: nowrap;
+}
+
+.btn-gender{
+    padding: 11px 14.8px;
+    background: #acacac;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 500;
+    border: none;
+    cursor: pointer;
 }

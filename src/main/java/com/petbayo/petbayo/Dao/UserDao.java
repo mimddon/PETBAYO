@@ -6,7 +6,9 @@ public interface UserDao {
 
     User login(User user);
 
-    void register(User item);
+    boolean register(User item);
 
     int checkEmail(String email);
+
+    int checkNickname(String nickname);
 }

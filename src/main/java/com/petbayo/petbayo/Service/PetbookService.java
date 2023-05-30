@@ -7,13 +7,13 @@ public interface PetbookService {
 
     List<Book> bookList();
 
-    Long bookCreate(Book item);
+    void bookCreate(Book item);
 
-    Book bookItem(Long petId);
+    Book bookItem(int petId);
 
     void bookUpdate(Book item);
 
-    void bookDelete(int id);
+    void bookDelete(int petId);
     List<Book> searchBooks(String keyword, String category);
 
 

@@ -12,6 +12,7 @@ import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 
 import javax.servlet.http.HttpServletRequest;
@@ -21,6 +22,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -28,7 +30,7 @@ import java.util.Map;
 @Controller
 public class PetbookController {
 
-    private final String uploadPath = Paths.get("C:", "develop", "upload-files").toString();
+    private final String uploadPath = Paths.get("/images").toString();
 
     @Autowired
     private final FileService fileService;
@@ -59,11 +61,12 @@ public class PetbookController {
     }
 
     @PostMapping("/bookCreate")
-    public String add(final Book item, Model model) {
-        Long id = bookService.bookCreate(item);
-        List<FileRequest> files = fileUtils.uploadFiles(item.getFiles());
-        fileService.saveFiles(id, files);
+    public String add(Book item, Model model) {
 
+
+        bookService.bookCreate(item);
+        List<FileRequest> files = fileUtils.uploadFiles(item.getFiles());
+        fileService.saveFiles(item.getPetId(), files);
         return "redirect:/book/bookList";
     }
 
@@ -76,7 +79,7 @@ public class PetbookController {
 
 
     @GetMapping("/book/update/{petId}")
-    public String bookUpdate(@PathVariable Long petId, Model model) {
+    public String bookUpdate(@PathVariable int petId, Model model) {
         Book item = bookService.bookItem(petId);
         model.addAttribute("item", item);
         return "book/bookUpdate";

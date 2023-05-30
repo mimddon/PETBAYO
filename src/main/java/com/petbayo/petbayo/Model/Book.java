@@ -9,19 +9,31 @@ import java.util.List;
 
 
 public class Book {
-    private Long petId;
 
-    public Long getPetId() {
+    public int getPetId() {
         return petId;
     }
 
-    public void setPetId(Long petId) {
+    public void setPetId(int petId) {
         this.petId = petId;
     }
+
+    private int petId;
 
     private String species;
 
     private String description;
+
+    private String writer;
+
+
+    public String getWriter() {
+        return writer;
+    }
+
+    public void setWriter(String writer) {
+        this.writer = writer;
+    }
 
     private List<MultipartFile> files = new ArrayList<>();
 
