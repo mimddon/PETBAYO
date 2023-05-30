@@ -19,33 +19,33 @@ public class BoardController {
         this.boardService = boardService;
     }
 
-    @GetMapping("/list")
+    @GetMapping("/board/list")
     public String list(Pager pager, Model model) {
         List<Board> boardList = boardService.list(pager);
         model.addAttribute("boardList", boardList);
         return "board/list";
     }
 
-    @GetMapping("/add")
+    @GetMapping("/board/add")
     public String add(Model model) {
         model.addAttribute("board", new Board());
         return "board/add";
     }
 
-    @PostMapping("/add")
+    @PostMapping("/board/add")
     public String post(Board item) {
         boardService.add(item);
         return "redirect:/board/list";
     }
 
-    @GetMapping("/update/{qsId}")
+    @GetMapping("/board/update/{qsId}")
     public String update(@PathVariable int qsId, Model model) {
         Board board = boardService.getBoardById(qsId);
         model.addAttribute("board", board);
         return "board/update";
     }
 
-    @PostMapping("/update/{qsId}")
+    @PostMapping("/board/update/{qsId}")
     public String update(@PathVariable int qsId, Board item) {
         item.setQsId(qsId);
         boardService.update(item);
