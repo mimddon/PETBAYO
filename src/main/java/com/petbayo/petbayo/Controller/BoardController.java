@@ -26,13 +26,13 @@ public class BoardController {
         return "board/list";
     }
 
-    @GetMapping("/board/add")
+    @GetMapping("/add")
     public String add(Model model) {
         model.addAttribute("board", new Board());
         return "board/add";
     }
 
-    @PostMapping("/board/add")
+    @PostMapping("/add")
     public String post(Board item) {
         boardService.add(item);
         return "redirect:/board/list";

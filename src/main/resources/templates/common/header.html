@@ -1,16 +1,62 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PetBayo</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css">
+    <style>
+        .navbar {
+            min-height: 80px;
+        }
+        .navbar-brand {
+            height: 100%;
+            display: flex;
+            align-items: center;
+        }
+        .navbar-brand img {
+            max-height: 100%;
+            margin-right: 10px;
+        }
+        .navbar-nav {
+            margin-left: 100px;
+            justify-content: center;
+        }
+        .navbar-nav .nav-link {
+            margin-right: 120px;
+        }
+        .navbar-nav .btn-group {
+            margin-right: 20px;
+        }
+    </style>
 </head>
 <body>
-<div class="navbar navbar-dark bg-dark shadow-sm mb-3">
-    <div class="container d-flex justify-content-between">
-        <a href="/" class="navbar-brand d-flex align-items-center">
-            <strong>게시판</strong>
+<nav class="navbar navbar-expand-lg navbar-white bg-white shadow-sm mb-3">
+    <div class="container">
+        <a href="/" class="navbar-brand">
+            <img src="/img/logo.png" alt="PetBayo Logo">
         </a>
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="#">PetBook</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">PetCare</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">CP Rank</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Board</a>
+            </li>
+        </ul>
+        <div class="btn-group">
+            <a class="btn btn-primary" href="#">Login</a>
+            <a class="btn btn-success" href="#">Signup</a>
+        </div>
     </div>
-</div>
+</nav>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
