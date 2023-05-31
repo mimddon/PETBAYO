@@ -19,45 +19,53 @@
             margin-right: 10px;
         }
         .navbar-nav {
-            margin-left: 100px;
-            justify-content: center;
+            margin-right: 600px;
         }
         .navbar-nav .nav-link {
-            margin-right: 120px;
             color: rgba(0, 0, 0, 0.8); /* 옅은 검은색으로 설정 */
-        }
-        .navbar-nav .btn-group {
-            margin-right: 20px;
-        }
-        .btn-group{
-
+            width: 110px;
+            font-size: 10pt;
         }
 
+        .btn-group a {
+            background-color: transparent; /* 배경색을 투명하게 설정 */
+            color: black; /* 글씨 색상은 검은색으로 설정 */
+            text-decoration: none; /* 밑줄 제거 */
+            transition: background-color 0.7s ease; /* 배경색 변경에 애니메이션 적용 */
+            outline: none !important;
+            box-shadow: none !important;
+            border: none;
+        }
+
+        .btn-group a:hover,
+        .btn-group a:focus {
+            background-color: lightblue; /* 마우스를 올렸거나 포커스된 상태에서의 배경색 */
+        }
     </style>
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-black bg-white shadow-sm mb-3">
     <div class="container">
-        <a href="/" class="navbar-brand">
-            <img src="/img/logo.png" alt="PetBayo Logo">
+        <a href="/" class="navbar-brand" >
+            <img src="/img/logo2.png" alt="PetBayo Logo" style="width: 70px;">
         </a>
         <ul class="navbar-nav mr-auto">
             <li class="nav-item">
-                <a class="nav-link" href="#">PetBook</a>
+                <a class="nav-link" href="#">PETBOOK</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">PetCare</a>
+                <a class="nav-link" href="#">PETCARE</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">CP Rank</a>
+                <a class="nav-link" href="#">CP RANK</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Board</a>
+                <a class="nav-link" href="#">BOARD</a>
             </li>
         </ul>
         <div class="btn-group">
-            <a class="btn btn-primary" href="#">Login</a>
-            <a class="btn btn-success" href="#">Signup</a>
+            <a class="btn btn-primary" href="#" style="font-size: 11px">Login</a>
+            <a class="btn btn-success" href="#" style="font-size: 11px" >Signup</a>
             <!--로그인 성공을 하면  마이페이지/로그아웃 뜨게 구현-->
         </div>
     </div>
