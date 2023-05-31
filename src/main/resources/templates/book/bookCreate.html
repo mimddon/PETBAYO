@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" >
 <head>
   <meta charset="UTF-8">
   <title>Title</title>
@@ -14,6 +14,60 @@
     <h3>펫 종 등록</h3>
   </div>
 
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+    }
+
+    .container {
+      width: 600px;
+      margin: 0 auto;
+    }
+
+    h3 {
+      color: #333;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .file_input input[type="text"] {
+      width: 200px;
+    }
+
+    .file_list {
+      margin-bottom: 20px;
+    }
+
+    .btns {
+      margin-right: 10px;
+    }
+
+    .btns span {
+      font-weight: bold;
+    }
+
+    .btn-primary {
+      background-color: #007bff;
+      border-color: #007bff;
+    }
+
+    .btn-primary:hover {
+      background-color: #0069d9;
+      border-color: #0062cc;
+    }
+
+    .btn-secondary {
+      background-color: #6c757d;
+      border-color: #6c757d;
+    }
+
+    .btn-secondary:hover {
+      background-color: #5a6268;
+      border-color: #545b62;
+    }
+  </style>
   <script>
     function selectFile(element) {
 
@@ -71,39 +125,35 @@
 
   <form id="saveForm" method="post" autocomplete="off" enctype="multipart/form-data">
     <div class="form-group mt-2">
-      <label >종:</label>
-      <input id="species" name="species" type="text" class="form-control" th:value="${species}" >
+      <label for="species">종:</label>
+      <input id="species" name="species" type="text" class="form-control" th:value="${species}" placeholder="펫 종을 입력해주세요.">
     </div>
-
 
     <div class="form-group mt-2">
-      <label>설명</label>
-      <input id="description" name="description" type="text" class="form-control" th:value="${description}">
+      <label for="description">설명:</label>
+      <textarea id="description" name="description" class="form-control" th:value="${description}" placeholder="펫에 대한 설명을 입력해주세요."></textarea>
     </div>
-
 
     <div class="form-group mt-2">
-      <label>작성자</label>
-      <input id="writer" name="writer" type="text" class="form-control" th:value="${writer}">
+      <label for="writer">작성자:</label>
+      <input id="writer" name="writer" type="text" class="form-control" th:value="${writer}" placeholder="작성자를 입력해주세요.">
     </div>
 
-    <tr>
-      <th>첨부파일</th>
-      <td colspan="3">
-        <div class="file_list">
-          <div>
-            <div class="file_input">
-              <input type="text" readonly />
-              <label> 첨부파일
-                <input id="file" type="file" name="files" onchange="selectFile(this);" th:value="${files}"/>
-              </label>
-            </div>
-            <button type="button" onclick="removeFile(this);" class="btns del_btn"><span>삭제</span></button>
-            <button type="button" onclick="addFile();" class="btns fn_add_btn"><span>파일 추가</span></button>
+    <div class="form-group mt-3">
+      <label for="file">첨부파일:</label>
+      <div class="file_list">
+        <div>
+          <div class="file_input">
+            <input type="text" readonly />
+            <label> 첨부파일
+              <input id="file" type="file" name="files" onchange="selectFile(this);" th:value="${files}" />
+            </label>
           </div>
+          <button type="button" onclick="removeFile(this);" class="btns del_btn"><span>삭제</span></button>
+          <button type="button" onclick="addFile();" class="btns fn_add_btn"><span>파일 추가</span></button>
         </div>
-      </td>
-    </tr>
+      </div>
+    </div>
 
     <div class="form-group mt-3">
       <button type="submit" class="btn btn-sm btn-primary">등록</button>
