@@ -30,9 +30,9 @@ public class MainController {
         return "/login";
     }
 
-    @RequestMapping("/question")
-    public String question() {
-        return "/Question/list";
+    @RequestMapping("/board/list")
+    public String board() {
+        return "/board/list";
     }
 
 }
