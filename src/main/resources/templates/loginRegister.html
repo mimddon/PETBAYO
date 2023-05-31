@@ -7,20 +7,9 @@
     <title>PETBAYO</title>
     <script src="https://code.jquery.com/jquery-3.4.0.js"></script>
     <link rel="stylesheet" href="/css/loginRegister.css">
-    <script>
-        function showSelectedGender() {
-            var genderRadios = document.getElementsByName('gender');
 
-            for (var i = 0; i < genderRadios.length; i++) {
-                var radio = genderRadios[i];
-                if (radio.checked) {
-                    var genderText = radio.value === 'male' ? '남성' : '여성';
-                    alert(genderText + '을 선택하셨습니다');
-                    break;
-                }
-            }
-        }
-    </script>
+
+
 </head>
 <body>
 <div class="container">
@@ -36,7 +25,7 @@
     </div>
     <div class="form-box">
         <div class="form signinform">
-            <form method="POST" action="/">
+            <form method="POST" action="/login">
                 <h3>Login</h3>
                 <input type="text" name="email" placeholder="Email" required>
                 <input type="password" name="pwd" placeholder="Password" required>
@@ -49,7 +38,7 @@
             </form>
         </div>
         <div class="form signupform">
-            <form  name="register_form" method="POST" action="/loginRegister">
+            <form name="register_form" method="POST" action="/register">
                 <h3>Register</h3>
                 <div class="reg-e">
                     <input type="email" name="email" placeholder="Email" required>
@@ -86,11 +75,32 @@
                     </script>
                     <input type="text" name="birth" id="birth" maxlength="6" onkeydown="return onlyNumber();" placeholder="Birth  /  Example: 990101" required>
 
-                    <input type="radio" id="male" name="gender" value="male" class="radio-btn" required>
+                    <script>
+                        function showSelectedGender() {
+                            var maleRadioButton = document.getElementById('male');
+                            var femaleRadioButton = document.getElementById('female');
+                            var maleLabel = document.querySelector('label[for="male"]');
+                            var femaleLabel = document.querySelector('label[for="female"]');
+
+                            maleRadioButton.addEventListener('change', function() {
+                                maleLabel.classList.add('gender-active');
+                                femaleLabel.classList.remove('gender-active');
+                            });
+
+                            femaleRadioButton.addEventListener('change', function() {
+                                maleLabel.classList.remove('gender-active');
+                                femaleLabel.classList.add('gender-active');
+                            });
+                        }
+
+                    </script>
+
+                    <input type="radio" id="male" name="gender" value="0" class="radio-btn" required onclick="showSelectedGender()">
                     <label for="male" class="btn-gender">남자</label>
 
-                    <input type="radio" id="female" name="gender" value="female" class="radio-btn" required>
+                    <input type="radio" id="female" name="gender" value="1" class="radio-btn" required onclick="showSelectedGender()">
                     <label for="female" class="btn-gender">여자</label>
+
                 </div>
 
                 <input type="submit" value="Sign Up" onclick="register()">
@@ -215,14 +225,6 @@ function register() {
 }
 
 </script>
-
-<script>
-    var genderRadios = document.getElementsByName('gender');
-    for (var i = 0; i < genderRadios.length; i++) {
-        genderRadios[i].addEventListener('change', showSelectedGender);
-    }
-</script>
-
 <script>
 function isSame() {
     var pwd = document.getElementById('pwd').value;

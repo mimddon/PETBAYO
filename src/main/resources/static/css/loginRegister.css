@@ -207,6 +207,10 @@ a{
     left: -9999px;
 }
 
+ .gender-active {
+     background-color: midnightblue!important;
+ }
+
 .input-wrapper {
     position: relative;
 }
