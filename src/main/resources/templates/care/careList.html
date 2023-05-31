@@ -1,17 +1,20 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>PetBayo</title>
+    <title>PETCARE</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="/css/nav.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 
     <style>
-        a {
-            color: inherit;
-            text-decoration: none;
+        .goBook {
+            text-decoration: none; /* 밑줄 제거 */
+            color: inherit; /* 부모 요소의 색상 상속 */
+        }
+        .goBook:hover {
+            text-decoration: none; /* 밑줄 제거 */
+            color: #35b0ff; /* 호버 시에 변경할 색상 설정 */
         }
         .title {font-weight:bold;display:block;}
         .hAddr {position:absolute;left:3px;top:3px;border-radius: 3px;background:#fff;background:rgba(255,255,255,0.8);z-index:2;padding:5px;box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 2px 0px;}
@@ -25,7 +28,7 @@
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             height: 80px;
             box-sizing: border-box;
-
+            font-size: 12pt;
         }
         .careListBox.hovered {
             outline: 2px solid #35b0ff;
@@ -35,44 +38,44 @@
             top: -1px;
             right: -15px;
         }
+        .careListBoxTd {
+            width: 33%;
+        }
     </style>
 
 </head>
 <body>
-<header>
-
-
-</header>
-<div style="width: 100%; background-color: aliceblue;">
-    <h2 style="margin: 0 auto; max-width: 1200px;padding: 30px;">돌봄이를 찾아보세요</h2>
+<header th:insert="common/header.html"></header>
+<div style="margin-bottom:150px;width: 100%;height: 900px; background-image: url('/img/care1.png');">
+    <h3 style="margin: 0 auto; max-width: 1200px;padding: 30px;">돌봄이를 찾아보세요</h3>
     <div style="margin: 0 auto; max-width: 1200px; padding: 40px;">
-        <a href="/book/bookList" style="background-color: #fffdce; width: 200px;font-size: 16pt;padding: 15px;">반려동물의 특성 알아보기</a>
+        <a class="goBook" href="/book/bookList" style="background-color: #fffdce; width: 200px;font-size: 14pt;padding: 15px;">반려동물의 특성 알아보기</a>
     </div>
 </div>
 <main style="width: 1200px; margin: 0 auto;">
     <div style="width: 30%;height:800px;float: left;box-shadow: -1px 1px 0 0.05rem rgba(0,0,0,0.2);overflow: auto">
         <div style="text-align: center; font-size: 24px;">
-            <h2 style="padding-top: 10px; margin-top: 10px;">추천 돌봄이</h2>
+            <h4 style="padding-top: 10px; margin-top: 10px;font-size: 20px;">추천 돌봄이</h4>
             <table style="width:100%;">
                 <thead>
-                <tr>
+                <tr style="font-size: 18px;">
                     <th>Title</th>
                     <th>Content</th>
                     <th>Price</th>
                 </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td colspan="3">추천돌봄이가 없습니다.</td>
+                    <tr class="careListBox" style="font-size: 12pt;">
+                        <td style="cursor: auto;" colspan="3">추천돌봄이가 없습니다.</td>
                     </tr>
                 </tbody>
             </table>
         </div>
         <div style="text-align: center; font-size: 24px;">
-            <h2>일반 돌봄이</h2>
+            <h4 style="padding-top: 10px; margin-top: 10px; font-size: 20px;">일반 돌봄이</h4>
             <table style="width:100%;">
                 <thead>
-                <tr>
+                <tr style="font-size: 18px;">
                     <th>Title</th>
                     <th>Content</th>
                     <th>Price</th>
@@ -370,9 +373,9 @@
                 for (let i = 0; i < data.length; i++) {
                     tableBody += `
                 <tr class="careListBox" data-index="${i}">
-                    <td>${data[i].title}</td>
-                    <td>${data[i].content}</td>
-                    <td>${data[i].price}</td>
+                    <td class="careListBoxTd">${data[i].title}</td>
+                    <td class="careListBoxTd">${data[i].content}</td>
+                    <td class="careListBoxTd">${data[i].price}</td>
                 </tr>
             `;
                 }
@@ -453,7 +456,7 @@
     </script>
 
     <div class="mt-2">
-        <a href="/careCreate" class="btn btn-sm btn-primary" style="width: 50px;">글쓰기</a>
+        <a href="/careCreate" class="btn btn-sm btn-primary" style="width: 70px;">글쓰기</a>
     </div>
     <!-- 메인 컨텐츠 내용 -->
 
