@@ -35,7 +35,6 @@
 </nav>
 
 <div class="container">
-    <h1>PETBOOK</h1>
 
     <form action="/book/search" method="get">
         <div class="search-container">
@@ -68,7 +67,7 @@
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title" th:text="${book.species}"></h5>
-                        <p class="card-text" th:text="${book.writer}"></p>
+                        <p class="card-text" th:text="'작성자: ' + ${book.writer}"></p>
                         <button type="button" class="btn btn-primary"
                                 data-toggle="modal" th:data-target="'#modal' + ${book.petId}">상세보기</button>
                         <button class="btn btn-primary" data-toggle="modal">
@@ -80,11 +79,11 @@
         </div>
     </div>
     <!-- 검색 결과 게시글 -->
-    <div class="col-md-4" th:each="book : ${searchResults}">
+    <div class="col-md-4" th:each="book : ${searchResults}" >
         <div class="card">
             <div class="card-body">
                 <h5 class="card-title" th:text="${book.species}"></h5>
-                <p class="card-text" th:text="${book.writer}"></p>
+                <p class="card-text" th:text="'작성자: ' + ${book.writer}"></p>
                 <button type="button" class="btn btn-primary" data-toggle="modal"
                         th:data-target="'#modal' + ${book.petId}">상세보기
                 </button>
@@ -101,15 +100,16 @@
 
     <!--모달창 -->
     <div th:each="book : ${book}">
-        <div class="modal fade" th:id="'modal' + ${book.petId}">
-            <div class="modal-dialog modal-lg" >
+        <div class="modal fade"  th:id="'modal' + ${book.petId}">
+            <div class="modal-dialog modal-lg modal-dialog-centered" >
                 <div class="modal-content" >
                     <div class="modal-header">
                         <h5 class="modal-title" th:text="${book.species}"></h5>
-                        <p class="card-text" th:text="${book.writer}"></p>
+
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                     </div>
                     <div class="modal-body">
+                        <p class="card-text">작성자: <span th:text="${book.writer}"></span></p>
                         <p th:text="${book.description}"> </p>
                         <a th:href="@{/book/update/{id}(id=${book.petId})}">수정</a>
                     </div>

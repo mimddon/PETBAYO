@@ -33,14 +33,16 @@ dependencies {
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.3.0'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-mail'
+    implementation group: 'com.sun.mail', name: 'jakarta.mail', version: '2.0.1'
+    implementation 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect'
     compileOnly 'org.projectlombok:lombok'
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
     runtimeOnly 'org.mariadb.jdbc:mariadb-java-client'
     annotationProcessor 'org.projectlombok:lombok'
     compileOnly 'org.springframework.boot:spring-boot-starter-tomcat'
     providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat:'
-    implementation 'org.springframework.boot:spring-boot-starter-mail'
-    implementation group: 'com.sun.mail', name: 'jakarta.mail', version: '2.0.1'
+
 }
 
 tasks.named('test') {
