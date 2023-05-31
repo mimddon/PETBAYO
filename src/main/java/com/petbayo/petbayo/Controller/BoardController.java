@@ -19,21 +19,23 @@ public class BoardController {
         this.boardService = boardService;
     }
 
-    @GetMapping("/board/list")
-    public String list(Pager pager, Model model) {
+    @GetMapping("/board/listPage")
+    public String listPage(Model model) {
+        Pager pager = new Pager(1, 10);  // Pager 객체 생성 및 초기화
         List<Board> boardList = boardService.list(pager);
         model.addAttribute("boardList", boardList);
         return "board/list";
     }
 
+
     @GetMapping("/add")
     public String add(Model model) {
-        model.addAttribute("board", new Board());
+        model.addAttribute("item", new Board());
         return "board/add";
     }
 
     @PostMapping("/add")
-    public String post(Board item) {
+    public String post(@ModelAttribute("item") Board item) {
         boardService.add(item);
         return "redirect:/board/list";
     }
