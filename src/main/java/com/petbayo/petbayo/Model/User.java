@@ -10,4 +10,5 @@ public class User {
     private String nickname;
     private String birth;
     private int gender;
+    private int grade;
 }

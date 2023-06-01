@@ -10,6 +10,7 @@
         <result property="nickname" column="nickname"/>
         <result property="birth" column="birth"/>
         <result property="gender" column="gender"/>
+        <result property="grade" column="grade"/>
     </resultMap>
 
     <select id="login" resultMap="userResultMap">
@@ -18,8 +19,8 @@
     </select>
 
     <insert id="register" parameterType="com.petbayo.petbayo.Model.User">
-        INSERT INTO users (user_id, email, pwd, nickname, birth, gender)
-        VALUES (#{userId}, #{email}, #{pwd}, #{nickname}, #{birth}, #{gender})
+        INSERT INTO users (user_id, email, pwd, nickname, birth, gender, grade)
+        VALUES (#{userId}, #{email}, #{pwd}, #{nickname}, #{birth}, #{gender}, #{grade})
     </insert>
 
     <select id="checkEmail" parameterType="String" resultType="int">
