@@ -2,14 +2,47 @@
 <head>
     <meta charset="UTF-8" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css">
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+        }
+
+        .container h1 {
+            margin-bottom: 20px;
+        }
+
+        .container button {
+            margin-top: 20px;
+        }
+
+        .container video {
+            display: block;
+            object-fit: cover;
+            width: 100%;
+            height: 500px;
+            z-index: 1;
+        }
+    </style>
 </head>
 <body>
 <header th:insert="common/header.html"></header>
 <div class="container">
-    <a>
-        <img src="">
-    </a>
+    <h1>당신의 근처에서<br>애견돌봄이를 찾으세요</h1>
+
+    <div class="video">
+        <video loop muted autoplay playsinline webkit-playsinline="true" style="z-index: 20">
+            <button><p>찾아보기</p></button>
+    </div>
 </div>
+
 <header>
 
 </header>
