@@ -18,7 +18,7 @@ public class UserController {
     @Autowired
     UserService service;
 
-    @GetMapping("/login")
+    @GetMapping("/loginRegister")
     public String login() {
         return "loginRegister";
     }
@@ -37,9 +37,6 @@ public class UserController {
         } else {
             return "redirect:/login?error";
         }
-
-
-
         /*session.setAttribute("user", user);
 
         String targetUrl = (String) session.getAttribute("target_url");
@@ -54,10 +51,10 @@ public class UserController {
         }*/
     }
 
-    @GetMapping("/register")
+    /*@GetMapping("/register")
     public String register() {
         return "loginRegister";
-    }
+    }*/
     @PostMapping("/register")
     public String register(@RequestParam("email") String email, @RequestParam("pwd") String pwd, @RequestParam("nickname") String nickname, @RequestParam("birth") String birth, @RequestParam("gender") int gender) {
         User user = new User();
@@ -69,7 +66,7 @@ public class UserController {
 
         boolean success = service.register(user);
         if (success) {
-            return "redirect:/login";
+            return "redirect:/loginRegister";
         } else {
             return "redirect:/";
         }
