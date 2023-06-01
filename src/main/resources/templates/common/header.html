@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -63,10 +63,20 @@
                 <a class="nav-link" href="/board/list">BOARD</a>
             </li>
         </ul>
+        <!--<div class="btn-group">
+            <a class="btn btn-primary" href="/login" style="font-size: 11px">Login</a>
+            <a class="btn btn-success" href="/register" style="font-size: 11px" >Signup</a>
+            &lt;!&ndash;로그인 성공을 하면  마이페이지/로그아웃 뜨게 구현&ndash;&gt;
+        </div>-->
         <div class="btn-group">
-            <a class="btn btn-primary" href="/loginRegister" style="font-size: 11px">Login</a>
-            <a class="btn btn-success" href="/loginRegister" style="font-size: 11px" >Signup</a>
-            <!--로그인 성공을 하면  마이페이지/로그아웃 뜨게 구현-->
+            <th:block th:if="${session.user != null}">
+                <a class="btn btn-primary" href="/myPage" style="font-size: 11px">마이페이지</a>
+                <a class="btn btn-success" href="/logout" style="font-size: 11px">로그아웃</a>
+            </th:block>
+            <th:block th:if="${session.user == null}">
+                <a class="btn btn-primary" href="/login" style="font-size: 11px">Login</a>
+                <a class="btn btn-success" href="/register" style="font-size: 11px">Signup</a>
+            </th:block>
         </div>
     </div>
 </nav>

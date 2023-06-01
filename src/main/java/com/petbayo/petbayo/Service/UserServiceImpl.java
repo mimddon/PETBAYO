@@ -1,6 +1,7 @@
 package com.petbayo.petbayo.Service;
 
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.petbayo.petbayo.Dao.UserDao;
@@ -12,14 +13,19 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Service
 public class UserServiceImpl implements UserService {
 
+    @Autowired
     UserDao dao;
+
+    @Override
+    public boolean register(User item) {
+        return dao.register(item);
+    }
 
     @Override
     public boolean login(User user) {
         User item = dao.login(user);
 
         if(item != null) {
-
             user.setUserId(item.getUserId());
             user.setEmail(item.getEmail());
             user.setPwd(item.getPwd());
@@ -32,10 +38,7 @@ public class UserServiceImpl implements UserService {
             return false;
     }
 
-    @Override
-    public boolean register(User item) {
-        return dao.register(item);
-    }
+
 
     @Override
     public boolean checkEmail(String email) {
@@ -57,13 +60,13 @@ public class UserServiceImpl implements UserService {
         }
     }
 
-    @GetMapping("/mailCheck")
+    /*@GetMapping("/mailCheck")
     @ResponseBody
     public String mailCheck(String email) {
         System.out.println("이메일 인증 요청이 들어옴!");
         System.out.println("이메일 인증 이메일: " + email);
         return "Success";
-    }
+    }*/
 
 
 }
