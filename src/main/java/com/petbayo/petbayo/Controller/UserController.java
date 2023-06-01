@@ -69,7 +69,7 @@ public class UserController {
 
         boolean success = service.register(user);
         if (success) {
-            return "redirect:/login";
+            return "redirect:/loginRegister";
         } else {
             return "redirect:/";
         }
