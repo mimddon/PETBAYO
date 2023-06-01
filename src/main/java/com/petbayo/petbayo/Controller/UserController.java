@@ -4,10 +4,8 @@ import com.petbayo.petbayo.Model.User;
 import com.petbayo.petbayo.Service.UserService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import net.bytebuddy.implementation.bind.MethodDelegationBinder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
@@ -22,37 +20,56 @@ public class UserController {
 
     @GetMapping("/loginRegister")
     public String login() {
-
         return "loginRegister";
     }
 
-    @PostMapping("/loginRegister")
-    public String loginRegister(@RequestParam("email") String email, @RequestParam("pwd") String pwd, HttpSession session, Model model) {
+    @PostMapping("/login")
+    public String loginRegister(@RequestParam("email") String email, @RequestParam("pwd") String pwd, HttpSession session) {
+        User user = new User();
+
+        user.setEmail(email);
+        user.setPwd(pwd);
+
+        if (service.login(user)) {
+            session.setAttribute("user", user);
+            System.out.println(session.getAttribute("user"));
+            return "redirect:/";
+        } else {
+            return "redirect:/login?error";
+        }
+        /*session.setAttribute("user", user);
+
+        String targetUrl = (String) session.getAttribute("target_url");
+
+        session.removeAttribute("target_url");
+
+        if (targetUrl == null) {
+            return "redirect:/";
+        } else {
+            return "redirect:/" + targetUrl;
+
+        }*/
+    }
+
+    /*@GetMapping("/register")
+    public String register() {
+        return "loginRegister";
+    }*/
+    @PostMapping("/register")
+    public String register(@RequestParam("email") String email, @RequestParam("pwd") String pwd, @RequestParam("nickname") String nickname, @RequestParam("birth") String birth, @RequestParam("gender") int gender) {
         User user = new User();
         user.setEmail(email);
         user.setPwd(pwd);
-        if(service.login(user)) {
-            session.setAttribute("user", user);
+        user.setNickname(nickname);
+        user.setBirth(birth);
+        user.setGender(gender);
 
-            String targetUrl = (String) session.getAttribute("target_url");
-
-            session.removeAttribute("target_url");
-
-            if(targetUrl == null) {
-                return "redirect:/";
-            } else {
-                return "redirect:/" + targetUrl;
-
-            }
+        boolean success = service.register(user);
+        if (success) {
+            return "redirect:/loginRegister";
         } else {
-            // 로그인 실패 시 회원가입 처리
-            service.register(user);
-
-            model.addAttribute("user", user);
-            System.out.println("회원가입 성공");
-            return "redirect:/";  // 회원가입 성공 페이지로 리다이렉트
+            return "redirect:/";
         }
-
     }
 
     @ResponseBody
@@ -78,7 +95,7 @@ public class UserController {
     public String logout(HttpSession session) {
         session.invalidate();
 
-        return "redirect:.";
+        return "redirect:/";
     }
 
 }

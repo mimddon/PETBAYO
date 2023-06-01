@@ -20,15 +20,6 @@ public class MainController {
     public String petBook() {
         return "/book/bookList";
     }
-    @RequestMapping("/register")
-    public String register() {
-        return "/register";
-    }
-
-    @RequestMapping("/login")
-    public String login() {
-        return "/login";
-    }
 
     @RequestMapping("/board/list")
     public String board() {
