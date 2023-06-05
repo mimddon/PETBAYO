@@ -60,6 +60,11 @@ public class UserServiceImpl implements UserService {
         }
     }
 
+    @Override
+    public User findOne(final String nickName) {
+        return dao.findOne(nickName);
+    }
+
     /*@GetMapping("/mailCheck")
     @ResponseBody
     public String mailCheck(String email) {
