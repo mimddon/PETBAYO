@@ -6,9 +6,25 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 </head>
 <body>
+<script th:inline="javascript">
 
-<script>
-  function selectFile(element) {
+  // 파일 삭제 처리용 익명 함수
+  const removeFileId = (function() {
+    const ids = [];
+    return {
+      add(id) {
+        if (ids.includes(id)) {
+          return false;
+        }
+        ids.push(id);
+      },
+      getAll() {
+        return ids;
+      }
+    }
+  }());
+
+  function selectFile(element, id) {
 
     const file = element.files[0];
     const filename = element.closest('.file_input').firstElementChild;
@@ -30,6 +46,13 @@
 
     // 3. 파일명 지정
     filename.value = file.name;
+
+
+    // 4. 삭제할 파일 id 추가
+    if (id) {
+      removeFileId.add(id);
+    }
+
   }
 
 
@@ -50,7 +73,14 @@
 
 
   // 파일 삭제
-  function removeFile(element) {
+  function removeFile(element, id) {
+
+    // 1. 삭제할 파일 id 추가
+    if (id) {
+      removeFileId.add(id);
+    }
+
+    // 2. 파일 영역 초기화 & 삭제
     const fileAddBtn = element.nextElementSibling;
     if (fileAddBtn) {
       const inputs = element.previousElementSibling.querySelectorAll('input');
@@ -60,6 +90,76 @@
     element.parentElement.remove();
 
   }
+
+
+</script>
+
+<script th:inline="javascript">
+  window.onload = () => {
+    renderBookInfo();
+
+    findAllFile();
+  }
+
+  // 전체 파일 조회
+  function findAllFile() {
+
+    // 1. 신규 등록/수정 체크
+    const book = [[ ${book}]];
+    if ( !book ) {
+      return false;
+    }
+
+    // 2. API 호출
+    const response = getJson(`/book/${book.petId}/files`);
+
+    // 3. 로직 종료
+    if ( !response.length ) {
+      return false;
+    }
+
+    // 4. 업로드 영역 추가
+    for (let i = 0, len = (response.length - 1); i < len; i++) {
+      addFile();
+    }
+
+    // 5. 파일 선택 & 삭제 이벤트 재선언 & 파일명 세팅
+    const filenameInputs = document.querySelectorAll('.file_list input[type="text"]');
+    filenameInputs.forEach((input, i) => {
+      const fileInput = input.nextElementSibling.firstElementChild;
+      const fileRemoveBtn = input.parentElement.nextElementSibling;
+      fileInput.setAttribute('onchange', `selectFile(this, ${response[i].id})`);
+      fileRemoveBtn.setAttribute('onclick', `removeFile(this, ${response[i].id})`);
+      input.value = response[i].originalName;
+    })
+  }
+
+</script>
+
+<script th:inline="javascript">
+  /*<![CDATA[*/
+  // 게시글 저장(수정)
+  function savePost() {
+    const form = document.getElementById('saveForm');
+    const fields = [form.title, form.writer, form.content];
+    const fieldNames = ['제목', '이름', '내용'];
+
+    for (let i = 0, len = fields.length; i < len; i++) {
+      isValid(fields[i], fieldNames[i]);
+    }
+
+    document.getElementById('saveBtn').disabled = true;
+    form.noticeYn.value = form.isNotice.checked;
+    form.action = [[ ${book == null} ]] ? '/book/bookCreate' : '/book/bookUpdate';
+    form.submit();
+  }
+
+  document.getElementById('saveBtn').disabled = true;
+  form.noticeYn.value = form.isNotice.checked;
+  form.removeFileIds.value = removeFileId.getAll().join(); // 추가
+  form.action = [[ ${book == null} ]] ? '/book/bookCreate' : '/book/bookUpdate';
+  form.submit();
+  /*]]>*/
 </script>
 
 <div class="container">
@@ -68,6 +168,13 @@
   </div>
 
   <form id="updateForm" method="post" autocomplete="off" enctype="multipart/form-data">
+
+    <!--/* 게시글 수정인 경우, 서버로 전달할 게시글 번호 (PK) */-->
+    <input type="hidden" id="id" name="id" th:if="${book != null}" th:value="${book.petId}" />
+
+    <!--/* 삭제 처리할 파일 번호 */-->
+    <input type="hidden" id="removeFileIds" name="removeFileIds" />
+
     <input type="number" name="petId" th:value="${petId}" readonly />
     <div class="form-group mt-2">
       <label for="species">종:</label>
@@ -92,7 +199,7 @@
             <div class="file_input">
               <input type="text" readonly />
               <label> 첨부파일
-                <input id="file" type="file" name="files" onchange="selectFile(this);" th:value="${item.files}" />
+                <input type="file" name="files" onchange="selectFile(this);" />
               </label>
             </div>
             <button type="button" onclick="removeFile(this);" class="btns del_btn"><span>삭제</span></button>
@@ -102,9 +209,15 @@
       </td>
     </tr>
 
+    <tr>
+      <th scope="row">첨부파일</th>
+      <td id="files" colspan="3">
+      </td>
+    </tr>
+
 
     <div class="form-group mt-3">
-      <button type="submit" class="btn btn-sm btn-primary">수정</button>
+      <button type="submit" id="saveBtn" class="btn btn-sm btn-primary">수정</button>
       <a href="/book/bookList"><button type="button" class="btn btn-sm btn-secondary">취소</button></a>
     </div>
   </form>

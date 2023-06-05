@@ -43,4 +43,62 @@
     </insert>
 
 
+    <!-- 파일 리스트 조회 -->
+    <select id="findAllByPetId" parameterType="int" resultType="com.petbayo.petbayo.Model.FileResponse">
+        SELECT
+            id
+             , pet_id
+             , original_name
+             , save_name
+             , size
+             , delete_yn
+             , created_date
+             , deleted_date
+        FROM
+            petbook_file
+        WHERE
+            delete_yn = 0
+          AND pet_id = #{value}
+        ORDER BY
+            id
+    </select>
+
+
+    <!-- 파일 리스트 조회 -->
+    <select id="findAllByIds" parameterType="list" resultType="com.petbayo.petbayo.Model.FileResponse">
+        SELECT
+        id
+        , pet_id
+        , original_name
+        , save_name
+        , size
+        , delete_yn
+        , created_date
+        , deleted_date
+        FROM
+        petbook_file
+        WHERE
+        delete_yn = 0
+        AND id IN
+        <foreach item="id" collection="list" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+        ORDER BY
+        id
+    </select>
+
+
+    <!-- 파일 삭제 -->
+    <delete id="deleteAllByIds" parameterType="list">
+        UPDATE petbook_file
+        SET
+        delete_yn = 1
+        , deleted_date = NOW()
+        WHERE
+        id IN
+        <foreach item="id" collection="list" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
 </mapper>
