@@ -9,8 +9,8 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@Getter
 @Setter
+@Getter
 @ToString
 @NoArgsConstructor
 public class Board {
@@ -18,6 +18,7 @@ public class Board {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int qsId;
 
+    @Column(name = "user_id")
     private int userId;
 
     @Column(length = 1000)
@@ -28,9 +29,10 @@ public class Board {
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdDate;
 
+    private int viewCnt;
+
     @Enumerated(EnumType.STRING)
     private Disclosure disclosure;
-
 
     public enum Disclosure {
         OPEN, // 'O' - 공개 (Open)
@@ -41,6 +43,8 @@ public class Board {
         this.userId = req.getUserId();
         this.qsTitle = req.getQsTitle();
     }
+
+    @PrePersist
     public void setCreatedDate() {
         this.createdDate = new Date();
     }

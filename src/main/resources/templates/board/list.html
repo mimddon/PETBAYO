@@ -13,31 +13,24 @@
         <tr class="text-center">
             <th scope="col">번호</th>
             <th scope="col">제목</th>
+            <th scope="col">내용</th>
+            <th scope="col">공개여부</th>
             <th scope="col">작성자</th>
             <th scope="col">작성일</th>
-            <th scope="col">공개여부</th>
+            <th scope="col">조회수</th>
         </tr>
         </thead>
         <tbody>
-        <tr class="text-center" th:each="post : ${boardList}">
-            <th scope="row">
-                <span th:text="${post.qsId}"></span>
-            </th>
+        <tr th:each="board : ${boardList}">
+            <td th:text="${board.qsId}"></td>
+            <td th:text="${board.qsTitle}"></td>
+            <td th:text="${board.content}"></td>
+            <td th:text="${board.disclosure}"></td>
+            <td th:text="${board.userId}"></td>
             <td>
-                <a th:href="@{'/board/add/' + ${post.qsId}}">
-                    <span th:text="${post.qsTitle}"></span>
-                </a>
+                <a href="board/detail/{board.qsId}" th:text="${#dates.format(board.createdDate, 'yyyy-MM-dd HH:mm')}" th:onclick="'showDetail(\'' + ${board.qsId} + '\')'"></a>
             </td>
-            <td>
-                <span th:text="${post.userId}"></span>
-            </td>
-            <td>
-                <span th:text="${#dates.format(post.createdDate, 'yyyy-MM-dd HH:mm')}"></span>
-            </td>
-            <td>
-                <span th:if="${post.disclosure == 'OPEN'}">공개</span>
-                <span th:if="${post.disclosure == 'CLOSED'}">비공개</span>
-            </td>
+            <td th:text="${board.viewCnt}"></td>
         </tr>
         </tbody>
     </table>
@@ -48,6 +41,11 @@
         </div>
     </div>
 </div>
+<script>
+    function showDetail(qsId) {
+        window.location.href = '/board/detail/' + qsId;
+    }
+</script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

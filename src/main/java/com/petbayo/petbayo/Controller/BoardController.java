@@ -19,38 +19,47 @@ public class BoardController {
         this.boardService = boardService;
     }
 
-    @GetMapping("/board/listPage")
+    @GetMapping("/list")
     public String listPage(Model model) {
-        Pager pager = new Pager(1, 10);  // Pager 객체 생성 및 초기화
+        Pager pager = new Pager(1, 10);
         List<Board> boardList = boardService.list(pager);
         model.addAttribute("boardList", boardList);
         return "board/list";
     }
 
-
     @GetMapping("/add")
     public String add(Model model) {
-        model.addAttribute("item", new Board());
+        model.addAttribute("board", new Board());
         return "board/add";
     }
 
     @PostMapping("/add")
-    public String post(@ModelAttribute("item") Board item) {
-        boardService.add(item);
+    public String post(@ModelAttribute("board") Board board) {
+        boardService.add(board);
         return "redirect:/board/list";
     }
 
-    @GetMapping("/board/update/{qsId}")
+    @GetMapping("/update/{qsId}")
     public String update(@PathVariable int qsId, Model model) {
         Board board = boardService.getBoardById(qsId);
         model.addAttribute("board", board);
         return "board/update";
     }
 
-    @PostMapping("/board/update/{qsId}")
-    public String update(@PathVariable int qsId, Board item) {
-        item.setQsId(qsId);
-        boardService.update(item);
+    @PostMapping("/update/{qsId}")
+    public String update(@PathVariable int qsId, @ModelAttribute("board") Board board) {
+        board.setQsId(qsId);
+        boardService.update(board);
         return "redirect:/board/list";
     }
+
+    @GetMapping("/detail/{qsId}")
+    public String detail(@PathVariable int qsId, Model model) {
+        Board board = boardService.getBoardById(qsId);
+        board.setViewCnt(board.getViewCnt() + 1);
+        boardService.update(board);
+        model.addAttribute("board", board);
+        return "/board/detail";
+    }
+
 }

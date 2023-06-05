@@ -21,11 +21,10 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
-    public void add(Board item) {
-        item.setCreatedDate();
-        boardRepository.save(item);
+    public void add(Board board) {
+        board.setCreatedDate();
+        boardRepository.save(board);
     }
-
 
     @Override
     public Board getBoardById(int qsId) {
@@ -33,10 +32,10 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
-    public void update(Board item) {
-        Board existingBoard = boardRepository.findById(item.getQsId()).orElse(null);
+    public void update(Board board) {
+        Board existingBoard = boardRepository.findById(board.getQsId()).orElse(null);
         if (existingBoard != null) {
-            existingBoard.update(item);
+            existingBoard.update(board);
             boardRepository.save(existingBoard);
         }
     }
