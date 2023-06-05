@@ -16,6 +16,37 @@
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
+<script th:inline="javascript">
+    window.onload = () => {
+        findAllFile();
+
+        findAllComment();
+    }
+
+
+    // 전체 파일 조회
+    function findAllFile() {
+
+        // 1. API 호출
+        const petId = [[${petId}]];
+        const response = getJson(`/book/${petId}/files`);
+
+        // 2. 로직 종료
+        if ( !response.length ) {
+            return false;
+        }
+
+        // 3. 파일 영역 추가
+        let fileHtml = '<div class="file_down"><div class="cont">';
+        response.forEach(row => {
+            fileHtml += `<a href="javascript:alert('준비 중입니다.');"><span class="icons"><i class="fas fa-folder-open"></i></span>${row.originalName}</a>`;
+        })
+        fileHtml += '</div></div>';
+
+        // 4. 파일 HTML 렌더링
+        document.getElementById('files').innerHTML = fileHtml;
+    }
+</script>
 
 <header th:insert="common/header.html"></header>
 
@@ -51,6 +82,11 @@
             <div class="col-md-4" th:each="book : ${book}">
                 <div class="card">
                     <div class="card-body">
+                        <tr>
+                            <th scope="row">첨부파일</th>
+                            <td id="files" colspan="3">
+                            </td>
+                        </tr>
                         <h5 class="card-title" th:text="${book.species}"></h5>
                         <p class="card-text" th:text="'작성자: ' + ${book.writer}"></p>
                         <button type="button" class="btn btn-primary"
@@ -94,6 +130,7 @@
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                     </div>
                     <div class="modal-body">
+
                         <p class="card-text">작성자: <span th:text="${book.writer}"></span></p>
                         <p th:text="${book.description}"> </p>
                         <a th:href="@{/book/update/{id}(id=${book.petId})}">수정</a>

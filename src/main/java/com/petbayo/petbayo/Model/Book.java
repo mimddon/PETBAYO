@@ -45,6 +45,16 @@ public class Book {
         this.files = files;
     }
 
+    public List<Integer> getRemoveFileIds() {
+        return removeFileIds;
+    }
+
+    public void setRemoveFileIds(List<Integer> removeFileIds) {
+        this.removeFileIds = removeFileIds;
+    }
+
+    private List<Integer> removeFileIds = new ArrayList<>();
+
 
     public String getSpecies() {
         return species;
