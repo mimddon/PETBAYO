@@ -23,7 +23,7 @@ public class BoardController {
     public String listPage(Model model) {
         Pager pager = new Pager(1, 10);
         List<Board> boardList = boardService.list(pager);
-        model.addAttribute("boardList", boardList);
+        model.addAttribute("board", boardList);
         return "board/list";
     }
 
@@ -50,6 +50,7 @@ public class BoardController {
     public String update(@PathVariable int qsId, @ModelAttribute("board") Board board) {
         board.setQsId(qsId);
         boardService.update(board);
+
         return "redirect:/board/list";
     }
 
@@ -59,6 +60,7 @@ public class BoardController {
         board.setViewCnt(board.getViewCnt() + 1);
         boardService.update(board);
         model.addAttribute("board", board);
+
         return "/board/detail";
     }
 
