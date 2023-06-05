@@ -29,16 +29,8 @@ public class Board {
     private Date createdDate;
 
     @Enumerated(EnumType.STRING)
-    private Process process;
-
-    @Enumerated(EnumType.STRING)
     private Disclosure disclosure;
 
-    public enum Process {
-        PROCESSING, // 'R' - 처리중 (Processing)
-        PENDING, // 'P' - 대기중 (Pending)
-        COMPLETED  // 'C' - 처리완료 (Completed)
-    }
 
     public enum Disclosure {
         OPEN, // 'O' - 공개 (Open)
@@ -48,7 +40,6 @@ public class Board {
     public void update(Board req) {
         this.userId = req.getUserId();
         this.qsTitle = req.getQsTitle();
-        this.process = req.getProcess();
     }
     public void setCreatedDate() {
         this.createdDate = new Date();

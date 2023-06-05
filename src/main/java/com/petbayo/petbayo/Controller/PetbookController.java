@@ -50,8 +50,6 @@ public class PetbookController {
 
     @PostMapping("/bookCreate")
     public String add(Book item, Model model) {
-
-
         bookService.bookCreate(item);
         List<FileRequest> files = fileUtils.uploadFiles(item.getFiles());
         fileService.saveFiles(item.getPetId(), files);

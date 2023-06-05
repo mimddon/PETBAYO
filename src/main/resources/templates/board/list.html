@@ -15,7 +15,6 @@
             <th scope="col">제목</th>
             <th scope="col">작성자</th>
             <th scope="col">작성일</th>
-            <th scope="col">처리상태</th>
             <th scope="col">공개여부</th>
         </tr>
         </thead>
@@ -34,11 +33,6 @@
             </td>
             <td>
                 <span th:text="${#dates.format(post.createdDate, 'yyyy-MM-dd HH:mm')}"></span>
-            </td>
-            <td>
-                <span th:if="${post.process == 'PROCESSING'}">처리중</span>
-                <span th:if="${post.process == 'PENDING'}">대기중</span>
-                <span th:if="${post.process == 'COMPLETED'}">처리완료</span>
             </td>
             <td>
                 <span th:if="${post.disclosure == 'OPEN'}">공개</span>
