@@ -18,6 +18,11 @@
         WHERE email=#{email} AND pwd=#{pwd}
     </select>
 
+    <select id="findOne">
+        SELECT * FROM users
+        WHERE nickname = #{nickname}
+    </select>
+
     <insert id="register" parameterType="com.petbayo.petbayo.Model.User">
         INSERT INTO users (user_id, email, pwd, nickname, birth, gender, grade)
         VALUES (#{userId}, #{email}, #{pwd}, #{nickname}, #{birth}, #{gender}, #{grade})

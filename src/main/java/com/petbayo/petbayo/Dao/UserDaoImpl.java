@@ -33,4 +33,9 @@ public class UserDaoImpl implements UserDao {
         return sql.selectOne("users.checkNickname", nickname);
     }
 
+    @Override
+    public User findOne(final String nickName) {
+        return sql.selectOne("users.findOne", nickName);
+    }
+
 }

@@ -55,12 +55,12 @@
              , created_date
              , deleted_date
         FROM
-        petbook_file
+            petbook_file
         WHERE
-        delete_yn = 0
-        AND pet_id = #{value}
+            delete_yn = 0
+          AND pet_id = #{value}
         ORDER BY
-        id
+            id
     </select>
 
 
