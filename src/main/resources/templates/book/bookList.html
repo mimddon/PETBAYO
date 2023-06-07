@@ -28,7 +28,7 @@
     function findAllFile() {
 
         // 1. API 호출
-        const petId = [[${petId}]];
+        const petId = [[${book.petId}]];
         const response = getJson(`/book/${petId}/files`);
 
         // 2. 로직 종료
@@ -39,7 +39,8 @@
         // 3. 파일 영역 추가
         let fileHtml = '<div class="file_down"><div class="cont">';
         response.forEach(row => {
-            fileHtml += `<a href="javascript:alert('준비 중입니다.');"><span class="icons"><i class="fas fa-folder-open"></i></span>${row.originalName}</a>`;
+            fileHtml += `<a href="javascript:alert('준비 중입니다.');"><span class="icons">
+<i class="fas fa-folder-open"></i></span>${row.originalName}</a>`;
         })
         fileHtml += '</div></div>';
 
@@ -142,7 +143,6 @@
 </div>
 <button class="btn btn-danger"><a href="/bookCreate">등록</a></button>
 <button><a href="/book/bookList">이전</a></button>
-<p> 안녕하십니까 </p>
 </div>
 </body>
 
