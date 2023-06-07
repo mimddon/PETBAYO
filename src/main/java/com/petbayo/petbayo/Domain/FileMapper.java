@@ -14,7 +14,7 @@ public interface FileMapper {
      * @param files - 파일 정보 리스트
      * @return
      */
-    void saveAll(List<FileRequest> files);
+    boolean saveAll(List<FileRequest> files);
 
     /**
      * 파일 리스트 조회
