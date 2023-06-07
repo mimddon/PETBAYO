@@ -11,4 +11,6 @@ public interface UserDao {
     int checkEmail(String email);
 
     int checkNickname(String nickname);
+
+    User findOne(final String nickName);
 }

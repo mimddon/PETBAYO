@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>My Page</title>
+</head>
+<body>
+<h2 th:text="${item.nickname}"> 님의 페이지 입니다</h2>
+
+<table>
+    <thead>
+    <tr>
+        <th>Username</th>
+        <th>Email</th>
+        <th>Age</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td th:text="${item.nickname}"></td>
+        <td th:text="${item.gender}"></td>
+        <td th:text="${item.birth}"></td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
@@ -96,6 +97,15 @@ public class UserController {
         session.invalidate();
 
         return "redirect:/";
+    }
+
+    @GetMapping("/mypage/{nickname}")
+    public String myPage(@PathVariable String nickname, Model model) {
+        User findUser = service.findOne(nickname);
+
+        model.addAttribute("item", findUser);
+
+        return "mypage/myPageView";
     }
 
 }
