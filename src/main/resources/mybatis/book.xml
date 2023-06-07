@@ -21,6 +21,9 @@
         INSERT INTO petbook (species, description, writer)
         VALUES (#{species}, #{description}, #{writer})
 
+        <selectKey keyProperty="petId" resultType="Integer" order="AFTER">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
     </insert>
 
     <select id="item" resultType="com.petbayo.petbayo.Model.Book">

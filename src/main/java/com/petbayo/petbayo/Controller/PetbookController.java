@@ -2,7 +2,6 @@ package com.petbayo.petbayo.Controller;
 
 import com.petbayo.petbayo.Model.Book;
 import com.petbayo.petbayo.Model.FileRequest;
-import com.petbayo.petbayo.Model.FileResponse;
 import com.petbayo.petbayo.Model.FileUtils;
 import com.petbayo.petbayo.Service.FileService;
 import com.petbayo.petbayo.Service.PetbookService;
@@ -36,9 +35,13 @@ public class PetbookController {
     }
 
     @GetMapping("/book/bookList")
-    public String bookList(Model model) {
+    public String bookList(Model model, Book item) {
         List<Book> book = bookService.bookList();
         model.addAttribute("book", book);
+        List<FileRequest> files = fileUtils.uploadFiles(item.getFiles());
+        fileService.saveFiles(item.getPetId(), files);
+        model.addAttribute("files", files);
+
         return "book/bookList";
     }
 
@@ -79,21 +82,6 @@ public class PetbookController {
 
         bookService.bookUpdate(item);
 
-        // 2. 파일 업로드 (to disk)
-        List<FileRequest> uploadFiles = fileUtils.uploadFiles(item.getFiles());
-
-        // 3. 파일 정보 저장 (to database)
-        fileService.saveFiles(item.getPetId(), uploadFiles);
-
-        // 4. 삭제할 파일 정보 조회 (from database)
-        List<FileResponse> deleteFiles = fileService.findAllFileByIds(item.getRemoveFileIds());
-
-        // 5. 파일 삭제 (from disk)
-        fileUtils.deleteFiles(deleteFiles);
-
-        // 6. 파일 삭제 (from database)
-        fileService.deleteAllFileByIds(item.getRemoveFileIds());
-
         return "redirect:/book/bookList";
     }
 
@@ -111,6 +99,7 @@ public class PetbookController {
     public List<Book> getAllBook() {
         return bookService.bookList();
     }
+
 
 
 }

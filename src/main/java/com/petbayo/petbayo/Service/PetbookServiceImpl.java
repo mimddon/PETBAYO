@@ -1,10 +1,16 @@
 package com.petbayo.petbayo.Service;
 
+import com.petbayo.petbayo.Domain.FileMapper;
 import com.petbayo.petbayo.Model.Book;
+import com.petbayo.petbayo.Model.FileRequest;
+import com.petbayo.petbayo.Model.FileUtils;
 import com.petbayo.petbayo.Repository.PetbookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 
@@ -15,12 +21,15 @@ public class PetbookServiceImpl implements PetbookService{
     @Autowired
     PetbookRepository petbookRepository;
 
+
+
     @Override
     public List<Book> bookList() {
         return petbookRepository.bookList();
     }
 
     @Override
+    @Transactional
     public void bookCreate(Book item) {
         petbookRepository.bookCreate(item);
     }

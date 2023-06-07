@@ -1,4 +1,4 @@
-package com.petbayo.petbayo.Configuration;
+package com.petbayo.petbayo;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
