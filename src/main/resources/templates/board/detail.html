@@ -12,7 +12,6 @@
     <p>작성자: <span th:text="${board.userId}"></span></p>
     <p>작성일: <span th:text="${#dates.format(board.createdDate, 'yyyy-MM-dd HH:mm')}"></span></p>
     <p>조회수: <span th:text="${board.viewCnt}"></span></p>
-    <a class="btn btn-primary" th:href="@{/board/update/{qsId}(qsId=${board.qsId})}" role="button">수정</a>
     <hr>
     <div th:text="${board.content}"></div>
 </div>

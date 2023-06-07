@@ -8,13 +8,18 @@
 <body>
 <header th:insert="common/header.html"></header>
 <div class="container">
+    <div class="division">
+        <div>
+            <button class="btn btn-primary" style="color: white;">Q&A
+            </button>
+        </div>
+    </div>
     <table class="table">
         <thead class="thead-light">
         <tr class="text-center">
             <th scope="col">번호</th>
             <th scope="col">제목</th>
             <th scope="col">내용</th>
-            <th scope="col">공개여부</th>
             <th scope="col">작성자</th>
             <th scope="col">작성일</th>
             <th scope="col">조회수</th>
@@ -26,7 +31,6 @@
             <td th:text="${board.qsId}"></td>
             <td th:text="${board.qsTitle}"></td>
             <td th:text="${board.content}"></td>
-            <td th:text="${board.disclosure}"></td>
             <td th:text="${board.userId}"></td>
             <td>
                 <a th:href="@{/board/detail/{qsId}(qsId=${board.qsId})}" th:text="${#dates.format(board.createdDate, 'yyyy-MM-dd HH:mm')}" th:onclick="'showDetail(\'' + ${board.qsId} + '\')'"></a>

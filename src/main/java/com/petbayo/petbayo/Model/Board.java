@@ -31,14 +31,6 @@ public class Board {
 
     private int viewCnt;
 
-    @Enumerated(EnumType.STRING)
-    private Disclosure disclosure;
-
-    public enum Disclosure {
-        OPEN, // 'O' - 공개 (Open)
-        CLOSED  // 'X' - 비공개 (Closed)
-    }
-
     public void update(Board req) {
         this.userId = req.getUserId();
         this.qsTitle = req.getQsTitle();

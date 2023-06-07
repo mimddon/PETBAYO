@@ -19,6 +19,7 @@ public class BoardController {
         this.boardService = boardService;
     }
 
+
     @GetMapping("/list")
     public String listPage(@RequestParam(defaultValue = "1") int page, Model model) {
         int pageSize = 10;
@@ -75,5 +76,6 @@ public class BoardController {
         boardService.delete(qsId);
         return "redirect:../list";
     }
+
 
 }
