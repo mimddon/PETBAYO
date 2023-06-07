@@ -3,6 +3,7 @@ package com.petbayo.petbayo.Service;
 import com.petbayo.petbayo.Model.Board;
 import com.petbayo.petbayo.Repository.BoardRepository;
 import com.petbayo.petbayo.pager.Pager;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,7 +18,10 @@ public class BoardServiceImpl implements BoardService {
 
     @Override
     public List<Board> list(Pager pager) {
-        return boardRepository.findAll();
+        int page = pager.getCurrentPage();
+        int pageSize = pager.getPageSize();
+        int offset = (page - 1) * pageSize;
+        return boardRepository.findAll(PageRequest.of(offset, pageSize)).getContent();
     }
 
     @Override
@@ -38,5 +42,14 @@ public class BoardServiceImpl implements BoardService {
             existingBoard.update(board);
             boardRepository.save(existingBoard);
         }
+    }
+
+    public void delete(int qsId) {
+        boardRepository.deleteById(qsId);
+    }
+
+    @Override
+    public int getTotalBoardCount() {
+        return (int) boardRepository.count();
     }
 }

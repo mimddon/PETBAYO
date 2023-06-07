@@ -20,10 +20,17 @@ public class BoardController {
     }
 
     @GetMapping("/list")
-    public String listPage(Model model) {
-        Pager pager = new Pager(1, 10);
+    public String listPage(@RequestParam(defaultValue = "1") int page, Model model) {
+        int pageSize = 10;
+        Pager pager = new Pager(page, pageSize);
         List<Board> boardList = boardService.list(pager);
-        model.addAttribute("board", boardList);
+        model.addAttribute("boardList", boardList);
+        model.addAttribute("currentPage", page);
+
+        int totalBoardCount = boardService.getTotalBoardCount();
+        int totalPages = (int) Math.ceil((double) totalBoardCount / pageSize);
+        model.addAttribute("totalPages", totalPages);
+
         return "board/list";
     }
 
@@ -62,6 +69,11 @@ public class BoardController {
         model.addAttribute("board", board);
 
         return "/board/detail";
+    }
+    @GetMapping("delete/{qsId}")
+    public String delete(@PathVariable int qsId){
+        boardService.delete(qsId);
+        return "redirect:../list";
     }
 
 }

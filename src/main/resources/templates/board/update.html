@@ -2,9 +2,45 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>게시글 수정</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css">
 </head>
 <body>
+<header th:insert="common/header.html"></header>
+<div class="container">
+    <form method="post" th:action="@{/board/update/{qsId}(qsId=${board.qsId})}">
 
+        <div class="mb-3">
+            <label for="qsTitle" class="form-label">제목</label>
+            <input type="text" class="form-control" id="qsTitle" th:field="${board.qsTitle}" />
+        </div>
+
+        <div class="mb-3">
+            <label for="userId" class="form-label">작성자</label>
+            <input type="text" class="form-control" id="userId" th:field="${board.userId}" />
+        </div>
+
+        <div class="mb-3">
+            <label for="content" class="form-label">내용</label>
+            <textarea class="form-control" id="content" rows="5" name="content" th:field="${board.content}"></textarea>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">공개여부</label><br/>
+            <div class="btn-group" data-toggle="buttons">
+                <label class="btn btn-primary" th:classappend="${board.disclosure == 'OPEN'} ? 'active'">
+                    <input type="radio" class="form-check-input" name="disclosure" value="OPEN" th:checked="${board.disclosure == 'OPEN'}" /> 공개
+                </label>
+                <label class="btn btn-primary" th:classappend="${board.disclosure == 'CLOSED'} ? 'active'">
+                    <input type="radio" class="form-check-input" name="disclosure" value="CLOSED" th:checked="${board.disclosure == 'CLOSED'}" /> 비공개
+                </label>
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary">수정</button>
+
+    </form>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

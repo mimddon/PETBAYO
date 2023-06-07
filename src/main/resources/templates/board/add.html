@@ -12,27 +12,27 @@
 
         <div class="mb-3">
             <label for="qsTitle" class="form-label">제목</label>
-            <input type="text" class="form-control" id="qsTitle" th:field="${item.qsTitle}" />
+            <input type="text" class="form-control" id="qsTitle" th:field="${board.qsTitle}" />
         </div>
 
         <div class="mb-3">
             <label for="userId" class="form-label">작성자</label>
-            <input type="text" class="form-control" id="userId" th:field="${item.userId}" />
+            <input type="text" class="form-control" id="userId" th:field="${board.userId}" />
         </div>
 
         <div class="mb-3">
             <label for="content" class="form-label">내용</label>
-            <textarea class="form-control" id="content" rows="5" name="content" th:field="${item.content}"></textarea>
+            <textarea class="form-control" id="content" rows="5" name="content" th:field="${board.content}"></textarea>
         </div>
 
         <div class="mb-3">
             <label class="form-label">공개여부</label><br/>
             <div class="btn-group" data-toggle="buttons">
-                <label class="btn btn-primary active">
-                    <input type="radio" class="form-check-input" name="disclosure" value="OPEN" checked th:field="${item.disclosure}"> 공개
+                <label class="btn btn-primary" th:classappend="${board.disclosure == 'OPEN'} ? 'active'">
+                    <input type="radio" class="form-check-input" name="disclosure" value="OPEN" th:checked="${board.disclosure == 'OPEN'}" /> 공개
                 </label>
-                <label class="btn btn-primary">
-                    <input type="radio" class="form-check-input" name="disclosure" value="CLOSED" th:field="${item.disclosure}"> 비공개
+                <label class="btn btn-primary" th:classappend="${board.disclosure == 'CLOSED'} ? 'active'">
+                    <input type="radio" class="form-check-input" name="disclosure" value="CLOSED" th:checked="${board.disclosure == 'CLOSED'}" /> 비공개
                 </label>
             </div>
         </div>

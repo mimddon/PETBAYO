@@ -13,4 +13,8 @@ public interface BoardService {
     Board getBoardById(int qsId);
 
     void update(Board board);
+
+    void delete(int qsId);
+
+    int getTotalBoardCount();
 }
