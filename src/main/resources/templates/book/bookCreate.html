@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" >
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
   <title>Title</title>
@@ -7,64 +7,43 @@
   <!-- jquery cdn -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
-
 </head>
 <body>
+<div class="container">
+  <div>
+    <h3>펫 종 등록</h3>
+  </div>
 
-<script th:inline="javascript">
+  <script>
+    function selectFile(element) {
 
-  // 파일 삭제 처리용 익명 함수
-  const removeFileId = (function() {
-    const ids = [];
-    return {
-      add(id) {
-        if (ids.includes(id)) {
-          return false;
-        }
-        ids.push(id);
-      },
-      getAll() {
-        return ids;
+      const file = element.files[0];
+      const filename = element.closest('.file_input').firstElementChild;
+
+      // 1. 파일 선택 창에서 취소 버튼이 클릭된 경우
+      if ( !file ) {
+        filename.value = '';
+        return false;
       }
-    }
-  }());
 
-  function selectFile(element, id) {
+      // 2. 파일 크기가 10MB를 초과하는 경우
+      const fileSize = Math.floor(file.size / 1024 / 1024);
+      if (fileSize > 10) {
+        alert('10MB 이하의 파일로 업로드해 주세요.');
+        filename.value = '';
+        element.value = '';
+        return false;
+      }
 
-    const file = element.files[0];
-    const filename = element.closest('.file_input').firstElementChild;
-
-    // 1. 파일 선택 창에서 취소 버튼이 클릭된 경우
-    if ( !file ) {
-      filename.value = '';
-      return false;
-    }
-
-    // 2. 파일 크기가 10MB를 초과하는 경우
-    const fileSize = Math.floor(file.size / 1024 / 1024);
-    if (fileSize > 10) {
-      alert('10MB 이하의 파일로 업로드해 주세요.');
-      filename.value = '';
-      element.value = '';
-      return false;
+      // 3. 파일명 지정
+      filename.value = file.name;
     }
 
-    // 3. 파일명 지정
-    filename.value = file.name;
 
-
-    // 4. 삭제할 파일 id 추가
-    if (id) {
-      removeFileId.add(id);
-    }
-
-  }
-
-
-  // 파일 추가
-  function addFile() {
-    const fileDiv = document.createElement('div');
-    fileDiv.innerHTML =`
+    // 파일 추가
+    function addFile() {
+      const fileDiv = document.createElement('div');
+      fileDiv.innerHTML =`
             <div class="file_input">
                 <input type="text" readonly />
                 <label> 첨부파일
@@ -73,180 +52,39 @@
             </div>
             <button type="button" onclick="removeFile(this);" class="btns del_btn"><span>삭제</span></button>
         `;
-    document.querySelector('.file_list').appendChild(fileDiv);
-  }
-
-
-  // 파일 삭제
-  function removeFile(element, id) {
-
-    // 1. 삭제할 파일 id 추가
-    if (id) {
-      removeFileId.add(id);
+      document.querySelector('.file_list').appendChild(fileDiv);
     }
 
-    // 2. 파일 영역 초기화 & 삭제
-    const fileAddBtn = element.nextElementSibling;
-    if (fileAddBtn) {
-      const inputs = element.previousElementSibling.querySelectorAll('input');
-      inputs.forEach(input => input.value = '')
-      return false;
+
+    // 파일 삭제
+    function removeFile(element) {
+      const fileAddBtn = element.nextElementSibling;
+      if (fileAddBtn) {
+        const inputs = element.previousElementSibling.querySelectorAll('input');
+        inputs.forEach(input => input.value = '')
+        return false;
+      }
+      element.parentElement.remove();
+
     }
-    element.parentElement.remove();
-
-  }
-
-
-</script>
-
-<script th:inline="javascript">
-  window.onload = () => {
-    renderBookInfo();
-
-    findAllFile();
-  }
-
-  // 전체 파일 조회
-  function findAllFile() {
-
-    // 1. 신규 등록/수정 체크
-    const book = [[ ${book}]];
-    if ( !book ) {
-      return false;
-    }
-
-    // 2. API 호출
-    const response = getJson(`/book/${book.petId}/files`);
-
-    // 3. 로직 종료
-    if ( !response.length ) {
-      return false;
-    }
-
-    // 4. 업로드 영역 추가
-    for (let i = 0, len = (response.length - 1); i < len; i++) {
-      addFile();
-    }
-
-    // 5. 파일 선택 & 삭제 이벤트 재선언 & 파일명 세팅
-    const filenameInputs = document.querySelectorAll('.file_list input[type="text"]');
-    filenameInputs.forEach((input, i) => {
-      const fileInput = input.nextElementSibling.firstElementChild;
-      const fileRemoveBtn = input.parentElement.nextElementSibling;
-      fileInput.setAttribute('onchange', `selectFile(this, ${response[i].id})`);
-      fileRemoveBtn.setAttribute('onclick', `removeFile(this, ${response[i].id})`);
-      input.value = response[i].originalName;
-    })
-  }
-
-</script>
-
-<script th:inline="javascript">
-  /*<![CDATA[*/
-  // 게시글 저장(수정)
-  function savePost() {
-    const form = document.getElementById('saveForm');
-    const fields = [form.title, form.writer, form.content];
-    const fieldNames = ['제목', '이름', '내용'];
-
-    for (let i = 0, len = fields.length; i < len; i++) {
-      isValid(fields[i], fieldNames[i]);
-    }
-
-    document.getElementById('saveBtn').disabled = true;
-    form.noticeYn.value = form.isNotice.checked;
-    form.action = [[ ${book == null} ]] ? '/book/bookCreate' : '/book/bookUpdate';
-    form.submit();
-  }
-
-  document.getElementById('saveBtn').disabled = true;
-  form.noticeYn.value = form.isNotice.checked;
-  form.removeFileIds.value = removeFileId.getAll().join(); // 추가
-  form.action = [[ ${book == null} ]] ? '/book/bookCreate' : '/book/bookUpdate';
-  form.submit();
-  /*]]>*/
-</script>
-
-<div class="container">
-  <div>
-    <h3>펫 종 등록</h3>
-  </div>
-
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-    }
-
-    .container {
-      width: 600px;
-      margin: 0 auto;
-    }
-
-    h3 {
-      color: #333;
-    }
-
-    .form-group {
-      margin-bottom: 20px;
-    }
-
-    .file_input input[type="text"] {
-      width: 200px;
-    }
-
-    .file_list {
-      margin-bottom: 20px;
-    }
-
-    .btns {
-      margin-right: 10px;
-    }
-
-    .btns span {
-      font-weight: bold;
-    }
-
-    .btn-primary {
-      background-color: #007bff;
-      border-color: #007bff;
-    }
-
-    .btn-primary:hover {
-      background-color: #0069d9;
-      border-color: #0062cc;
-    }
-
-    .btn-secondary {
-      background-color: #6c757d;
-      border-color: #6c757d;
-    }
-
-    .btn-secondary:hover {
-      background-color: #5a6268;
-      border-color: #545b62;
-    }
-  </style>
+  </script>
 
   <form id="saveForm" method="post" autocomplete="off" enctype="multipart/form-data">
-    <!--/* 게시글 수정인 경우, 서버로 전달할 게시글 번호 (PK) */-->
-    <input type="hidden" id="id" name="id" th:if="${book != null}" th:value="${book.petId}" />
-
-    <!--/* 삭제 처리할 파일 번호 */-->
-    <input type="hidden" id="removeFileIds" name="removeFileIds" />
-
     <div class="form-group mt-2">
-      <label for="species">종:</label>
-      <input id="species" name="species" type="text" class="form-control" th:value="${species}" placeholder="펫 종을 입력해주세요.">
+      <label >종:</label>
+      <input id="species" name="species" type="text" class="form-control" th:value="${species}" >
     </div>
 
-    <div class="form-group mt-2">
-      <label for="description">설명:</label>
-      <textarea id="description" name="description" class="form-control" th:value="${description}" placeholder="펫에 대한 설명을 입력해주세요."></textarea>
-    </div>
 
     <div class="form-group mt-2">
-      <label for="writer">작성자:</label>
-      <input id="writer" name="writer" type="text" class="form-control" th:value="${writer}" placeholder="작성자를 입력해주세요.">
+      <label>설명</label>
+      <input id="description" name="description" type="text" class="form-control" th:value="${description}">
+    </div>
+
+
+    <div class="form-group mt-2">
+      <label>작성자</label>
+      <input id="writer" name="writer" type="text" class="form-control" th:value="${writer}">
     </div>
 
     <tr>
@@ -257,7 +95,7 @@
             <div class="file_input">
               <input type="text" readonly />
               <label> 첨부파일
-                <input type="file" name="files" onchange="selectFile(this);" />
+                <input id="file" type="file" name="files" onchange="selectFile(this);" th:value="${files}"/>
               </label>
             </div>
             <button type="button" onclick="removeFile(this);" class="btns del_btn"><span>삭제</span></button>
@@ -266,7 +104,6 @@
         </div>
       </td>
     </tr>
-
 
     <div class="form-group mt-3">
       <button type="submit" class="btn btn-sm btn-primary">등록</button>
