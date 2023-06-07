@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import sun.tools.jconsole.JConsole;
 
 import javax.servlet.http.HttpSession;
 
@@ -100,12 +101,26 @@ public class UserController {
     }
 
     @GetMapping("/mypage/{nickname}")
-    public String myPage(@PathVariable String nickname, Model model) {
+    public String myPage(@PathVariable String nickname, Model model, HttpSession session) {
         User findUser = service.findOne(nickname);
-
         model.addAttribute("item", findUser);
-
+        System.out.println(model.getAttribute("item"));
         return "mypage/myPageView";
+
+
+
+        /*User user = (User) session.getAttribute("user");
+        if (user == null) {
+            return "redirect:/";
+        } else {
+            User findUser = service.findOne(nickname);
+            model.addAttribute("item", findUser);
+            System.out.println(model.getAttribute("item"));
+            return "mypage/myPageView";
+
+        }*/
+
+
     }
 
 }

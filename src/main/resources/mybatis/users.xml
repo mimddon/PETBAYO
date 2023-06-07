@@ -18,7 +18,7 @@
         WHERE email=#{email} AND pwd=#{pwd}
     </select>
 
-    <select id="findOne">
+    <select id="findOne" resultMap="userResultMap" parameterType="com.petbayo.petbayo.Model.User">
         SELECT * FROM users
         WHERE nickname = #{nickname}
     </select>
