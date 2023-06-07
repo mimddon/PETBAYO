@@ -4,23 +4,36 @@
     <title>My Page</title>
 </head>
 <body>
-<h2 th:text="${item.nickname}"> 님의 페이지 입니다</h2>
+<header th:insert="common/header.html"></header>
 
-<table>
-    <thead>
-    <tr>
-        <th>Username</th>
-        <th>Email</th>
-        <th>Age</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr>
-        <td th:text="${item.nickname}"></td>
-        <td th:text="${item.gender}"></td>
-        <td th:text="${item.birth}"></td>
-    </tr>
-    </tbody>
-</table>
+<div th:if="${session.user == null}">
+    <script>
+        alert("세션이 만료되었습니다. 다시 로그인해주세요.");
+        location.href = "/loginRegister";
+    </script>
+</div>
+<div th:if="${session.user != null}">
+
+    <h2 th:text="${item.nickname + '님의 페이지입니다'}"></h2>
+
+    <table>
+        <thead>
+        <tr>
+            <th>Username</th>
+            <th>birth</th>
+            <th>Age</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td th:text="${item.nickname}"></td>
+            <td th:text="${item.birth}"></td>
+            <td th:text="${item.gender == 0 ? '남자' : '여자'}"></td>
+        </tr>
+        </tbody>
+    </table>
+
+</div>
+
 </body>
 </html>

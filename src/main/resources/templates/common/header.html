@@ -70,8 +70,8 @@
         </div>-->
         <div class="btn-group">
             <th:block th:if="${session.user != null}">
-                <a class="btn btn-primary" href="/mypage/${session.nickname}" style="font-size: 11px">마이페이지</a>
-                <a class="btn btn-success" href="/logout" style="font-size: 11px">로그아웃</a>
+                <a class="btn btn-primary" style="font-size: 11px" th:href="@{/mypage/__${session.user.nickname}__}">mypage</a>
+                <a class="btn btn-success" href="/logout" style="font-size: 11px">logout</a>
             </th:block>
             <th:block th:if="${session.user == null}">
                 <a class="btn btn-primary" href="/loginRegister" style="font-size: 11px">Login</a>

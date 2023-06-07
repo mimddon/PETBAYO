@@ -61,17 +61,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User findOne(final String nickName) {
-        return dao.findOne(nickName);
+    public User findOne(String nickname) {
+        return dao.findOne(nickname);
     }
-
-    /*@GetMapping("/mailCheck")
-    @ResponseBody
-    public String mailCheck(String email) {
-        System.out.println("이메일 인증 요청이 들어옴!");
-        System.out.println("이메일 인증 이메일: " + email);
-        return "Success";
-    }*/
 
 
 }

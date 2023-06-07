@@ -12,5 +12,5 @@ public interface UserDao {
 
     int checkNickname(String nickname);
 
-    User findOne(final String nickName);
+    User findOne(String nickname);
 }

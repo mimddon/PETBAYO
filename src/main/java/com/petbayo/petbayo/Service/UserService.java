@@ -12,5 +12,5 @@ public interface UserService {
 
     boolean checkNickname(String nickname);
 
-    User findOne(final String nickName);
+    User findOne(String nickname);
 }
