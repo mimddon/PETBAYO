@@ -2,6 +2,7 @@ package com.petbayo.petbayo.Controller;
 
 import com.petbayo.petbayo.Model.Book;
 import com.petbayo.petbayo.Model.FileRequest;
+import com.petbayo.petbayo.Model.FileResponse;
 import com.petbayo.petbayo.Model.FileUtils;
 import com.petbayo.petbayo.Service.FileService;
 import com.petbayo.petbayo.Service.PetbookService;
@@ -75,6 +76,21 @@ public class PetbookController {
     public String bookUpdate(@PathVariable int petId, @ModelAttribute("item") Book item) {
 
         bookService.bookUpdate(item);
+
+        // 2. 파일 업로드 (to disk)
+        List<FileRequest> uploadFiles = fileUtils.uploadFiles(item.getFiles());
+
+        // 3. 파일 정보 저장 (to database)
+        fileService.saveFiles(item.getPetId(), uploadFiles);
+
+        // 4. 삭제할 파일 정보 조회 (from database)
+        List<FileResponse> deleteFiles = fileService.findAllFileByIds(item.getRemoveFileIds());
+
+        // 5. 파일 삭제 (from disk)
+        fileUtils.deleteFiles(deleteFiles);
+
+        // 6. 파일 삭제 (from database)
+        fileService.deleteAllFileByIds(item.getRemoveFileIds());
 
         return "redirect:/book/bookList";
     }

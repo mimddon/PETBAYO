@@ -11,4 +11,6 @@ public interface UserService {
     boolean checkEmail(String email);
 
     boolean checkNickname(String nickname);
+
+    User findOne(final String nickName);
 }
