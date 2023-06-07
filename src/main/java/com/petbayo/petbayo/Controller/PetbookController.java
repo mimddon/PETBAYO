@@ -35,9 +35,13 @@ public class PetbookController {
     }
 
     @GetMapping("/book/bookList")
-    public String bookList(Model model) {
+    public String bookList(Model model, Book item) {
         List<Book> book = bookService.bookList();
         model.addAttribute("book", book);
+        List<FileRequest> files = fileUtils.uploadFiles(item.getFiles());
+        fileService.saveFiles(item.getPetId(), files);
+        model.addAttribute("files", files);
+
         return "book/bookList";
     }
 

@@ -95,7 +95,7 @@
             <div class="file_input">
               <input type="text" readonly />
               <label> 첨부파일
-                <input id="file" type="file" name="files" onchange="selectFile(this);" th:value="${files}"/>
+                <input id="file" type="file" name="files" onchange="selectFile(this);"/>
               </label>
             </div>
             <button type="button" onclick="removeFile(this);" class="btns del_btn"><span>삭제</span></button>
