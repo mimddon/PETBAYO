@@ -1,7 +1,9 @@
 package com.petbayo.petbayo.Controller;
 
 import com.petbayo.petbayo.Model.Board;
+import com.petbayo.petbayo.Model.Comment;
 import com.petbayo.petbayo.Service.BoardService;
+import com.petbayo.petbayo.Service.CommentService;
 import com.petbayo.petbayo.pager.Pager;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,9 +16,11 @@ import java.util.List;
 public class BoardController {
 
     private final BoardService boardService;
+    private final CommentService commentService;
 
-    public BoardController(BoardService boardService) {
+    public BoardController(BoardService boardService, CommentService commentService) {
         this.boardService = boardService;
+        this.commentService = commentService;
     }
 
 
@@ -75,6 +79,11 @@ public class BoardController {
     public String delete(@PathVariable int qsId){
         boardService.delete(qsId);
         return "redirect:../list";
+    }
+    @PostMapping("/comment/create")
+    public String createComment(Comment comment) {
+        Comment createdComment = commentService.addComment(comment);
+        return "redirect:/board/detail/" + createdComment.getBoard().getQsId();
     }
 
 
