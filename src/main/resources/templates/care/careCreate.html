@@ -18,10 +18,6 @@
 <body>
 
 <div class="container">
-  <div>
-    <h3>제품 등록</h3>
-  </div>
-
   <form method="post">
     <div class="form-group mt-2">
       <label>제목:</label>
@@ -46,6 +42,11 @@
     <div class="form-group mt-2" hidden="hidden">
       <label>경도</label>
       <input name="longitude" type="number" step="0.000000000000001" class="form-control longitude">
+    </div>
+
+    <div hidden="hidden">
+      <label>유저아이디</label>
+      <input name="userId" type="number" th:value="${__${session.user.userId}__}">
     </div>
 
     <div id="map" style="width:50%;height:400px;position:relative;overflow:hidden;margin:0 auto;">

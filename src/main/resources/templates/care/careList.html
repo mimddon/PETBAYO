@@ -60,8 +60,8 @@
                 <thead>
                 <tr style="font-size: 18px;">
                     <th>Title</th>
-                    <th>Content</th>
                     <th>Price</th>
+                    <th>userId</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -77,8 +77,8 @@
                 <thead>
                 <tr style="font-size: 18px;">
                     <th>Title</th>
-                    <th>Content</th>
                     <th>Price</th>
+                    <th>userId</th>
                 </tr>
                 </thead>
                 <tbody id="careTableBody">
@@ -374,8 +374,8 @@
                     tableBody += `
                 <tr class="careListBox" data-index="${i}">
                     <td class="careListBoxTd">${data[i].title}</td>
-                    <td class="careListBoxTd">${data[i].content}</td>
                     <td class="careListBoxTd">${data[i].price}</td>
+                    <td class="careListBoxTd">${data[i].userId}</td>
                 </tr>
             `;
                 }
@@ -397,14 +397,14 @@
                         title : data[i].title,
                         image : markerImage,
                         clickable: true,
-                        content : data[i].content,
-                        price : data[i].price
+                        price : data[i].price,
+                        userId : data[i].userId
                     });
 
                     // 인포윈도우를 생성합니다
                     let infowindow = new kakao.maps.InfoWindow({
                         position: new kakao.maps.LatLng(data[i].latitude, data[i].longitude),
-                        content : `<div>${data[i].title}</div><div>${data[i].content}</div><div>${data[i].price}</div>`,
+                        content : `<div>${data[i].title}</div><div>${data[i].price}</div><div>${data[i].userId}</div>`,
                     });
 
                     // 마커에 클릭이벤트를 등록합니다
@@ -417,16 +417,7 @@
                             infowindow.open(map, marker);
                         }
                     });
-                    //let numA = new kakao.maps.LatLng(data[i].latitude, data[i].longitude);
-
                 }
-                /*var numB = new kakao.maps.LatLng(data[3].latitude, data[3].longitude);
-                console.log(centerPosition);
-                console.log(numB);
-
-                let distanceA = kakao.maps.geometry.distance(centerPosition, numB);
-                console.log(distanceA);*/
-
                 // 클릭 이벤트를 추가합니다
                 $('.careListBox').click(function() {
                     const index = $(this).data('index');
@@ -455,9 +446,17 @@
 
     </script>
 
+
     <div class="mt-2">
-        <a href="/careCreate" class="btn btn-sm btn-primary" style="width: 70px;">글쓰기</a>
+        <a href="/careCreate"
+           th:if="${session.user != null}"
+           class="btn btn-sm btn-primary" style="width: 70px;">글쓰기</a>
+        <a href="javascript:void(0);"
+           th:if="${session.user == null}"
+           onclick="alert('로그인이 필요합니다.'); location.href='/loginRegister';"
+           class="btn btn-sm btn-primary" style="width: 70px;">글쓰기</a>
     </div>
+
     <!-- 메인 컨텐츠 내용 -->
 
 </main>
