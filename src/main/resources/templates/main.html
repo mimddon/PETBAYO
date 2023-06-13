@@ -2,18 +2,61 @@
 <head>
     <meta charset="UTF-8" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css">
+    <style>
+        .container {
+            position: relative;
+            width: 100%;
+        }
+
+        .container h1 {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 2;
+            color: #d9d9d9;
+            text-align: center;
+            font-family: "Arial", sans-serif;
+            font-size: 32px;
+            line-height: 1.2;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .container iframe {
+            display: block;
+            object-fit: cover;
+            width: 100%;
+            height: 770px;
+            z-index: 1;
+        }
+        footer {
+            background-color: #f8f9fa;
+            padding: 20px;
+            text-align: center;
+            font-family: "Arial", sans-serif;
+            font-size: 14px;
+            color: #666666;
+        }
+    </style>
 </head>
 <body>
 <header th:insert="common/header.html"></header>
 <div class="container">
-    <a>
-        <img src="">
-    </a>
+    <h1>당신의 근처에서<br>애견돌봄이를 찾으세요</h1>
+    <div>
+        <img src="/img/main.png.jpg" style=" object-fit: cover; width: 100%; height: 770px; z-index: 20">
+
+    </div>
 </div>
 <header>
 
 </header>
 <footer>
-    <p>고객센터 문의: 000-0000-0000</p>
+    <p>PetBayo<br>
+        대전광역시 동구 가양동 우암로 352-21 <br>
+        대표: 공동대표(최효빈,신동민,최인하) 반려묭 묭 <br>
+        대표전화: 000-9999-8888
+        이메일: help@petbayo.co<br>
+    </p>
 </footer>
 </body>

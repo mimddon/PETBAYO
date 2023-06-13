@@ -10,11 +10,11 @@
         <result column="latitude" property="latitude"/>
         <result column="longitude" property="longitude"/>
         <result column="price" property="price"/>
-        <result column="user_id" property="userID"/>
+        <result column="user_id" property="userId"/>
     </resultMap>
 
     <select id="careList" resultMap="CareResultMap">
-        SELECT text_id, title, content, price, latitude, longitude FROM petcare
+        SELECT text_id, title, content, price, latitude, longitude, user_id FROM petcare
     </select>
 
     <insert id="create" parameterType="com.petbayo.petbayo.Model.Care">
