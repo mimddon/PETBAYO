@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${care.title}"></title>
+    <script src="/js/careView.js"></script>
+</head>
+<body>
+<header th:insert="common/header.html"></header>
+
+<div th:if="${session.user == null}">
+    <script>
+        alert("세션이 만료되었습니다. 다시 로그인해주세요.");
+        location.href = "/loginRegister";
+    </script>
+</div>
+<div th:if="${session.user != null}">
+    <main style="width: 1200px; margin: 0 auto;">
+        <div>
+            <div th:text="${care.title}"></div><div th:text="${care.content}"></div><div th:text="${care.price}"></div>
+        </div>
+        <div th:if="${session.user.userId == care.userId}">
+            <a th:href="@{/care/delete/__${care.textId}__/__${session.user.userId}__}">삭제</a>
+        </div>
+    </main>
+</div>
+
+
+
+</body>
+</html>

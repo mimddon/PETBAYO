@@ -26,7 +26,7 @@ public class PetcareServiceImpl implements  PetcareService {
 
     @Override
     public Care careItem(int textId) {
-        return null;
+        return petcareRepository.careItem(textId);
     }
 
     @Override
@@ -36,6 +36,7 @@ public class PetcareServiceImpl implements  PetcareService {
 
     @Override
     public void careDelete(int textId) {
-
+        petcareRepository.careDelete(textId);
     }
+
 }

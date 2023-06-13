@@ -17,20 +17,25 @@
         SELECT text_id, title, content, price, latitude, longitude, user_id FROM petcare
     </select>
 
+    <select id="item" resultMap="CareResultMap" parameterType="int">
+        SELECT text_id, title, content, price, latitude, longitude, user_id FROM petcare
+        WHERE text_id = #{textId}
+    </select>
+
     <insert id="create" parameterType="com.petbayo.petbayo.Model.Care">
         INSERT INTO petcare (text_id, title, content, latitude, longitude, price, user_id)
         VALUES (#{textId}, #{title}, #{content}, #{latitude}, #{longitude}, #{price}, #{userId})
     </insert>
 
     <update id="careUpdate" parameterType="com.petbayo.petbayo.Model.Care">
-        UPDATE care
+        UPDATE petcare
         SET title = #{title}, content = #{content}, latitude = #{latitude}, longitude = #{longitude},
         price = #{price}, user_id = #{userId}
         WHERE text_id = #{textId}
     </update>
 
-    <delete id="careDelete" parameterType="int">
-        DELETE FROM care WHERE text_id = #{textId}
+    <delete id="delete" parameterType="int">
+        DELETE FROM petcare WHERE text_id = #{textId}
     </delete>
 
 </mapper>

@@ -352,11 +352,12 @@
                         calculateDistance(centerPosition.Ma, centerPosition.La, data[i].latitude, data[i].longitude, function (distanceInM) {
                             getUserInfo(data[i].userId, function (userInfo) {
                                 circleChange();
+                                console.log(data[i]);
 
                                 if (number >= distanceInM) {
                                     tableBody += `
                                 <tr class="careListBox" data-index="${i}">
-                                    <td class="careListBoxTd">${data[i].title}</td>
+                                    <td class="careListBoxTd"><a href="/care/careView/${data[i].textId}">${data[i].title}</a></td>
                                     <td class="careListBoxTd">${data[i].price}</td>
                                     <td class="careListBoxTd">${userInfo.nickname}</td>
                                     <td class="careListBoxTd">${distanceInM}m</td>

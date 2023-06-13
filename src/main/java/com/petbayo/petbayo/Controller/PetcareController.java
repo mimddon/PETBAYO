@@ -38,17 +38,24 @@ public class PetcareController {
         return "redirect:/care/careList";
     }
 
-    @GetMapping("care/delete/{textId}")
-    public String careDelete(@PathVariable int textId) {
+    @GetMapping("/care/delete/{textId}/{userId}")
+    public String careDelete(@PathVariable int textId, @PathVariable int userId) {
         careService.careDelete(textId);
 
-        return "redirect: /care/careList";
+        return "redirect:/mypage/" + userId;
     }
 
     @GetMapping("/api/care")
     @ResponseBody
     public List<Care> getAllCare() {
         return careService.careList();
+    }
+
+    @GetMapping("/care/careView/{textId}")
+    public String careView(@PathVariable int textId, Model model) {
+        Care care = careService.careItem(textId);
+        model.addAttribute("care", care);
+        return "care/careView";
     }
 
 
