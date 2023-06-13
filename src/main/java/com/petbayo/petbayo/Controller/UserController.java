@@ -159,4 +159,14 @@ public class UserController {
         return "redirect:/mypage/" + userId;
     }
 
+    @GetMapping("/api/user/{userId}")
+    @ResponseBody
+    public ResponseEntity<User> getUserInfo(@PathVariable int userId) {
+        User user = service.findOne(userId);
+        if (user == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(user);
+    }
+
 }

@@ -78,7 +78,7 @@
                 <tr style="font-size: 18px;">
                     <th>Title</th>
                     <th>Price</th>
-                    <th>userId</th>
+                    <th>Nickname</th>
                 </tr>
                 </thead>
                 <tbody id="careTableBody">
@@ -371,17 +371,17 @@
                 let tableBody = '';
 
                 for (let i = 0; i < data.length; i++) {
-                    tableBody += `
-                <tr class="careListBox" data-index="${i}">
-                    <td class="careListBoxTd">${data[i].title}</td>
-                    <td class="careListBoxTd">${data[i].price}</td>
-                    <td class="careListBoxTd">${data[i].userId}</td>
-                </tr>
-            `;
+                    getUserInfo(data[i].userId, function (userInfo) {
+                        tableBody += `
+                    <tr class="careListBox" data-index="${i}">
+                       <td class="careListBoxTd">${data[i].title}</td>
+                       <td class="careListBoxTd">${data[i].price}</td>
+                       <td class="careListBoxTd">${userInfo.nickname}</td>
+                    </tr>
+                `;
+                    });
                 }
                 $('#careTableBody').html(tableBody);
-
-
 
                 const imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png"; // 마커 이미지의 이미지 주소입니다
 
@@ -441,6 +441,20 @@
 
             }
         });
+
+        function getUserInfo(userId, callback) {
+            $.ajax({
+                type: 'GET',
+                url: `/api/user/${userId}`,  // 유저 정보를 가져올 API 엔드포인트
+                dataType: 'json',
+                success: function(userInfo) {
+                    callback(userInfo);  // 유저 정보를 콜백 함수에 전달
+                },
+                error: function(error) {
+                    console.error(error);
+                }
+            });
+        }
 
 
 

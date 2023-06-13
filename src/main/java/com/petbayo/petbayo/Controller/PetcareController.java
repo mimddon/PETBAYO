@@ -20,7 +20,6 @@ public class PetcareController {
     @Autowired
     private PetcareService careService;
 
-
     @GetMapping("/care/careList")
     public String careList(Model model) {
         List<Care> care = careService.careList();
