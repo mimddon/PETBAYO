@@ -1,7 +1,10 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
+    <meta charset="UTF-8">
     <title>My Page</title>
+    <script src="/js/myPageView.js"></script>
+    <link rel="stylesheet" href="/css/myPageView.css">
 </head>
 <body>
 <header th:insert="common/header.html"></header>
@@ -15,6 +18,17 @@
 <div th:if="${session.user != null}">
 
     <h2 th:text="${item.nickname + '님의 페이지입니다'}"></h2>
+
+    <div class="img-area" th:id="${item.userId}" >
+
+    </div>
+<!--    <img th:src="${item.imagePath}" alt="User Profile Image" style="width: 200px; height: 200px;">-->
+
+    <form th:action="@{/myPageView/__${item.userId}__}" method="POST" enctype="multipart/form-data">
+        <input type="file" name="file" id="file-input">
+        <button type="submit">업로드</button>
+    </form>
+
 
     <table>
         <thead>
