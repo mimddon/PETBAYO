@@ -33,5 +33,3 @@ let tableBody = '';
 let markers = [];
 
 let infoWindows = [];
-
-let infoWindow;

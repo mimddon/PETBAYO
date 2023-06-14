@@ -1,7 +1,7 @@
 window.onload = function () {
     const boxes = document.querySelectorAll('.img-area');
     boxes.forEach(box => {
-        fetch("api/users/img/" + box.id)
+        fetch("/api/users/img/" + box.id)
             .then(response => {
                 if (!response.ok) {
                     throw new Error("Error: " + response.status);

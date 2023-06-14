@@ -28,3 +28,6 @@
     top: -1px;
     right: -15px;
 }
+#map {
+    transition: transform 0.5s ease; /* 중심 좌표 변경에 대한 트랜지션 효과 설정 */
+}
