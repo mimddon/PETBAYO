@@ -270,36 +270,13 @@
             // 지도의 현재 확대 레벨을 가져옵니다
             zoomLevel = map.getLevel();
 
-            if (zoomLevel === 1) {
-                number = 105;
-            } else if (zoomLevel === 2) {
-                number = 210;
-            } else if (zoomLevel === 3) {
-                number = 425;
-            } else if (zoomLevel === 4) {
-                number = 825;
-            } else if (zoomLevel === 5) {
-                number = 1650;
-            } else if (zoomLevel === 6) {
-                number = 3500;
-            } else if (zoomLevel === 7) {
-                number = 7000;
-            } else if (zoomLevel === 8) {
-                number = 14000;
-            } else if (zoomLevel === 9) {
-                number = 28000;
-            } else if (zoomLevel === 10) {
-                number = 56000;
-            } else if (zoomLevel === 11) {
-                number = 112000;
-            } else if (zoomLevel === 12) {
-                number = 224000;
-            } else if (zoomLevel === 13) {
-                number = 448000;
-            } else if (zoomLevel === 14) {
-                number = 896000;
-            }
+            const numbers = [105, 210, 425, 825, 1650, 3500, 7000, 14000, 28000, 56000, 112000, 224000, 448000, 896000];
 
+            for (let i = 0; i < 14; i++) {
+                if (zoomLevel === (i+1)) {
+                    number = numbers[i];
+                }
+            }
         }
         function clearListAndMarkers() {
             // 이전 마커와 목록을 지우는 로직
@@ -313,7 +290,7 @@
             }
             infoWindows = [];
 
-            tableBody = '';
+            $('#careTableBody').html("");
         }
 
 
@@ -330,6 +307,7 @@
                     const imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png"; // 마커 이미지의 이미지 주소입니다
 
                     let distanceInM;
+
                     function calculateDistance(lat1, lng1, lat2, lng2, callback) {
                         var R = 6371; // 지구의 반지름 (단위: km)
                         var dLat = deg2rad(lat2 - lat1);
@@ -352,10 +330,9 @@
                         calculateDistance(centerPosition.Ma, centerPosition.La, data[i].latitude, data[i].longitude, function (distanceInM) {
                             getUserInfo(data[i].userId, function (userInfo) {
                                 circleChange();
-                                console.log(data[i]);
 
                                 if (number >= distanceInM) {
-                                    tableBody += `
+                                    tableBody = `
                                 <tr class="careListBox" data-index="${i}">
                                     <td class="careListBoxTd"><a href="/care/careView/${data[i].textId}">${data[i].title}</a></td>
                                     <td class="careListBoxTd">${data[i].price}</td>
@@ -363,7 +340,9 @@
                                     <td class="careListBoxTd">${distanceInM}m</td>
                                 </tr>`;
 
-                                    $('#careTableBody').html(tableBody);
+                                    $('#careTableBody').append(tableBody);
+
+                                    console.log(tableBody);
 
                                     let imageSize = new kakao.maps.Size(24, 35); //마커 이미지의 이미지 크기입니다
 
@@ -382,7 +361,7 @@
                                     markers.push(marker); // 마커를 배열에 추가
 
                                     // 인포윈도우를 생성합니다
-                                    infowindow = new kakao.maps.InfoWindow({
+                                    const infowindow = new kakao.maps.InfoWindow({
                                         position: new kakao.maps.LatLng(data[i].latitude, data[i].longitude),
                                         content :  `<div>${data[i].title}</div>
                                                     <div>${data[i].price}</div>
