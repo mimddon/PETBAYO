@@ -1,0 +1,30 @@
+.goBook {
+    text-decoration: none; /* 밑줄 제거 */
+    color: inherit; /* 부모 요소의 색상 상속 */
+}
+.goBook:hover {
+    text-decoration: none; /* 밑줄 제거 */
+    color: #35b0ff; /* 호버 시에 변경할 색상 설정 */
+}
+.title {font-weight:bold;display:block;}
+.hAddr {position:absolute;left:3px;top:3px;border-radius: 3px;background:#fff;background:rgba(255,255,255,0.8);z-index:2;padding:5px;box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 2px 0px;}
+.mAddr {cursor: pointer;width:32px;height:32px;position:absolute;right:3px;top:190px;border-radius: 3px;background-color: #ffffff;background-image: url("/img/myLocGo.svg");z-index:2;padding:5px;box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 2px 0px;}
+#centerAddr {display:block;margin-top:2px;font-weight: normal;}
+.bAddr {padding:5px;text-overflow: ellipsis;overflow: hidden;white-space: nowrap;}
+.careListBox {
+    cursor: pointer;
+    margin-top: 1px;
+    margin-bottom: 1px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    height: 80px;
+    box-sizing: border-box;
+    font-size: 12pt;
+}
+.careListBox.hovered {
+    outline: 2px solid #35b0ff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+.custom-infowindow .custom-infowindow-close {
+    top: -1px;
+    right: -15px;
+}

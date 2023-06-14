@@ -5,11 +5,21 @@ import com.petbayo.petbayo.Service.UserService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
 
 import javax.servlet.http.HttpSession;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.util.Base64;
 
 @Slf4j
 @AllArgsConstructor
@@ -24,6 +34,7 @@ public class UserController {
         return "loginRegister";
     }
 
+    @ResponseBody
     @PostMapping("/login")
     public String loginRegister(@RequestParam("email") String email, @RequestParam("pwd") String pwd, HttpSession session) {
         User user = new User();
@@ -34,9 +45,9 @@ public class UserController {
         if (service.login(user)) {
             session.setAttribute("user", user);
             System.out.println(session.getAttribute("user"));
-            return "redirect:/";
+            return "loginSuccess";
         } else {
-            return "redirect:/login?error";
+            return "loginFail";
         }
         /*session.setAttribute("user", user);
 
@@ -99,13 +110,63 @@ public class UserController {
         return "redirect:/";
     }
 
-    @GetMapping("/mypage/{nickname}")
-    public String myPage(@PathVariable String nickname, Model model) {
-        User findUser = service.findOne(nickname);
-
+    @GetMapping("/mypage/{userId}")
+    public String myPage(@PathVariable int userId, Model model, HttpSession session) {
+        User findUser = service.findOne(userId);
         model.addAttribute("item", findUser);
-
+        System.out.println(model.getAttribute("item"));
         return "mypage/myPageView";
+    }
+
+    @GetMapping("/mypage/api/users/img/{targetId}")
+    @ResponseBody
+    public ResponseEntity<byte[]> findMyPageImg (@PathVariable int targetId) throws Exception{
+        User findUser = service.findOne(targetId);
+        File file = new File(findUser.getImagePath());
+        byte[] bytes = Files.readAllBytes(file.toPath());
+
+        HttpHeaders headers = new HttpHeaders();
+        String filename = file.getName();
+        String fileExtension = filename.substring(filename.lastIndexOf(".") + 1).toLowerCase();
+
+        switch (fileExtension) {
+            case "png":
+                headers.setContentType(MediaType.IMAGE_PNG);
+                break;
+            case "jpg":
+            case "jpeg":
+                headers.setContentType(MediaType.IMAGE_JPEG);
+                break;
+            case "gif":
+                headers.setContentType(MediaType.IMAGE_GIF);
+                break;
+            default:
+                headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
+                break;
+        }
+
+        return ResponseEntity.status(HttpStatus.OK)
+                .headers(headers)
+                .body(bytes);
+    }
+
+    @PostMapping("/myPageView/{userId}")
+    public String addProfile(@PathVariable int userId, @RequestParam("file") MultipartFile file) throws IOException {
+        User user = service.findOne(userId);
+
+        service.uploadProfile(user, file);
+
+        return "redirect:/mypage/" + userId;
+    }
+
+    @GetMapping("/api/user/{userId}")
+    @ResponseBody
+    public ResponseEntity<User> getUserInfo(@PathVariable int userId) {
+        User user = service.findOne(userId);
+        if (user == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(user);
     }
 
 }

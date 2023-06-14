@@ -9,8 +9,8 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@Getter
 @Setter
+@Getter
 @ToString
 @NoArgsConstructor
 public class Board {
@@ -18,6 +18,7 @@ public class Board {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int qsId;
 
+    @Column(name = "user_id")
     private int userId;
 
     @Column(length = 1000)
@@ -28,28 +29,14 @@ public class Board {
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdDate;
 
-    @Enumerated(EnumType.STRING)
-    private Process process;
-
-    @Enumerated(EnumType.STRING)
-    private Disclosure disclosure;
-
-    public enum Process {
-        PROCESSING, // 'R' - 처리중 (Processing)
-        PENDING, // 'P' - 대기중 (Pending)
-        COMPLETED  // 'C' - 처리완료 (Completed)
-    }
-
-    public enum Disclosure {
-        OPEN, // 'O' - 공개 (Open)
-        CLOSED  // 'X' - 비공개 (Closed)
-    }
+    private int viewCnt;
 
     public void update(Board req) {
         this.userId = req.getUserId();
         this.qsTitle = req.getQsTitle();
-        this.process = req.getProcess();
     }
+
+    @PrePersist
     public void setCreatedDate() {
         this.createdDate = new Date();
     }

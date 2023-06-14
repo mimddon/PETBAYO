@@ -6,10 +6,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PETBAYO</title>
     <script src="https://code.jquery.com/jquery-3.4.0.js"></script>
+
+
     <link rel="stylesheet" href="/css/loginRegister.css">
+    <style>
+        .loginButton {
+            cursor: pointer;
+        }
 
-
-
+        .loginButton:hover {
+            background-color: cornsilk;
+        }
+    </style>
 </head>
 <body>
 <div class="container">
@@ -22,6 +30,7 @@
             <h2>아이디가 없으신가요?</h2>
             <button class="signupbtn">Register</button>
         </div>
+
     </div>
     <div class="form-box">
         <div class="form signinform">
@@ -29,11 +38,41 @@
                 <h3>Login</h3>
                 <input type="text" name="email" placeholder="Email" required>
                 <input type="password" name="pwd" placeholder="Password" required>
-                <input type="submit" value="Sign In">
+                <input class="loginButton" type="button" value="Sign In" onclick="loginCheck()">
+
+                <script>
+                    function loginCheck() {
+                        var email = document.querySelector('input[name="email"]').value;
+                        var password = document.querySelector('input[name="pwd"]').value;
+
+                        $.ajax({
+                            url: "/login",
+                            type: "POST",
+                            data: {
+                                email: email,
+                                pwd: password
+                            },
+                            success: function(response) {
+                                if (response === "loginSuccess") {
+                                    alert("로그인 성공! 환영합니다");
+                                    window.location.href = "/";
+                                } else if (response === "loginFail") {
+                                    alert("로그인에 실패했습니다. 이메일과 비밀번호를 확인해주세요.");
+                                    window.location.href = "/loginRegister";
+                                }
+                            },
+                            error: function() {
+                                // Handle error if the AJAX request fails
+                                alert("An error occurred during the login process.");
+                            }
+                        });
+                    }
+                </script>
+
                 <div class="find">
-                    <a href="#">비밀번호 찾기</a>
-                    <a>|</a>
                     <a href="#">아이디 찾기</a>
+                    <a>|</a>
+                    <a href="#">비밀번호 찾기</a>
                 </div>
             </form>
         </div>
@@ -48,7 +87,7 @@
                 <input type="password" name="pwd" id="pwd" placeholder="Password" onchange="isSame()" required>
 
                 <div class="reg-e">
-                    <input type="password" id="pwdChk" onchange="isSame()" placeholder="Confirm-Password" required>&nbsp;&nbsp;
+                    <input type="password" name="pwdChk" id="pwdChk" onchange="isSame()" placeholder="Confirm-Password" required>&nbsp;&nbsp;
                     <span id="same"></span>
                 </div>
 
@@ -73,7 +112,7 @@
                             }
                         }
                     </script>
-                    <input type="text" name="birth" id="birth" maxlength="6" onkeydown="return onlyNumber();" placeholder="Birth  /  Example: 990101" required>
+                    <input type="text" name="birth" id="birth" maxlength="8" onkeydown="return onlyNumber();" placeholder="Birth  /  Example: 19990101" required>
 
                     <script>
                         function showSelectedGender() {
@@ -103,22 +142,35 @@
 
                 </div>
 
-                <input type="submit" value="Sign Up" onclick="register()">
+                <input type="button" value="Sign Up" onclick="register()">
             </form>
         </div>
     </div>
 </div>
 <script src="/js/loginRegister.js"></script>
 
+
 <script>
 let isEmailCheck = false;
 let isNicknameCheck = false;
+
+function validateEmail(email) {
+    // 이메일 정규식 패턴
+    var emailPattern = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
+
+    return emailPattern.test(email);
+}
 
 function checkEmail(mode) {
     const email = document.register_form.email.value;
 
     if (email === "") {
         alert("중복검사 전에 이메일을 입력 해 주세요");
+        return;
+    }
+    // 이메일 유효성 검사
+    if (!validateEmail(email)) {
+        alert("유효한 이메일 형식이 아닙니다.");
         return;
     }
 
@@ -155,11 +207,22 @@ function checkEmail_Async() {
     xhr.send();
 }
 
+function validateNickname(nickname) {
+    // 닉네임 정규식 패턴
+    var nicknamePattern = /^[a-zA-Z0-9ㄱ-ㅎ가-힣]{2,25}$/;
+
+    return nicknamePattern.test(nickname);
+}
+
 function checkNickname(mode) {
     const nickname = document.register_form.nickname.value;
 
     if (nickname === "") {
         alert("중복검사 전에 닉네임을 입력 해 주세요");
+        return;
+    }
+    if (!validateNickname(nickname)) {
+        alert("유효한 닉네임 형식이 아닙니다.");
         return;
     }
 
@@ -201,17 +264,24 @@ function register() {
 
     if (!isEmailCheck) {
         alert("이메일 중복 검사를 하셔야 합니다");
+        form.email.focus();
         return;
     }
 
     if (!isNicknameCheck) {
         alert("닉네임 중복 검사를 하셔야 합니다");
+        form.nickname.focus();
         return;
     }
 
     if (form.email.value === "") {
         alert("이메일을 입력 해 주세요");
         form.email.focus();
+        return;
+    }
+    if (form.pwd.value !== form.pwdChk.value) {
+        alert("비밀번호불일치");
+        form.pwdChk.focus();
         return;
     }
 
@@ -221,16 +291,32 @@ function register() {
         return;
     }
 
-    form.submit();
-}
+    if (form.birth.value === "") {
+        alert("생년월일을 입력 해 주세요");
+        form.birth.focus();
+        return;
+    }
+    if (form.birth.value.length < 8) {
+        alert("생년월일 8자리를 입력 해 주세요");
+        form.birth.focus();
+        return;
+    }
 
-</script>
-<script>
+    if (!form.gender[0].checked && !form.gender[1].checked) {
+        alert("성별을 선택 해 주세요");
+        return;
+    }
+
+    form.submit();
+    alert("회원가입 완료! 로그인 페이지로 이동합니다.")
+}
 function isSame() {
+    const form = document.register_form;
     var pwd = document.getElementById('pwd').value;
 
     if (pwd.length < 6 || pwd.length > 16) {
         alert('비밀번호는 6글자 이상, 16글자 이하만 이용 가능합니다.');
+        form.pwd.focus();
         document.getElementById('pwd').value=document.getElementById('pwdChk').value='';
         document.getElementById('same').innerHTML='';
     }
@@ -242,6 +328,7 @@ function isSame() {
         else {
             document.getElementById('same').innerHTML='비밀번호 불일치';
             document.getElementById('same').style.color='red';
+            form.pwdChk.focus();
         }
     }
 }

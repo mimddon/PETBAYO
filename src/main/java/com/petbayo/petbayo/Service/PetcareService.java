@@ -17,6 +17,4 @@ public interface PetcareService {
 
     void careDelete(int textId);
 
-
-
 }

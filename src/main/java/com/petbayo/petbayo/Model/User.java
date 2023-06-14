@@ -11,4 +11,8 @@ public class User {
     private String birth;
     private int gender;
     private int grade;
+    private String userImage;
+    private String imagePath;
+    private int carePoint;
+    private String userIntro;
 }

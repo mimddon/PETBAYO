@@ -1,26 +1,50 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
+    <meta charset="UTF-8">
     <title>My Page</title>
+    <script src="/js/myPageView.js"></script>
+    <link rel="stylesheet" href="/css/myPageView.css">
 </head>
 <body>
-<h2 th:text="${item.nickname}"> 님의 페이지 입니다</h2>
+<header th:insert="common/header.html"></header>
 
-<table>
-    <thead>
-    <tr>
-        <th>Username</th>
-        <th>Email</th>
-        <th>Age</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr>
-        <td th:text="${item.nickname}"></td>
-        <td th:text="${item.gender}"></td>
-        <td th:text="${item.birth}"></td>
-    </tr>
-    </tbody>
-</table>
+<div th:if="${session.user == null}">
+    <script>
+        alert("세션이 만료되었습니다. 다시 로그인해주세요.");
+        location.href = "/loginRegister";
+    </script>
+</div>
+<div th:if="${session.user != null}">
+
+    <h2 th:text="${item.nickname + '님의 페이지입니다'}"></h2>
+
+    <div class="img-area" th:id="${item.userId}"></div>
+
+    <form th:action="@{/myPageView/__${item.userId}__}" method="POST" enctype="multipart/form-data">
+        <input type="file" name="file" id="file-input">
+        <button type="submit">업로드</button>
+    </form>
+
+
+    <table>
+        <thead>
+        <tr>
+            <th>Username</th>
+            <th>birth</th>
+            <th>Age</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td th:text="${item.nickname}"></td>
+            <td th:text="${item.birth}"></td>
+            <td th:text="${item.gender == 0 ? '남자' : '여자'}"></td>
+        </tr>
+        </tbody>
+    </table>
+
+</div>
+
 </body>
 </html>

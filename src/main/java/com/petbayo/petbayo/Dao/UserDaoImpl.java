@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.petbayo.petbayo.Model.User;
+import org.springframework.web.multipart.MultipartFile;
 
 @Repository
 public class UserDaoImpl implements UserDao {
@@ -34,8 +35,12 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public User findOne(final String nickName) {
-        return sql.selectOne("users.findOne", nickName);
+    public User findOne(int userId) {
+        return sql.selectOne("users.findOne", userId);
     }
 
+    @Override
+    public void updateProfile(User user) {
+        sql.update("users.updateProfile", user);
+    }
 }

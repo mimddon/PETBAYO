@@ -13,216 +13,229 @@
     .bAddr {padding:5px;text-overflow: ellipsis;overflow: hidden;white-space: nowrap;}
     .latitude {display: none;}
     .longitude {display: none;}
+    .textarea-content{width:100%;height: 300px;border: 1px solid #ced4da;}
   </style>
 </head>
 <body>
-
-<div class="container">
-  <div>
-    <h3>제품 등록</h3>
+<header th:insert="common/header.html"></header>
+  <div th:if="${session.user == null}">
+    <script>
+     alert("세션이 만료되었습니다. 다시 로그인해주세요.");
+     location.href = "/loginRegister";
+    </script>
   </div>
 
-  <form method="post">
-    <div class="form-group mt-2">
-      <label>제목:</label>
-      <input name="title" type="text" class="form-control">
-    </div>
+  <div th:if="${session.user != null}">
+    <div class="container">
+      <form method="post">
+        <div class="form-group mt-2">
+          <label>제목:</label>
+          <input name="title" type="text" class="form-control">
+        </div>
 
-    <div class="form-group mt-2">
-      <label>내용</label>
-      <input name="content" type="text" class="form-control">
-    </div>
+        <div class="form-group mt-2">
+          <label>내용</label>
+          <textarea name="content" type="text" class="textarea-content"></textarea>
+        </div>
 
-    <div class="form-group mt-2">
-      <label>가격</label>
-      <input name="price" type="number" class="form-control">
-    </div>
+        <div class="form-group mt-2">
+          <label>가격</label>
+          <input name="price" type="number" class="form-control">
+        </div>
 
-    <div class="form-group mt-2" hidden="hidden">
-      <label>위도</label>
-      <input name="latitude" type="number" step="0.000000000000001" class="form-control latitude">
-    </div>
+        <div class="form-group mt-2" hidden="hidden">
+          <label>위도</label>
+          <input name="latitude" type="number" step="0.000000000000001" class="form-control latitude">
+        </div>
 
-    <div class="form-group mt-2" hidden="hidden">
-      <label>경도</label>
-      <input name="longitude" type="number" step="0.000000000000001" class="form-control longitude">
-    </div>
+        <div class="form-group mt-2" hidden="hidden">
+          <label>경도</label>
+          <input name="longitude" type="number" step="0.000000000000001" class="form-control longitude">
+        </div>
 
-    <div id="map" style="width:50%;height:400px;position:relative;overflow:hidden;margin:0 auto;">
-      <div class="hAddr" style="z-index: 2">
-        <span class="title">주소</span>
-        <span id="centerAddr"></span>
-      </div>
-    </div>
-    <!-- services 라이브러리 불러오기 -->
-    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=1dc4acb769231477d585bb172afb8241&libraries=services"></script>
-    <script>
-      var mapContainer = document.getElementById('map'), // 지도를 표시할 div
-              mapOption = {
-                center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
-                level: 3 // 지도의 확대 레벨
-              };
+        <div hidden="hidden">
+          <label>유저아이디</label>
+          <input name="userId" type="number" th:value="${__${session.user.userId}__}">
+        </div>
 
-      var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
-      var geocoder = new kakao.maps.services.Geocoder(); // 주소-좌표 변환 객체를 생성합니다
-      var cmMarker = new kakao.maps.Marker(), // 클릭한 위치를 표시할 마커입니다
-          cmInfowindow = new kakao.maps.InfoWindow({zindex:1}); // 클릭한 위치에 대한 주소를 표시할 인포윈도우입니다
+        <div id="map" style="width:50%;height:400px;position:relative;overflow:hidden;margin:0 auto;">
+          <div class="hAddr" style="z-index: 2">
+            <span class="title">주소</span>
+            <span id="centerAddr"></span>
+          </div>
+        </div>
+        <!-- services 라이브러리 불러오기 -->
+        <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=1dc4acb769231477d585bb172afb8241&libraries=services"></script>
+        <script>
+          var mapContainer = document.getElementById('map'), // 지도를 표시할 div
+                  mapOption = {
+                    center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+                    level: 3 // 지도의 확대 레벨
+                  };
 
-      // 사용자의 위치 정보 가져오기
-      if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(
-                function(position) {
-                  // 사용자의 현재 위치 좌표
-                  var lat = position.coords.latitude;
-                  var lng = position.coords.longitude;
+          var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+          var geocoder = new kakao.maps.services.Geocoder(); // 주소-좌표 변환 객체를 생성합니다
+          var cmMarker = new kakao.maps.Marker(), // 클릭한 위치를 표시할 마커입니다
+                  cmInfowindow = new kakao.maps.InfoWindow({zindex:1}); // 클릭한 위치에 대한 주소를 표시할 인포윈도우입니다
 
-                  var latitudeInput = document.querySelector('.latitude');
-                  if (latitudeInput) {
-                    latitudeInput.value = lat;
-                  }
-                  var longitudeInput = document.querySelector('.longitude');
-                  if (longitudeInput) {
-                    longitudeInput.value = lng;
-                  }
+          // 사용자의 위치 정보 가져오기
+          if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(
+                    function(position) {
+                      // 사용자의 현재 위치 좌표
+                      var lat = position.coords.latitude;
+                      var lng = position.coords.longitude;
 
-                  // 지도 이동
-                  var myLatLng = new kakao.maps.LatLng(lat, lng),
-                          message = '<div style="padding:5px;">이 위치가 맞습니까?</div>';
+                      var latitudeInput = document.querySelector('.latitude');
+                      if (latitudeInput) {
+                        latitudeInput.value = lat;
+                      }
+                      var longitudeInput = document.querySelector('.longitude');
+                      if (longitudeInput) {
+                        longitudeInput.value = lng;
+                      }
 
-                  centerPosition = myLatLng;
+                      // 지도 이동
+                      var myLatLng = new kakao.maps.LatLng(lat, lng),
+                              message = '<div style="padding:5px;">이 위치가 맞습니까?</div>';
 
-                  displayMarker(myLatLng, message);
+                      centerPosition = myLatLng;
 
-                  searchDetailAddrFromCoords(myLatLng, function(result, status) {
-                    if (status === kakao.maps.services.Status.OK) {
-                      var detailAddr = !!result[0].road_address ? '<div>도로명주소 : ' + result[0].road_address.address_name + '</div>' : '';
-                      detailAddr += '<div>지번 주소 : ' + result[0].address.address_name + '</div>';
+                      displayMarker(myLatLng, message);
 
-                      var content = '<div class="bAddr">' +
-                              detailAddr +
-                              '</div>';
+                      searchDetailAddrFromCoords(myLatLng, function(result, status) {
+                        if (status === kakao.maps.services.Status.OK) {
+                          var detailAddr = !!result[0].road_address ? '<div>도로명주소 : ' + result[0].road_address.address_name + '</div>' : '';
+                          detailAddr += '<div>지번 주소 : ' + result[0].address.address_name + '</div>';
 
-                      var infoDiv = document.getElementById('centerAddr');
-                      infoDiv.innerHTML = content;
+                          var content = '<div class="bAddr">' +
+                                  detailAddr +
+                                  '</div>';
+
+                          var infoDiv = document.getElementById('centerAddr');
+                          infoDiv.innerHTML = content;
 
 
-                    }
-                  });
-                }, function (error) {
-                  var myLatLng = new kakao.maps.LatLng(36.450701, 126.570667),
-                          message = '<div>지도를 클릭해 위치를 설정해주세요</div>'
+                        }
+                      });
+                    }, function (error) {
+                      var myLatLng = new kakao.maps.LatLng(36.450701, 126.570667),
+                              message = '<div>지도를 클릭해 위치를 설정해주세요</div>'
 
-                  centerPosition = myLatLng;
+                      centerPosition = myLatLng;
 
-                  displayMarker(myLatLng, message);
+                      displayMarker(myLatLng, message);
 
-                  searchDetailAddrFromCoords(myLatLng, function(result, status) {
-                    if (status === kakao.maps.services.Status.OK) {
-                      var detailAddr = !!result[0].road_address ? '<div>도로명주소 : ' + result[0].road_address.address_name + '</div>' : '';
-                      detailAddr += '<div>지번 주소 : ' + result[0].address.address_name + '</div>';
+                      searchDetailAddrFromCoords(myLatLng, function(result, status) {
+                        if (status === kakao.maps.services.Status.OK) {
+                          var detailAddr = !!result[0].road_address ? '<div>도로명주소 : ' + result[0].road_address.address_name + '</div>' : '';
+                          detailAddr += '<div>지번 주소 : ' + result[0].address.address_name + '</div>';
 
-                      var content = '<div class="bAddr">' +
-                              detailAddr +
-                              '</div>';
+                          var content = '<div class="bAddr">' +
+                                  detailAddr +
+                                  '</div>';
 
-                      var infoDiv = document.getElementById('centerAddr');
-                      infoDiv.innerHTML = content;
-                    }
-                  });
-                });
-      } else {
-        alert('이 브라우저는 위치 정보를 지원하지 않습니다.');
-      }
+                          var infoDiv = document.getElementById('centerAddr');
+                          infoDiv.innerHTML = content;
+                        }
+                      });
+                    });
+          } else {
+            alert('이 브라우저는 위치 정보를 지원하지 않습니다.');
+          }
 
-      // 지도에 마커와 인포윈도우를 표시하는 함수입니다
-      function displayMarker(myLatLng, message) {
+          // 지도에 마커와 인포윈도우를 표시하는 함수입니다
+          function displayMarker(myLatLng, message) {
 
-        // 마커를 생성합니다
-        myMarker = new kakao.maps.Marker({
-          map: map,
-          position: myLatLng
-        });
+            // 마커를 생성합니다
+            myMarker = new kakao.maps.Marker({
+              map: map,
+              position: myLatLng
+            });
 
-        var iwContent = message, // 인포윈도우에 표시할 내용
-                iwRemoveable = true;
+            var iwContent = message, // 인포윈도우에 표시할 내용
+                    iwRemoveable = true;
 
-        // 인포윈도우를 생성합니다
-        myInfowindow = new kakao.maps.InfoWindow({
-          content : iwContent,
-          removable : iwRemoveable
-        });
+            // 인포윈도우를 생성합니다
+            myInfowindow = new kakao.maps.InfoWindow({
+              content : iwContent,
+              removable : iwRemoveable
+            });
 
-        // 인포윈도우를 마커위에 표시합니다
-        myInfowindow.open(map, myMarker);
+            // 인포윈도우를 마커위에 표시합니다
+            myInfowindow.open(map, myMarker);
 
-        // 지도 중심좌표를 접속위치로 변경합니다
-        map.setCenter(myLatLng);
-
-      }
-
-      // 지도를 클릭했을 때 클릭 위치 좌표에 대한 주소정보를 표시하도록 이벤트를 등록합니다
-      kakao.maps.event.addListener(map, 'click', function(mouseEvent) {
-        searchDetailAddrFromCoords(mouseEvent.latLng, function(result, status) {
-          if (status === kakao.maps.services.Status.OK) {
-            var detailAddr = !!result[0].road_address ? '<div>도로명주소 : ' + result[0].road_address.address_name + '</div>' : '';
-            detailAddr += '<div>지번 주소 : ' + result[0].address.address_name + '</div>';
-
-            var content = '<div class="bAddr">' +
-                    detailAddr +
-                    '</div>';
-
-            var infoDiv = document.getElementById('centerAddr');
-            infoDiv.innerHTML = content;
-
-            var cmLat = mouseEvent.latLng.getLat();
-            var cmLng = mouseEvent.latLng.getLng();
-
-            var latitudeInput = document.querySelector('.latitude');
-            if (latitudeInput) {
-              latitudeInput.value = cmLat;
-            }
-            var longitudeInput = document.querySelector('.longitude');
-            if (longitudeInput) {
-              longitudeInput.value = cmLng;
-            }
-
-            // 마커를 클릭한 위치에 표시합니다
-            cmMarker.setPosition(mouseEvent.latLng);
-            cmMarker.setMap(map);
-
-            centerPosition = mouseEvent.latLng;
-
-            // 클릭한 위치를 중심좌표로 설정
-            map.setCenter(centerPosition);
-
-            if(cmMarker.getMap()) {
-              myMarker.setMap(null);
-              myInfowindow.setMap(null);
-            }
-
-            // 인포윈도우에 클릭한 위치에 대한 법정동 상세 주소정보를 표시합니다
-            cmInfowindow.setContent('내위치');
-            cmInfowindow.open(map, cmMarker);
+            // 지도 중심좌표를 접속위치로 변경합니다
+            map.setCenter(myLatLng);
 
           }
-        });
-      });
 
-      function searchDetailAddrFromCoords(coords, callback) {
-        // 좌표로 법정동 상세 주소 정보를 요청합니다
-        geocoder.coord2Address(coords.getLng(), coords.getLat(), callback);
-      }
+          // 지도를 클릭했을 때 클릭 위치 좌표에 대한 주소정보를 표시하도록 이벤트를 등록합니다
+          kakao.maps.event.addListener(map, 'click', function(mouseEvent) {
+            searchDetailAddrFromCoords(mouseEvent.latLng, function(result, status) {
+              if (status === kakao.maps.services.Status.OK) {
+                var detailAddr = !!result[0].road_address ? '<div>도로명주소 : ' + result[0].road_address.address_name + '</div>' : '';
+                detailAddr += '<div>지번 주소 : ' + result[0].address.address_name + '</div>';
 
-    </script>
+                var content = '<div class="bAddr">' +
+                        detailAddr +
+                        '</div>';
+
+                var infoDiv = document.getElementById('centerAddr');
+                infoDiv.innerHTML = content;
+
+                var cmLat = mouseEvent.latLng.getLat();
+                var cmLng = mouseEvent.latLng.getLng();
+
+                var latitudeInput = document.querySelector('.latitude');
+                if (latitudeInput) {
+                  latitudeInput.value = cmLat;
+                }
+                var longitudeInput = document.querySelector('.longitude');
+                if (longitudeInput) {
+                  longitudeInput.value = cmLng;
+                }
+
+                // 마커를 클릭한 위치에 표시합니다
+                cmMarker.setPosition(mouseEvent.latLng);
+                cmMarker.setMap(map);
+
+                centerPosition = mouseEvent.latLng;
+
+                // 클릭한 위치를 중심좌표로 설정
+                map.setCenter(centerPosition);
+
+                if(cmMarker.getMap()) {
+                  myMarker.setMap(null);
+                  myInfowindow.setMap(null);
+                }
+
+                // 인포윈도우에 클릭한 위치에 대한 법정동 상세 주소정보를 표시합니다
+                cmInfowindow.setContent('내위치');
+                cmInfowindow.open(map, cmMarker);
+
+              }
+            });
+          });
+
+          function searchDetailAddrFromCoords(coords, callback) {
+            // 좌표로 법정동 상세 주소 정보를 요청합니다
+            geocoder.coord2Address(coords.getLng(), coords.getLat(), callback);
+          }
+
+        </script>
 
 
 
-    <div class="form-group mt-3">
-      <button type="submit" class="btn btn-sm btn-primary">등록</button>
-      <a href="/careList"><button type="button" class="btn btn-sm btn-secondary">취소</button></a>
+        <div class="form-group mt-3">
+          <button type="submit" class="btn btn-sm btn-primary">등록</button>
+          <a href="/careList"><button type="button" class="btn btn-sm btn-secondary">취소</button></a>
+        </div>
+      </form>
     </div>
-  </form>
-</div>
+  </div>
+
+
 
 </body>
 </html>
