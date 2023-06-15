@@ -8,12 +8,9 @@
     <style>
         .navbar {
             min-height: 80px;
-        } n
-        .navbar-brand {
-            height: 100%;
-            display: flex;
-            align-items: center;
+
         }
+
         .navbar-brand img {
             max-height: 100%;
             margin-right: 10px;
@@ -63,11 +60,7 @@
                 <a class="nav-link" href="/board/list">BOARD</a>
             </li>
         </ul>
-        <!--<div class="btn-group">
-            <a class="btn btn-primary" href="/login" style="font-size: 11px">Login</a>
-            <a class="btn btn-success" href="/register" style="font-size: 11px" >Signup</a>
-            &lt;!&ndash;로그인 성공을 하면  마이페이지/로그아웃 뜨게 구현&ndash;&gt;
-        </div>-->
+
         <div class="btn-group">
             <th:block th:if="${session.user != null}">
                 <a class="btn btn-primary" style="font-size: 11px" th:href="@{/mypage/__${session.user.userId}__}">mypage</a>

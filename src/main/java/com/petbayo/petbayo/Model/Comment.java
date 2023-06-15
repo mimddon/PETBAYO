@@ -13,6 +13,7 @@ public class Comment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long comId;
+    private int qsId;
 
     @Column(name = "user_id")
     private int userId;

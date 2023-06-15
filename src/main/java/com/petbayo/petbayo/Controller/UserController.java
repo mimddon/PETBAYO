@@ -118,7 +118,7 @@ public class UserController {
         return "mypage/myPageView";
     }
 
-    @GetMapping("/mypage/api/users/img/{targetId}")
+    @GetMapping("/api/users/img/{targetId}")
     @ResponseBody
     public ResponseEntity<byte[]> findMyPageImg (@PathVariable int targetId) throws Exception{
         User findUser = service.findOne(targetId);

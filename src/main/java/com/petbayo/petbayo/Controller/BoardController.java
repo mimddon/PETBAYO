@@ -61,7 +61,7 @@ public class BoardController {
     @PostMapping("/update/{qsId}")
     public String update(@PathVariable int qsId, @ModelAttribute("board") Board board) {
         board.setQsId(qsId);
-        boardService.update(board);
+
 
         return "redirect:/board/list";
     }
@@ -72,7 +72,8 @@ public class BoardController {
         board.setViewCnt(board.getViewCnt() + 1);
         boardService.update(board);
         model.addAttribute("board", board);
-
+        List<Comment> comments = commentService.list(qsId);
+        model.addAttribute("comment",comments);
         return "/board/detail";
     }
     @GetMapping("delete/{qsId}")
@@ -80,10 +81,11 @@ public class BoardController {
         boardService.delete(qsId);
         return "redirect:../list";
     }
-    @PostMapping("/comment/create")
-    public String createComment(Comment comment) {
+    @PostMapping("detail/{qsId}/comment/create")
+    public String createComment(Comment comment, @PathVariable int qsId) {
         Comment createdComment = commentService.addComment(comment);
-        return "redirect:/board/detail/" + createdComment.getBoard().getQsId();
+
+        return "redirect:/board/detail/" + createdComment.getQsId();
     }
 
 

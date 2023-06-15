@@ -6,16 +6,46 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css">
 </head>
 <body>
+
 <header th:insert="common/header.html"></header>
 <div class="container">
     <h2 th:text="${board.qsTitle}"></h2>
     <p>작성자: <span th:text="${board.userId}"></span></p>
     <p>작성일: <span th:text="${#dates.format(board.createdDate, 'yyyy-MM-dd HH:mm')}"></span></p>
     <p>조회수: <span th:text="${board.viewCnt}"></span></p>
-    <hr>
+    <ul th:each="comm : ${comment}">
+        <li th:text="${comm.contents}"></li>
+    </ul>
     <div th:text="${board.content}"></div>
     <a href="#" th:href="@{/board/update/{qsId}(qsId=${board.qsId})}" class="btn btn-primary">수정</a>
+    <button id="commentBtn" class="btn btn-secondary">댓글</button>
+    <form method="post" action="1/comment/create">
+    <div id="commentContainer" style="display: none;">
+        <textarea id="commentContent" rows="5" name="contents" style="resize: none; border: 1px solid #ccc; border-radius: 5px; padding: 5px;"></textarea>
+        <button id="commentSubmit" class="btn btn-primary">댓글 작성</button>
+    </div>
+    </form>
 </div>
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<script>
+
+    // 댓글 버튼 클릭 시 댓글 작성 창 토글
+    $('#commentBtn').click(function() {
+        $('#commentContainer').toggle();
+    });
+
+    // 댓글 작성 버튼 클릭 시 댓글 저장
+    $('#commentSubmit').click(function() {
+        var comment = $('#commentContent').val();
+        // TODO: 댓글 저장 로직 추가
+        // 이 부분에서 댓글을 서버에 저장하거나 처리하는 로직을 구현해야 합니다.
+        // 예를 들어, AJAX 요청을 사용하여 서버로 댓글을 전송하는 등의 작업을 수행해야 합니다.
+        // 서버로 댓글을 전송한 후에는 필요에 따라 페이지를 다시 로드하거나 동적으로 댓글 목록을 업데이트할 수 있습니다.
+    });
+</script>
+
 </body>
 </html>
