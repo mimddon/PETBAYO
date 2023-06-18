@@ -169,4 +169,13 @@ public class UserController {
         return ResponseEntity.ok(user);
     }
 
+    @PostMapping("/myPageView/intro/{userId}")
+    public String intro(@PathVariable int userId, @RequestParam("intro") String intro) {
+        User user = service.findOne(userId);
+
+        service.uploadIntro(user, intro);
+
+        return "redirect:/mypage/" + userId;
+    }
+
 }

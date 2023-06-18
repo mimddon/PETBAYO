@@ -18,4 +18,6 @@ public interface UserService {
     User findOne(int userId);
 
     void uploadProfile(User user, MultipartFile file) throws IOException;
+
+    void uploadIntro(User user, String intro);
 }
