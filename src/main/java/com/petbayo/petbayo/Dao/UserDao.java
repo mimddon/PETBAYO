@@ -16,4 +16,6 @@ public interface UserDao {
     User findOne(int userId);
 
     void updateProfile(User user);
+
+    void uploadIntro(User user, String intro);
 }
