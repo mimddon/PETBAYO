@@ -9,8 +9,7 @@
             font-family: Arial, sans-serif;
             background-color: #f7f7f7;
         }
-        css
-        Copy code
+
         .container {
             max-width: 800px;
             margin: 0 auto;
@@ -36,6 +35,7 @@
         th, td {
             padding: 10px;
             border-bottom: 1px solid #ddd;
+            font-size: 14px;
         }
 
         th {
@@ -47,13 +47,6 @@
         a {
             color: #007bff;
             text-decoration: none;
-        }
-
-
-
-        .col-auto {
-            float: left;
-            margin-right: 10px;
         }
 
         .pagination li {
@@ -125,8 +118,7 @@
 </head>
 <body>
 <header th:insert="common/header.html"></header>
-<div class="container">
-    <div class="container">
+<div class="container" style="max-width: 1200px;">
         <div class="division">
             <div>
                 <button class="btn btn-primary" style="color: white;">COMMUNITY</button>
@@ -142,6 +134,7 @@
             <th scope="col">질문</th>
             <th scope="col">답변</th>
             <th scope="col">작성일</th>
+            <th scope="col">작성자</th>
             <th scope="col">조회수</th>
         </tr>
         </thead>
@@ -150,9 +143,8 @@
             <td> <a th:href="@{/board/detail/{qsId}(qsId=${board.qsId})}" th:text="${board.qsId }" th:onclick="'showDetail(\'' + ${board.qsId} + '\')'"></a></td>
             <td> <a th:href="@{/board/detail/{qsId}(qsId=${board.qsId})}" th:text="${board.qsTitle}" th:onclick="'showDetail(\'' + ${board.qsId} + '\')'"></a></td>
             <td> <a th:href="@{/board/detail/{qsId}(qsId=${board.qsId})}" th:text="${board.content}" th:onclick="'showDetail(\'' + ${board.qsId} + '\')'"></a></td>
-            <td>
-                <a th:href="@{/board/detail/{qsId}(qsId=${board.qsId})}" th:text="${#dates.format(board.createdDate, 'yyyy-MM-dd')}" th:onclick="'showDetail(\'' + ${board.qsId} + '\')'"></a>
-            </td>
+            <td><a th:href="@{/board/detail/{qsId}(qsId=${board.qsId})}" th:text="${#dates.format(board.createdDate, 'yyyy-MM-dd')}" th:onclick="'showDetail(\'' + ${board.qsId} + '\')'"></a></td>
+            <td><a th:href="@{/board/detail/{qsId}(qsId=${board.qsId})}" th:text="${board.userId}" th:onclick="'showDetail(\'' + ${board.qsId} + '\')'"></a></td>
             <td th:text="${board.viewCnt}"></td>
         </tr>
         </tbody>
