@@ -1,5 +1,5 @@
 window.onload = function () {
-    const boxes = document.querySelectorAll('.img-area');
+    const boxes = document.querySelectorAll('.user-pic-wrapper');
     boxes.forEach(box => {
         fetch("/api/users/img/" + box.id)
             .then(response => {
