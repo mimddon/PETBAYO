@@ -30,19 +30,11 @@
         </div>
         <div style="text-align: center; font-size: 24px;">
             <h4 style="padding-top: 10px; margin-top: 10px; font-size: 20px;">일반 돌봄이</h4>
-            <table style="width:100%;">
-                <thead>
-                <tr style="font-size: 18px;">
-                    <th>Title</th>
-                    <th>Price</th>
-                    <th>Nickname</th>
-                    <th>distance</th>
-                </tr>
-                </thead>
-                <tbody id="careTableBody">
+            <div style="width:100%;">
+                <div id="careTableBody">
 
-                </tbody>
-            </table>
+                </div>
+            </div>
         </div>
     </div>
     <div id="map" style="width:70%;height:800px;position:relative;overflow:hidden;">
@@ -333,6 +325,26 @@
 
                                 if (number >= distanceInM) {
                                     tableBody = `
+                                <div style="width:100%;">
+
+                                        <div class="careListBox" data-index="${i}">
+
+                                            <div class="careListBox-user">
+                                                <div class="careListBox-user-cp">Care Point : 30</div>
+                                                <div class="img-area" th:id="${userInfo.userId}">이미지이미지</div>
+                                                <div class="careListBox-user-nickname">${userInfo.nickname}</div>
+                                            </div>
+
+                                            <div class="careListBox-text">
+                                                <a href="/care/careView/${data[i].textId}">${data[i].title}</a>
+                                                <div class="careListBox-text-price">시간 당  : ${data[i].price} 원</div>
+                                                <div class="careListBox-text-distance">${distanceInM} m</div>
+                                            </div>
+
+                                        </div>
+
+                                </div>
+
                                 <tr class="careListBox" data-index="${i}">
                                     <td class="careListBoxTd"><a href="/care/careView/${data[i].textId}">${data[i].title}</a></td>
                                     <td class="careListBoxTd">${data[i].price}</td>
@@ -438,6 +450,10 @@
            onclick="alert('로그인이 필요합니다.'); location.href='/loginRegister';"
            class="btn btn-sm btn-primary" style="width: 70px;">글쓰기</a>
     </div>
+
+
+
+
 
     <!-- 메인 컨텐츠 내용 -->
 </main>
