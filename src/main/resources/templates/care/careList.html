@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link rel="stylesheet" href="/css/careList.css">
+    <script src="/js/myPageView.js"></script>
 
 </head>
 <body>
@@ -333,7 +334,7 @@
 
                                             <div class="careListBox-user">
                                                 <div class="careListBox-user-cp">Care Point : 30</div>
-                                                <div class="img-area" th:id="${userInfo.userId}">이미지이미지</div>
+                                                <div class="user-pic-wrapper" id="${userInfo.userId}"></div>
                                                 <div class="careListBox-user-nickname">${userInfo.nickname}</div>
                                             </div>
 
@@ -345,14 +346,7 @@
 
                                         </div>
 
-                                </div>
-
-                                <tr class="careListBox" data-index="${i}">
-                                    <td class="careListBoxTd"><a href="/care/careView/${data[i].textId}">${data[i].title}</a></td>
-                                    <td class="careListBoxTd">${data[i].price}</td>
-                                    <td class="careListBoxTd">${userInfo.nickname}</td>
-                                    <td class="careListBoxTd">${distanceInM}m</td>
-                                </tr>`;
+                                </div>`;
 
                                     $('#careTableBody').append(tableBody);
 
