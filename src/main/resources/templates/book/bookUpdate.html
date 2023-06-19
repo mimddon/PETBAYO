@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <title>펫 종 수정</title>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <body>
 <div class="container">
@@ -28,6 +29,12 @@
       <input id="writer" name="writer" type="text" class="form-control" th:value="${item.writer}">
     </div>
 
+    <div class="form-group mt-2" th:each="file, stat : ${files}">
+      <div>
+        <label th:text="${file.original_name}"></label>
+        <button type="button" class="btn btn-sm btn-danger" th:attr="data-id=${file.id}">삭제</button>
+      </div>
+    </div>
 
     <div class="form-group mt-3">
       <button type="submit" class="btn btn-sm btn-primary">수정</button>
@@ -36,5 +43,24 @@
   </form>
 </div>
 
+<script>
+  $(document).ready(function() {
+    $(".btn-danger").click(function() {
+      var fileId = $(this).attr("data-id");
+      $.ajax({
+        url: '/file/' + fileId,
+        type: 'DELETE',
+        success: function(result) {
+          // Do something with the result
+          location.reload();
+        },
+        error: function(err) {
+          // Handle error
+          console.error(err);
+        }
+      });
+    });
+  });
+</script>
 </body>
 </html>

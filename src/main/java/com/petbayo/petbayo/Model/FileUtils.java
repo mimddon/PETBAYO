@@ -1,12 +1,20 @@
 package com.petbayo.petbayo.Model;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.annotation.PostConstruct;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -14,10 +22,20 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+@Slf4j
+@NoArgsConstructor
 @Component
 public class FileUtils {
 
-    private final String uploadPath = Paths.get("C:", "develop", "upload-files").toString();
+
+    @Value("${upload.path}")
+    private String basePath;
+
+
+
+    public String uploadPath() {
+        return Paths.get(basePath).toString();
+    }
 
     /**
      * 다중 파일 업로드
@@ -50,11 +68,13 @@ public class FileUtils {
 
         String saveName = generateSaveFilename(multipartFile.getOriginalFilename());
         String today = LocalDate.now().format(DateTimeFormatter.ofPattern("yyMMdd")).toString();
-        String uploadPath = getUploadPath(today) + File.separator + saveName;
-        File uploadFile = new File(uploadPath);
-
+//        String uploadPath = getUploadPath(today) + File.separator + saveName;
+        Path uploadPath = Paths.get(getUploadPath(), saveName);
+//        File uploadFile = new File(uploadPath);
+//        log.info(uploadPath);
         try {
-            multipartFile.transferTo(uploadFile);
+//            multipartFile.transferTo(uploadFile);
+            Files.copy(multipartFile.getInputStream(), uploadPath);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -82,7 +102,7 @@ public class FileUtils {
      * @return 업로드 경로
      */
     private String getUploadPath() {
-        return makeDirectories(uploadPath);
+        return makeDirectories(uploadPath());
     }
 
     /**
@@ -90,8 +110,8 @@ public class FileUtils {
      * @param addPath - 추가 경로
      * @return 업로드 경로
      */
-    private String getUploadPath(final String addPath) {
-        return makeDirectories(uploadPath + File.separator + addPath);
+    public String getUploadPath(final String addPath) {
+        return makeDirectories(uploadPath() + File.separator + addPath);
     }
 
     /**

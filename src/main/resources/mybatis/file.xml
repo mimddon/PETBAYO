@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.petbayo.petbayo.Domain.FileMapper">
+<mapper namespace="file">
 
-    <resultMap id="FileResultMap" type="com.petbayo.petbayo.Domain.FileMapper">
+    <resultMap id="FileResultMap" type="com.petbayo.petbayo.Model.FileRequest">
         <id column="id" property="id"/>
         <result column="pet_id" property="petId"/>
         <result column="original_name" property="originalName"/>
@@ -41,7 +41,13 @@
             )
         </foreach>
     </insert>
-
-
+    <select id="findOne" parameterType="Integer" resultType="HashMap">
+        SELECT * FROM petbook_file pf WHERE PET_ID = #{value} AND delete_yn = 0;
+    </select>
+    <update id="delete" parameterType="Integer">
+        UPDATE petbook_file
+        SET delete_yn = 1, deleted_date = NOW()
+        WHERE id = #{petId};
+    </update>
 
 </mapper>

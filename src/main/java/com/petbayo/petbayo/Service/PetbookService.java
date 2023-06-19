@@ -16,5 +16,6 @@ public interface PetbookService {
     void bookDelete(int petId);
     List<Book> searchBooks(String keyword, String category);
 
+    String getCurrentDateYYMMDD();
 
 }

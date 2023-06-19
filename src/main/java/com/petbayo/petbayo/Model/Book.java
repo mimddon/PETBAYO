@@ -2,12 +2,19 @@ package com.petbayo.petbayo.Model;
 
 
 
+import lombok.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
+@Getter
+@Setter
+@ToString
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Book {
 
     public int getPetId() {
@@ -20,12 +27,21 @@ public class Book {
 
     private int petId;
 
+    private int userId;
+
     private String species;
 
     private String description;
 
     private String writer;
 
+    private String originalName;
+
+    private String saveName;
+
+    private String imgList;
+
+    private List<String> imgs;
 
     public String getWriter() {
         return writer;
@@ -45,7 +61,6 @@ public class Book {
         this.files = files;
     }
 
-
     public String getSpecies() {
         return species;
     }
@@ -62,7 +77,11 @@ public class Book {
         this.description = description;
     }
 
+    public int getUserId() {
+        return userId;
+    }
 
-
-
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
 }
