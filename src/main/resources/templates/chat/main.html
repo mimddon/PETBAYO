@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Main Chat Page</title>
+    <meta charset="UTF-8"/>
+</head>
+<body>
+<h1>채팅</h1>
+
+<div th:if="${chatMessageList.isEmpty()}">
+    <p>대화 기록이 없습니다.</p>
+</div>
+
+<div th:if="${!chatMessageList.isEmpty()}">
+    <table>
+        <thead>
+        <tr>
+            <th>채팅방</th>
+            <th>메세지</th>
+            <th>최근 대화일</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="chatMessage : ${chatMessageList}">
+            <td th:if="${userInfo.userId.toString() == chatMessage.senderId}">
+                <a th:href="@{/chat/{id}(id=${chatMessage.recipientId})}" th:text="${chatMessage.recipientNickname}">
+                    Recipient
+                </a>
+            </td>
+            <td th:if="${userInfo.userId.toString() == chatMessage.recipientId}">
+                <a th:href="@{/chat/{id}(id=${chatMessage.senderId})}" th:text="${chatMessage.senderNickname}">
+                    Sender
+                </a>
+            </td>
+            <td th:text="${chatMessage.message}">Message</td>
+            <td th:text="${chatMessage.createdAt.format(T(java.time.format.DateTimeFormatter).ofPattern('yyyy-MM-dd HH:mm:ss'))}">Time</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

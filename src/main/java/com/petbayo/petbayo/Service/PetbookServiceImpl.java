@@ -11,6 +11,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.transaction.Transactional;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 
@@ -54,6 +56,13 @@ public class PetbookServiceImpl implements PetbookService{
     public List<Book> searchBooks(String keyword, String category) {
         // 검색 로직을 구현합니다.
         return petbookRepository.searchBooks(keyword, category);
+    }
+
+    @Override
+    public String getCurrentDateYYMMDD() {
+        LocalDate currentDate = LocalDate.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyMMdd");
+        return currentDate.format(formatter)+ "/";
     }
 
 

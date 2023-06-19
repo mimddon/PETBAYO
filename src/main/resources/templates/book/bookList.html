@@ -8,6 +8,23 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="/css/pet-book.css">
     <link rel="stylesheet" type="text/css" href="/css/nav.css">
+    <style>
+        #chatButton {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            border-radius: 50%;
+            background-color: #555555;
+        }
+    </style>
+
 </head>
 
 
@@ -50,6 +67,8 @@
             <!-- 전체 게시글 -->
             <div class="col-md-4" th:each="book : ${book}">
                 <div class="card">
+                    <img class="card-img-top" th:if="${book.imgs != null && book.imgs.size() > 0}" th:src="@{'/upload-files/' + ${book.imgs[0]}}" alt="Book image">
+                    <img class="card-img-top" th:if="${book.imgs == null || book.imgs.size() == 0}" src="/img/default.png" alt="Default image">
                     <div class="card-body">
                         <h5 class="card-title" th:text="${book.species}"></h5>
                         <p class="card-text" th:text="'작성자: ' + ${book.writer}"></p>
@@ -95,6 +114,9 @@
                     </div>
                     <div class="modal-body">
                         <p class="card-text">작성자: <span th:text="${book.writer}"></span></p>
+                        <div th:each="img : ${#objects.nullSafe(book.imgs, {})}">
+                            <img class="card-img-top" th:src="@{'/upload-files/' + ${img}}" alt="Book image">
+                        </div>
                         <p th:text="${book.description}"> </p>
                         <a th:href="@{/book/update/{id}(id=${book.petId})}">수정</a>
                     </div>
@@ -106,9 +128,14 @@
 <button class="btn btn-danger"><a href="/bookCreate">등록</a></button>
 <button><a href="/book/bookList">이전</a></button>
 </div>
+<button id="chatButton" onclick="openChat()">채팅</button>
 
 
-
+<script>
+    function openChat() {
+        window.open('/chat', 'Chat', 'width=800,height=600,scrollbars=yes,status=no');
+    }
+</script>
 </body>
 
 </html>

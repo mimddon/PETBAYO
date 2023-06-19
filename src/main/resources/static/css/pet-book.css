@@ -201,3 +201,8 @@ h1 {
 .search-category-dropdown li:hover {
     background-color: #f5f5f5;
 }
+.card-img-top {
+    width: 350px;
+    height: 200px;
+    object-fit: cover;
+}

@@ -1,8 +1,10 @@
 package com.petbayo.petbayo.Domain;
 
+import com.petbayo.petbayo.Model.Book;
 import com.petbayo.petbayo.Model.FileRequest;
 import org.apache.ibatis.annotations.Mapper;
 
+import java.util.HashMap;
 import java.util.List;
 
 @Mapper
@@ -15,5 +17,6 @@ public interface FileMapper {
      */
     boolean saveAll(List<FileRequest> files);
 
+    List<FileRequest> findOne(int petId);
 
 }
