@@ -126,5 +126,8 @@ public class UserServiceImpl implements UserService {
         }
     }
 
-
+    @Override
+    public void uploadIntro(User user, String intro) {
+        dao.uploadIntro(user, intro);
+    }
 }
