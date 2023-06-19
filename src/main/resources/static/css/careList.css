@@ -11,14 +11,18 @@
 .mAddr {cursor: pointer;width:32px;height:32px;position:absolute;right:3px;top:190px;border-radius: 3px;background-color: #ffffff;background-image: url("/img/myLocGo.svg");z-index:2;padding:5px;box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 2px 0px;}
 #centerAddr {display:block;margin-top:2px;font-weight: normal;}
 .bAddr {padding:5px;text-overflow: ellipsis;overflow: hidden;white-space: nowrap;}
+#careTableBody {
+    width: 100%;height: auto;
+}
 .careListBox {
+    display: flex;
     cursor: pointer;
-    margin-top: 1px;
-    margin-bottom: 1px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    height: 80px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
     box-sizing: border-box;
     font-size: 12pt;
+    padding: 10px;
+    margin: 10px;
+    width: 95%;
 }
 .careListBox.hovered {
     outline: 2px solid #35b0ff;
@@ -30,4 +34,53 @@
 }
 #map {
     transition: transform 0.5s ease; /* 중심 좌표 변경에 대한 트랜지션 효과 설정 */
+}
+.careListBox-user {
+    padding-right: 10px;
+    width: 34%;
+    box-shadow: 2px 0 0 0 rgba(0, 0, 0, 0.1);
+}
+.careListBox-user-cp {
+    font-weight: bold;
+    font-size: 10pt;
+}
+.user-pic-wrapper {
+    width: 100%;
+    height: 90px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+.user-pic-wrapper img {
+    width: 100%;
+    height: 100%;
+    border-radius: 100px;
+}
+.careListBox-user-nickname {
+    font-size: 11pt;
+    font-weight: bold;
+}
+.careListBox-text {
+    padding-left: 10px;
+    width: 66%;
+}
+.careListBox-text a {
+    font-weight: 600;
+    color: rgb(36, 38, 44);
+    font-size: 14pt;
+    text-decoration: none;
+    text-align: initial;
+    display: block;
+}
+.careListBox-text-price {
+    text-align: initial;
+    position: relative;
+    top: 25px;
+    font-size: 11pt;
+}
+.careListBox-text-distance {
+    position: relative;
+    top: 70px;
+    text-align: end;
+    font-size: 10pt;
+    margin-right: 10px;
 }

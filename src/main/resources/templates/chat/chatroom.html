@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Chat Room</title>
+</head>
+<body>
+<a href="/chat">메인화면으로</a>
+
+<div th:if="${userInfo != null}">
+    <h1>환영합니다, <span th:text="${userInfo.nickname}">Nickname</span></h1>
+</div>
+
+<div th:if="${chatMessageLogList != null}">
+    <h2>Chat Messages</h2>
+    <table>
+        <thead>
+        <tr>
+            <th>Sender</th>
+            <th>Message</th>
+            <th>Time</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="chatMessage : ${chatMessageLogList}">
+            <td th:text="${chatMessage.senderNickname}">Sender</td>
+            <td th:text="${chatMessage.message}">Message</td>
+            <td th:text="${#temporals.format(chatMessage.createdAt, 'yyyy-MM-dd HH:mm:ss')}">Time</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<form id="chatForm" action="#" th:action="@{/chat/{id}(id=${destUserId})}" method="post">
+    <input type="text" id="message" name="message" placeholder="Enter your message" required />
+    <input type="hidden" id="senderId" name="senderId" th:value="${userInfo.userId}" />
+    <input type="hidden" id="recipientId" name="recipientId" th:value="${destUserId}" />
+    <button type="submit">Send</button>
+</form>
+
+</body>
+
+</html>

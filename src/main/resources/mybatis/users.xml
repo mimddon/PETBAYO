@@ -48,4 +48,10 @@
         WHERE user_id = #{userId}
     </update>
 
+    <update id="uploadIntro" parameterType="java.util.HashMap">
+        UPDATE users
+        SET user_intro = #{intro}
+        WHERE user_id = #{userId}
+    </update>
+
 </mapper>

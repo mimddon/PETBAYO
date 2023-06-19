@@ -5,15 +5,27 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
 @Configuration
 public class MvcConfig implements WebMvcConfigurer {
-
-    @Value("${upload-path}")
+/*
+    @Value("${upload-path-petbook}")
     private String uploadPath;
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/upload/**") //매핑경로
-                .addResourceLocations("file:///" + uploadPath); //실제 파일 위치
+        registry.addResourceHandler("/resources/**")
+                .addResourceLocations("/resources/");
     }
+   */
+        @Value("${upload.path}")
+        private String uploadPath;
+
+        @Override
+        public void addResourceHandlers(ResourceHandlerRegistry registry) {
+            registry.addResourceHandler("/upload-files/**")
+                    .addResourceLocations(uploadPath);
+        }
 }

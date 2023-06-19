@@ -8,13 +8,27 @@
         <result column="species" property="species"/>
         <result column="description" property="description"/>
         <result column="writer" property="writer"/>
-
+        <result column="original_name" property="originalName"/>
+        <result column="img_list" property="imgList"/>
+        <result column="user_id" property="userId"/>
     </resultMap>
 
 
 
     <select id="bookList" resultMap="BookResultMap">
-        SELECT * FROM petbook
+        SELECT
+        pb.pet_id,
+        pb.species,
+        pb.description,
+        pb.writer,
+        pf.original_name,
+        GROUP_CONCAT(pf.save_name) as img_list
+        FROM
+        petbook pb
+        LEFT JOIN
+        petbook_file pf
+        ON pb.pet_id = pf.pet_id AND pf.delete_yn = 0
+        GROUP BY pb.pet_id;
     </select>
 
     <insert id="create" parameterType="com.petbayo.petbayo.Model.Book"  useGeneratedKeys="true" keyProperty="petId">

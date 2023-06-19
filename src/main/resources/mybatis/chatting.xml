@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="chatting">
+
+    <resultMap id="chatMessageResultMap" type="com.petbayo.petbayo.Model.ChatMessage" autoMapping="true">
+        <id property="id" column="id"/>
+        <result property="senderId" column="sender_id"/>
+        <result property="recipientId" column="recipient_id"/>
+        <result property="message" column="message"/>
+        <result property="createdAt" column="created_at"/>
+        <result property="senderNickname" column="sender_nickname"/>
+        <result property="recipientNickname" column="recipient_nickname"/>
+    </resultMap>
+
+    <select id="chattingList" parameterType="Integer" resultMap="chatMessageResultMap">
+        <![CDATA[
+        SELECT c1.id, c1.sender_id, c1.recipient_id, c1.message, c1.created_at, usr1.nickname as "sender_nickname" , usr2.nickname as "recipient_nickname"
+        FROM chat_message c1
+        LEFT JOIN chat_message c2
+            ON ((c1.sender_id = c2.sender_id AND c1.recipient_id = c2.recipient_id)
+            OR (c1.sender_id = c2.recipient_id AND c1.recipient_id = c2.sender_id))
+            AND c1.created_at < c2.created_at
+        LEFT JOIN users usr1 on c1.sender_id = usr1.user_id
+        LEFT JOIN users usr2 on c1.recipient_id = usr2.user_id
+        WHERE (c1.sender_id = #{value} OR c1.recipient_id = #{value}) AND c2.id IS NULL;
+        ]]>
+    </select>
+
+    <insert id="insertMessage" parameterType="HashMap">
+        INSERT INTO chat_message
+        (sender_id, recipient_id, message)
+        VALUES(#{senderId}, #{recipientId}, #{message});
+    </insert>
+    <select id="chattingLog" parameterType="HashMap" resultMap="chatMessageResultMap">
+        <![CDATA[
+        SELECT DISTINCT c1.id, c1.sender_id, c1.recipient_id, c1.message, c1.created_at, usr1.nickname as "sender_nickname" , usr2.nickname as "recipient_nickname"
+        FROM chat_message c1
+        LEFT JOIN chat_message c2
+        ON ((c1.sender_id = c2.sender_id AND c1.recipient_id = c2.recipient_id)
+        OR (c1.sender_id = c2.recipient_id AND c1.recipient_id = c2.sender_id))
+        AND c1.created_at < c2.created_at
+                            LEFT JOIN users usr1 on c1.sender_id = usr1.user_id
+                            LEFT JOIN users usr2 on c1.recipient_id = usr2.user_id
+                            WHERE (c1.sender_id = #{me} OR c1.recipient_id = #{me})
+        AND (c1.sender_id = #{targetUser} OR c1.recipient_id = #{targetUser});
+        ]]>
+    </select>
+</mapper>

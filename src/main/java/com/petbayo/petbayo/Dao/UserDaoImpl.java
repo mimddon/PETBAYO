@@ -7,6 +7,9 @@ import org.springframework.stereotype.Repository;
 import com.petbayo.petbayo.Model.User;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @Repository
 public class UserDaoImpl implements UserDao {
 
@@ -42,5 +45,13 @@ public class UserDaoImpl implements UserDao {
     @Override
     public void updateProfile(User user) {
         sql.update("users.updateProfile", user);
+    }
+
+    @Override
+    public void uploadIntro(User user, String intro) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("userId", user.getUserId());
+        map.put("intro", intro);
+        sql.update("users.uploadIntro", map);
     }
 }

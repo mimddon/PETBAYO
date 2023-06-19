@@ -14,12 +14,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-
 import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.util.Base64;
 
 @Slf4j
 @AllArgsConstructor
@@ -44,7 +42,7 @@ public class UserController {
 
         if (service.login(user)) {
             session.setAttribute("user", user);
-            System.out.println(session.getAttribute("user"));
+            System.out.println("!!!!!!" + session.getAttribute("user"));
             return "loginSuccess";
         } else {
             return "loginFail";
@@ -167,6 +165,15 @@ public class UserController {
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok(user);
+    }
+
+    @PostMapping("/myPageView/intro/{userId}")
+    public String intro(@PathVariable int userId, @RequestParam("intro") String intro) {
+        User user = service.findOne(userId);
+
+        service.uploadIntro(user, intro);
+
+        return "redirect:/mypage/" + userId;
     }
 
 }

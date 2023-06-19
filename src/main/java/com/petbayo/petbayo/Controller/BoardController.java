@@ -74,6 +74,7 @@ public class BoardController {
         model.addAttribute("board", board);
         List<Comment> comments = commentService.list(qsId);
         model.addAttribute("comment",comments);
+        model.addAttribute("qsId",qsId);
         return "/board/detail";
     }
     @GetMapping("delete/{qsId}")

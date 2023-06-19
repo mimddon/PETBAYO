@@ -3,68 +3,152 @@
 <head>
     <meta charset="UTF-8" />
     <title>게시판 - 목록</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css">
+    <style>
+        /* Add your custom styles here */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f7f7f7;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+            font-size: 14px;
+        }
+
+        th {
+            background-color: #f5f5f5;
+            font-weight: bold;
+            text-align: left;
+        }
+
+        a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        .pagination li {
+            float: left;
+            margin-right: 5px;
+        }
+
+        .pagination li a {
+            display: block;
+            padding: 5px 10px;
+            border: 1px solid #ddd;
+            text-decoration: none;
+        }
+
+        .pagination li.disabled a {
+            color: #999999;
+            cursor: not-allowed;
+        }
+
+        .pagination li a:hover:not(.disabled) {
+            background-color: #f5f5f5;
+        }
+
+        .division {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .division button {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .division h1 {
+            font-size: 24px;
+            margin: 0;
+            color: #007bff;
+        }
+        a {
+            color: black;
+            text-decoration: none;
+            outline: none;
+        }
+
+        a:hover,
+        a:active {
+            text-decoration: none;
+            color: black;
+            background-color: white;
+        }
+
+        /* Custom styles for table row links */
+        tr a {
+            display: inline-block;
+            padding: 5px 10px;
+            color: black;
+            text-decoration: none;
+        }
+
+        tr a:hover {
+            background-color: #f5f5f5;
+        }
+    </style>
 </head>
 <body>
 <header th:insert="common/header.html"></header>
-<div class="container">
-    <div class="division">
-        <div>
-            <button class="btn btn-primary" style="color: white;">PETBAYO BOARD
-            </button>
+<div class="container" style="max-width: 1200px;">
+        <div class="division">
+            <div>
+                <button class="btn btn-primary" style="color: white;">COMMUNITY</button>
+            </div>
+            <div class="add">
+               <a th:if="${session.user.getUserId() == 8 }" class="btn btn-primary" href="/board/add" role="button">글쓰기</a>
+            </div>
         </div>
-    </div>
-    <table class="table">
-        <thead class="thead-light">
-        <tr class="text-center">
-            <th scope="col">번호</th>
-            <th scope="col">제목</th>
-            <th scope="col">내용</th>
-            <th scope="col">작성자</th>
+    <table>
+        <thead>
+        <tr >
+            <th scope="col">글</th>
+            <th scope="col">질문</th>
+            <th scope="col">답변</th>
             <th scope="col">작성일</th>
+            <th scope="col">작성자</th>
             <th scope="col">조회수</th>
-            <th scope="col">삭제</th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="board : ${boardList}">
-            <td th:text="${board.qsId}"></td>
-            <td th:text="${board.qsTitle}"></td>
-            <td th:text="${board.content}"></td>
-            <td th:text="${board.userId}"></td>
-            <td>
-                <a th:href="@{/board/detail/{qsId}(qsId=${board.qsId})}" th:text="${#dates.format(board.createdDate, 'yyyy-MM-dd HH:mm')}" th:onclick="'showDetail(\'' + ${board.qsId} + '\')'"></a>
-            </td>
+            <td> <a th:href="@{/board/detail/{qsId}(qsId=${board.qsId})}" th:text="${board.qsId }" th:onclick="'showDetail(\'' + ${board.qsId} + '\')'"></a></td>
+            <td> <a th:href="@{/board/detail/{qsId}(qsId=${board.qsId})}" th:text="${board.qsTitle}" th:onclick="'showDetail(\'' + ${board.qsId} + '\')'"></a></td>
+            <td> <a th:href="@{/board/detail/{qsId}(qsId=${board.qsId})}" th:text="${board.content}" th:onclick="'showDetail(\'' + ${board.qsId} + '\')'"></a></td>
+            <td><a th:href="@{/board/detail/{qsId}(qsId=${board.qsId})}" th:text="${#dates.format(board.createdDate, 'yyyy-MM-dd')}" th:onclick="'showDetail(\'' + ${board.qsId} + '\')'"></a></td>
+            <td><a th:href="@{/board/detail/{qsId}(qsId=${board.qsId})}" th:text="${board.userId}" th:onclick="'showDetail(\'' + ${board.qsId} + '\')'"></a></td>
             <td th:text="${board.viewCnt}"></td>
-            <td>
-                <button class="btn btn-danger" th:onclick="'confirmDelete(\'' + ${board.qsId} + '\')'">삭제</button>
-            </td>
         </tr>
         </tbody>
     </table>
-    <div class="row">
-        <div class="col-auto">
-            <nav aria-label="Page navigation">
-                <ul class="pagination justify-content-center">
-                    <li class="page-item" th:classappend="${currentPage == 1} ? 'disabled'">
-                        <a class="page-link" th:href="@{/board/list(page=1)}">처음</a>
-                    </li>
-                    <li class="page-item" th:classappend="${currentPage == 1} ? 'disabled'">
-                        <a class="page-link" th:href="@{/board/list(page=${currentPage - 1})}">이전</a>
-                    </li>
-                    <li class="page-item" th:classappend="${currentPage == totalPages} ? 'disabled'">
-                        <a class="page-link" th:href="@{/board/list(page=${currentPage + 1})}">다음</a>
-                    </li>
-                    <li class="page-item" th:classappend="${currentPage == totalPages} ? 'disabled'">
-                        <a class="page-link" th:href="@{/board/list(page=${totalPages})}">마지막</a>
-                    </li>
-                </ul>
-            </nav>
-        </div>
-        <div class="col-auto">
-            <a class="btn btn-primary" href="/board/add" role="button">글쓰기</a>
-        </div>
-    </div>
 </div>
 <script>
     function showDetail(qsId) {
@@ -77,6 +161,6 @@
         }
     }
 </script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"></script>
+
 </body>
 </html>
