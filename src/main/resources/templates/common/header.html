@@ -8,16 +8,18 @@
     <style>
         .navbar {
             min-height: 80px;
-
         }
 
         .navbar-brand img {
             max-height: 100%;
             margin-right: 10px;
         }
+
         .navbar-nav {
-            margin-right: 600px;
+            margin-right: 600px !important;
+            width: 1200px !important;
         }
+
         .navbar-nav .nav-link {
             color: rgba(0, 0, 0, 0.8); /* 옅은 검은색으로 설정 */
             width: 110px;
@@ -26,17 +28,22 @@
 
         .btn-group a {
             background-color: transparent; /* 배경색을 투명하게 설정 */
-            color: black; /* 글씨 색상은 검은색으로 설정 */
+            color: gray; /* 글씨 색깔 회색 설정 */
             text-decoration: none; /* 밑줄 제거 */
             transition: background-color 0.7s ease; /* 배경색 변경에 애니메이션 적용 */
             outline: none !important;
             box-shadow: none !important;
             border: none;
+            transform: translateX(-115%);
         }
 
         .btn-group a:hover,
         .btn-group a:focus {
             background-color: lightblue; /* 마우스를 올렸거나 포커스된 상태에서의 배경색 */
+        }
+
+        .container {
+            width: 1200px !important;
         }
     </style>
 </head>
