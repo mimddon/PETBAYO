@@ -21,11 +21,8 @@
         </div>
 
         <div class="mb-3">
-            <label for="content" class="form-label">내용</label>
-            <div id="summernote"></div>
-            <!-- Summernote를 사용할 div 요소 -->
-            <textarea class="form-control" id="content" rows="5" name="content" th:field="${board.content}" style="display: none;"></textarea>
-            <!-- Summernote로 작성된 내용을 저장하기 위한 숨겨진 textarea 요소 -->
+            <label for="content" class="form-label">답변</label>
+            <input type="text" class="form-control" id="content" th:field="${board.content}">
         </div>
 
         <button type="submit" class="btn btn-primary">작성</button>
