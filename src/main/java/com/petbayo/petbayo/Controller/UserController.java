@@ -37,10 +37,13 @@ public class UserController {
     public String loginRegister(@RequestParam("email") String email, @RequestParam("pwd") String pwd, HttpSession session) {
         User user = new User();
 
+
+
         user.setEmail(email);
         user.setPwd(pwd);
 
         if (service.login(user)) {
+            user = service.findByEmail(email);
             session.setAttribute("user", user);
             System.out.println("!!!!!!" + session.getAttribute("user"));
             return "loginSuccess";

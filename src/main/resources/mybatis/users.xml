@@ -27,6 +27,11 @@
         WHERE user_id = #{userId}
     </select>
 
+    <select id="findByEmail" resultMap="userResultMap" parameterType="String">
+        SELECT * FROM users
+        WHERE email = #{value}
+    </select>
+
     <insert id="register" parameterType="com.petbayo.petbayo.Model.User">
         INSERT INTO users (user_id, email, pwd, nickname, birth, gender, grade)
         VALUES (#{userId}, #{email}, #{pwd}, #{nickname}, #{birth}, #{gender}, #{grade})
