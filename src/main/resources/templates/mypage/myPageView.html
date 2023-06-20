@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>My Page</title>
     <script src="/js/myPageView.js"></script>
+    <script th:src="@{/js/getKoreanAge.js}"></script>
     <link rel="stylesheet" href="/css/myPageView.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
@@ -53,9 +54,11 @@
                 </div>
 
                 <div class="user-infos">
-                    <h2 class="user-nickname" th:text="${item.nickname + '님'}"></h2>
-                    <span class="user-age" th:text="${'Age : ' + item.birth}"></span>
-                    <span class="user-gender" th:text="${'Gender : ' + item.gender == 0 ? 'man' : 'woman'}"></span><br>
+                    <h2 class="user-nickname" th:text="${item.nickname + ' 님'}"></h2>
+
+                    <span class="user-age" th:text="${'Age : ' + (#temporals.createNow().year - #temporals.createNow().withYear(#strings.substring(item.birth, 0, 4)).year + 1)}"></span>
+
+                    <span class="user-gender" th:text="${'Gender : ' + (item.gender == 0 ? 'man' : 'woman')}"></span><br>
                 </div>
                 <div class="followetc">
                     <div class="follow-button" th:if="${item.userId == session.user.userId}">
@@ -73,7 +76,7 @@
                         <textarea th:readonly="${item.userId != session.user.userId}" class="intro-textarea" name="intro" th:text="${item.userIntro}"></textarea>
                         <div class="duration">
                             <div class="durationname">
-                                <button class="intro-upload-button">upload</button>
+                                <button class="intro-upload-button" th:if="${item.userId == session.user.userId}">upload</button>
                             </div>
                         </div>
                     </form>
@@ -124,57 +127,15 @@
                         </div>
                     </div>
                     <div class="pet-card-detail">
-                        <p class="pet-card-img"></p>
-                        <div class="pet-info">
-                            <p>종: 포메라니안</p>
-                            <p>이름: 나비</p>
-                            <p>성별: 암컷</p>
+                        <a class="pet-card-create-img">
+
+                        </a>
+                        <div class="pet-create-info">
+                            <p style="margin-bottom: 5px;">반려동물을</p>
+                            <p>소개해주세요!</p>
                         </div>
                     </div>
-                    <!--<div class="vertical-table-container">
-                        <table class="vertical-table">
-                            <tr>
-                                <td>Cell 1</td>
-                                <td>Cell 2</td>
-                                <td>Cell 3</td>
-                            </tr>
-                            <tr>
-                                <td>Cell 4</td>
-                                <td>Cell 5</td>
-                                <td>Cell 6</td>
-                            </tr>
-                            <tr>
-                                <td>Cell 7</td>
-                                <td>Cell 8</td>
-                                <td>Cell 9</td>
-                            </tr>
-                            <tr>
-                                <td>Cell 10</td>
-                                <td>Cell 11</td>
-                                <td>Cell 12</td>
-                            </tr>
-                            <tr>
-                                <td>Cell 13</td>
-                                <td>Cell 14</td>
-                                <td>Cell 15</td>
-                            </tr>
-                            <tr>
-                                <td>Cell 16</td>
-                                <td>Cell 17</td>
-                                <td>Cell 18</td>
-                            </tr>
-                            <tr>
-                                <td>Cell 16</td>
-                                <td>Cell 17</td>
-                                <td>Cell 18</td>
-                            </tr>
-                            <tr>
-                                <td>Cell 16</td>
-                                <td>Cell 17</td>
-                                <td>Cell 18</td>
-                            </tr>
-                        </table>
-                    </div>-->
+
 
                 </div>
 
