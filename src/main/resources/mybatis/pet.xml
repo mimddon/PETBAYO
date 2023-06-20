@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="pet">
+
+    <resultMap id="PetResultMap" type="com.petbayo.petbayo.Model.Pet">
+        <id column="pet_id" property="petId"/>
+        <result column="pet_breed" property="petBreed"/>
+        <result column="pet_name" property="petName"/>
+        <result column="pet_age" property="petAge"/>
+        <result column="pet_gender" property="petGender"/>
+        <result column="pet_img" property="petImg"/>
+        <result column="pet_img_path" property="petImgPath"/>
+        <result column="user_id" property="userId"/>
+    </resultMap>
+
+    <select id="petList" resultMap="PetResultMap">
+        SELECT pet_id, pet_breed, pet_name, pet_age, pet_gender, user_id FROM pet
+        WHERE user_id = #{userId}
+    </select>
+
+    <select id="petItem" resultMap="PetResultMap" parameterType="int">
+        SELECT pet_id, pet_breed, pet_name, pet_age, pet_gender, user_id FROM pet
+        WHERE pet_id = #{petId}
+    </select>
+
+    <insert id="petCreate" parameterType="com.petbayo.petbayo.Model.Pet">
+        INSERT INTO pet (pet_id, pet_breed, pet_name, pet_age, pet_gender, pet_img, pet_img_path, user_id)
+        VALUES (#{petId}, #{petBreed}, #{petName}, #{petAge}, #{petGender}, #{petImg}, #{petImgPath}, #{userId})
+    </insert>
+
+    <delete id="petDelete" parameterType="int">
+        DELETE FROM pet WHERE pet_id = #{petId}
+    </delete>
+
+    <select id="petInfo" resultMap="PetResultMap">
+        SELECT pet_id, pet_breed, pet_name, pet_age, pet_gender, pet_img, pet_img_path, user_id FROM pet
+        WHERE pet_id = #{petId}
+    </select>
+
+</mapper>

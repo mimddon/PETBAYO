@@ -1,6 +1,8 @@
 package com.petbayo.petbayo.Controller;
 
+import com.petbayo.petbayo.Model.Pet;
 import com.petbayo.petbayo.Model.User;
+import com.petbayo.petbayo.Service.PetService;
 import com.petbayo.petbayo.Service.UserService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -18,6 +20,7 @@ import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.util.List;
 
 @Slf4j
 @AllArgsConstructor
@@ -26,6 +29,9 @@ public class UserController {
 
     @Autowired
     UserService service;
+
+    @Autowired
+    PetService petService;
 
     @GetMapping("/loginRegister")
     public String login() {
@@ -115,6 +121,8 @@ public class UserController {
     public String myPage(@PathVariable int userId, Model model, HttpSession session) {
         User findUser = service.findOne(userId);
         model.addAttribute("item", findUser);
+        List<Pet> pet = petService.petList(userId);
+        model.addAttribute("pet", pet);
         System.out.println(model.getAttribute("item"));
         return "mypage/myPageView";
     }
