@@ -124,7 +124,7 @@
                 <button class="btn btn-primary" style="color: white;">COMMUNITY</button>
             </div>
             <div class="add">
-                <a class="btn btn-primary" href="/board/add" role="button">글쓰기</a>
+               <a th:if="${session.user.getUserId() == 8 }" class="btn btn-primary" href="/board/add" role="button">글쓰기</a>
             </div>
         </div>
     <table>
