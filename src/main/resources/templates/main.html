@@ -1,11 +1,20 @@
 <!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
 <head>
-    <meta charset="UTF-8" />
+    <meta charset="UTF-8"/>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css">
     <style>
+
+        body {
+            margin: 0;
+        }
+
         .container {
             position: relative;
             width: 100%;
+            padding-right: 0;
+            padding-left: 0;
         }
 
         .container h1 {
@@ -22,6 +31,10 @@
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
         }
 
+        .container img {
+            display: block;
+        }
+
         .container iframe {
             display: block;
             object-fit: cover;
@@ -29,22 +42,28 @@
             height: 770px;
             z-index: 1;
         }
+
         footer {
             background-color: #dfdfdf;
             padding: 20px;
-            text-align: center;
             font-family: "Arial", sans-serif;
             font-size: 14px;
             color: #151515;
         }
+        p {
+            margin-top: 12px
+        }
+
     </style>
 </head>
 <body>
-<header th:insert="common/header.html"></header>
+<div th:replace="common/header :: header"></div>
+
+
 <div class="container">
     <h1>당신의 근처에서<br>애견돌봄이를 찾으세요</h1>
     <div>
-        <img src="/img/main.jpg" style=" object-fit: cover; width: 100%; height: 770px; z-index: 20">
+        <img src="/img/main.jpg" style="object-fit: cover; width: 1920px; height: 770px; z-index: 20;transform: translate(-19.8%, 0.1%)">
     </div>
 </div>
 <header>
@@ -62,7 +81,7 @@
                         <br>
                         펫시터를 언제 어디든 안심하고 불러보세요!
                     </h3>
-                    <a href="#">
+                    <a href="#" style="text-decoration: none">
                         <div style="width:170px;height:59px;border:1px solid #333333;margin-top:50px;display:flex;justify-content:center;align-items:center">
                             <p style="font-size:17px;color:#333333;font-weight:600;letter-spacing:-0.2px">자세히 보기</p>
                             <img src="/img/arrow_right.png" style="width:20px;height:17px;margin-left:15px">
@@ -73,7 +92,7 @@
             </div>
 
             <div style="display:flex;padding:0px 220px 0px 220px;margin-top:110px">
-                <img src="/img/petbook.jpg" style="width:500px;height:450px;border-radius:2px">
+                <img src="/img/petbook.png" style="width:500px;height:450px;border-radius:2px">
                 <div style="margin-left:125px">
                     <h2 style="font-size:47px;color:#333333;font-weight:600;line-height:67px">
                         한눈에 보는
@@ -85,9 +104,9 @@
                         <br>
                         조금 더 자세히 알아볼 기회를 가져보세요!
                     </h3>
-                    <a href="#">
+                    <a href="#" style="text-decoration: none">
                         <div style="width:170px;height:59px;border:1px solid #333333;margin-top:50px;display:flex;justify-content:center;align-items:center">
-                            <p style="font-size:17px;color:#333333;font-weight:600;letter-spacing:-0.2px;text-decoration-line: none;">자세히 보기</p>
+                            <p style="font-size:17px;color:#333333;font-weight:600;letter-spacing:-0.2px;">자세히 보기</p>
                             <img src="/img/arrow_right.png" style="width:20px;height:17px;margin-left:15px">
                         </div>
                     </a>
@@ -106,7 +125,7 @@
                         <br>
                         CP를 올린 후 랭커에 한발짝 도전해보세요!
                     </h3>
-                    <a href="#">
+                    <a href="#" style="text-decoration: none">
                         <div style="width:170px;height:59px;border:1px solid #333333;margin-top:50px;display:flex;justify-content:center;align-items:center">
                             <p style="font-size:17px;color:#333333;font-weight:600;letter-spacing:-0.2px;">자세히 보기</p>
                             <img src="/img/arrow_right.png" style="width:20px;height:17px;margin-left:15px">
@@ -119,13 +138,15 @@
         <div style="background:linear-gradient(45deg, #50bfff 0%,#50bfff 50%);height:700px">
             <div style="padding-top:184px;width:1116px;margin:0px auto;height:100%">
                 <div style="position:relative;height:100%;padding-left:55px">
-                    <h2 style="font-weight:600;letter-spacing:0.2px;font-size:47px;line-height:70px;color:#FFFFFF">궁금증은 저희가 해결해 드려요!</h2>
+                    <h2 style="font-weight:600;letter-spacing:0.2px;font-size:47px;line-height:70px;color:#FFFFFF">궁금증은
+                        저희가 해결해 드려요!</h2>
                     <h3 style="font-size:17px;font-weight:400;margin-top:38px;color:white;line-height:30px">
                         궁금한것이나 필요한 정보가 있으시면
                         <br>
                         언제든지 1:1 문의로 물어봐주세요! (비공개 가능)
                     </h3>
-                    <a href="#" style="width:250px;height:59px;border:1.5px solid white;margin-top:59px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;padding-left:29px;padding-right:22px">
+                    <a href="#"
+                       style="width:250px;height:59px;border:1.5px solid white;margin-top:59px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;padding-left:29px;padding-right:22px;text-decoration: none;">
                         <p style="font-size:17px;color:white;font-weight:bold;letter-spacing:-0.2px">고객센터</p>
                         <img src="/img/arrow_right_white.png" style="width:20px;height:17px">
                     </a>
@@ -135,12 +156,8 @@
         </div>
     </div>
 </header>
-<footer>
-    <p>PETBAYO<br>
-        대전광역시 동구 가양동 우암로 352-21 <br>
-        대표: 공동대표(신동민, 최인하, 최효빈) 반려견 묭 <br>
-        대표전화: 010-1234-5678
-        이메일: help@petbayo.kr<br>
-    </p>
-</footer>
+
+</div>
+<div th:replace="common/footer :: footer"></div>
+
 </body>

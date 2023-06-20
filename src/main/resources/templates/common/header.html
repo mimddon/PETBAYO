@@ -1,11 +1,14 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<th:block th:fragment="header">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PetBayo</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css">
-    <style>
+
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>PetBayo</title>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css">
+        <style>
         .navbar {
             min-height: 80px;
         }
@@ -45,12 +48,14 @@
         .container {
             width: 1200px !important;
         }
-    </style>
+
+        </style>
 </head>
 <body>
+
 <nav class="navbar navbar-expand-lg navbar-black bg-white shadow-sm">
     <div class="container">
-        <a href="/" class="navbar-brand" >
+        <a href="/" class="navbar-brand">
             <img src="/img/logo2.png" alt="PetBayo Logo" style="width: 70px;">
         </a>
         <ul class="navbar-nav mr-auto">
@@ -83,4 +88,5 @@
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+</th:block>
 </html>
