@@ -13,7 +13,7 @@
     .bAddr {padding:5px;text-overflow: ellipsis;overflow: hidden;white-space: nowrap;}
     .latitude {display: none;}
     .longitude {display: none;}
-    .textarea-content{width:100%;height: 300px;border: 1px solid #ced4da;}
+    .textarea-content{width:100%;height: 300px;border: 1px solid #ced4da;resize: none;}
   </style>
 </head>
 <body>
@@ -39,7 +39,7 @@
         </div>
 
         <div class="form-group mt-2">
-          <label>가격</label>
+          <label>가격 ( 시간 당 )</label>
           <input name="price" type="number" class="form-control">
         </div>
 
@@ -163,7 +163,7 @@
             });
 
             // 인포윈도우를 마커위에 표시합니다
-            myInfowindow.open(map, myMarker);
+            // myInfowindow.open(map, myMarker);
 
             // 지도 중심좌표를 접속위치로 변경합니다
             map.setCenter(myLatLng);
@@ -211,8 +211,8 @@
                 }
 
                 // 인포윈도우에 클릭한 위치에 대한 법정동 상세 주소정보를 표시합니다
-                cmInfowindow.setContent('내위치');
-                cmInfowindow.open(map, cmMarker);
+                /*cmInfowindow.setContent('내위치');
+                cmInfowindow.open(map, cmMarker);*/
 
               }
             });
