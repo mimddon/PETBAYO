@@ -43,6 +43,11 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
+    public  User findByEmail(String email) {
+        return sql.selectOne("users.findByEmail", email);
+    }
+
+    @Override
     public void updateProfile(User user) {
         sql.update("users.updateProfile", user);
     }

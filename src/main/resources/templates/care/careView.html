@@ -22,6 +22,9 @@
         <div th:if="${session.user.userId == care.userId}">
             <a th:href="@{/care/delete/__${care.textId}__/__${session.user.userId}__}">삭제</a>
         </div>
+        <div>
+            <a th:href="@{/chat/{careUserId}(careUserId=${care.userId})}">채팅 시작</a>
+        </div>
     </main>
 </div>
 

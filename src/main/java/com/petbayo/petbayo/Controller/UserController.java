@@ -14,12 +14,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-
 import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.util.Base64;
 
 @Slf4j
 @AllArgsConstructor
@@ -39,12 +37,15 @@ public class UserController {
     public String loginRegister(@RequestParam("email") String email, @RequestParam("pwd") String pwd, HttpSession session) {
         User user = new User();
 
+
+
         user.setEmail(email);
         user.setPwd(pwd);
 
         if (service.login(user)) {
+            user = service.findByEmail(email);
             session.setAttribute("user", user);
-            System.out.println(session.getAttribute("user"));
+            System.out.println("!!!!!!" + session.getAttribute("user"));
             return "loginSuccess";
         } else {
             return "loginFail";
