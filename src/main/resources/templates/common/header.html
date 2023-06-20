@@ -1,23 +1,28 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<th:block th:fragment="header">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PetBayo</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css">
-    <style>
+
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>PetBayo</title>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css">
+        <style>
         .navbar {
             min-height: 80px;
-
         }
 
         .navbar-brand img {
             max-height: 100%;
             margin-right: 10px;
         }
+
         .navbar-nav {
-            margin-right: 600px;
+            margin-right: 600px !important;
+            width: 1200px !important;
         }
+
         .navbar-nav .nav-link {
             color: rgba(0, 0, 0, 0.8); /* 옅은 검은색으로 설정 */
             width: 110px;
@@ -26,12 +31,13 @@
 
         .btn-group a {
             background-color: transparent; /* 배경색을 투명하게 설정 */
-            color: black; /* 글씨 색상은 검은색으로 설정 */
+            color: gray; /* 글씨 색깔 회색 설정 */
             text-decoration: none; /* 밑줄 제거 */
             transition: background-color 0.7s ease; /* 배경색 변경에 애니메이션 적용 */
             outline: none !important;
             box-shadow: none !important;
             border: none;
+            transform: translateX(-115%);
         }
 
         .btn-group a:hover,
@@ -39,12 +45,17 @@
             background-color: lightblue; /* 마우스를 올렸거나 포커스된 상태에서의 배경색 */
         }
 
-    </style>
+        .container {
+            width: 1200px !important;
+        }
+
+        </style>
 </head>
 <body>
+
 <nav class="navbar navbar-expand-lg navbar-black bg-white shadow-sm">
     <div class="container">
-        <a href="/" class="navbar-brand" >
+        <a href="/" class="navbar-brand">
             <img src="/img/logo2.png" alt="PetBayo Logo" style="width: 70px;">
         </a>
         <ul class="navbar-nav mr-auto">
@@ -58,7 +69,7 @@
                 <a class="nav-link" href="#">CP RANK</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/board/list">COMMUNITY </a>
+                <a class="nav-link" href="/board/list">BOARD</a>
             </li>
         </ul>
 
@@ -77,4 +88,5 @@
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+</th:block>
 </html>
