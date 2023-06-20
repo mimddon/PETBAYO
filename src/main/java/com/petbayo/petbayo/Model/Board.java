@@ -18,7 +18,6 @@ public class Board {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int qsId;
 
-    @Column(name = "user_id")
     private int userId;
 
     @Column(length = 1000)
@@ -40,4 +39,12 @@ public class Board {
     public void setCreatedDate() {
         this.createdDate = new Date();
     }
+     public void setUser(User user){
+        this.userId = user.getUserId();
+     }
+     public User getUser(){
+        User user = new User();
+        user.setUserId(this.userId);
+        return user;
+     }
 }

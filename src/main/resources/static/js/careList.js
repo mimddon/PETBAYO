@@ -33,3 +33,23 @@ let tableBody = '';
 let markers = [];
 
 let infoWindows = [];
+
+
+async function makeImgSrc(userInfo) {
+
+    try {
+        const response = await fetch("/api/users/img/" + userInfo.userId);
+        if (!response.ok) {
+            throw new Error("Error: " + response.status);
+        }
+        const contentType = response.headers.get('content-type');
+        const buffer = await response.arrayBuffer();
+        const arrayBufferView = new Uint8Array(buffer);
+        const blob = new Blob([arrayBufferView], { type: contentType });
+        const imgUrl = URL.createObjectURL(blob);
+        return imgUrl;
+    } catch (error) {
+        console.error(error);
+        throw error;
+    }
+}
