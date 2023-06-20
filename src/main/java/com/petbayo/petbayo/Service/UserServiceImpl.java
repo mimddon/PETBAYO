@@ -76,6 +76,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public  User findByEmail(String email) {
+        return dao.findByEmail(email);
+    }
+
+    @Override
     public void uploadProfile(User user, MultipartFile file) throws IOException {
         String uploadPath = "C:/img/userProfiles";
         File directory = new File(uploadPath);

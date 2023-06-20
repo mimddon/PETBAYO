@@ -102,31 +102,20 @@ h1 {
 
 
 .search-container {
-    display: flex;
-    align-items: center;
-    margin-bottom: 20px;
-    max-width: 700px;
+    position: relative;
+    text-align: center;
+    width: 400px;
     margin: 0 auto;
-    display: flex;
-    flex: 1;
-
-}
-
-.search-input-container {
-    display: flex;
-    align-items: center;
-    flex: 1;
-    background-color: #fff;
-    border: 1px solid #ccc;
-    border-radius: 3px;
-    overflow: hidden;
+    transform: translateY(20%);
 }
 
 #search-input {
-    flex: 1;
-    padding: 10px;
-    border: none;
-    outline: none;
+    width: 100%;
+    border-radius: 20px;
+    border: 1px solid #bbb;
+    margin: 10px 0;
+    padding: 10px 12px;
+    font-family: fontAwesome;
 }
 
 #search-button {
@@ -205,4 +194,77 @@ h1 {
     width: 350px;
     height: 200px;
     object-fit: cover;
+}
+
+.button {
+    border-radius: 10px;
+    transition: .3s;
+    margin-right: 245px;
+    border: 1px solid gray;
+}
+
+/* 버튼에 호버 효과 적용 */
+.button:hover {
+    background-color: #50bfff;
+    color: white;
+    border-radius: 10px;
+    transition: .3s;
+    border: 1px solid gray;
+}
+
+/* 링크 버튼에 호버 효과 적용 */
+.button a:hover {
+    color: white;
+    text-decoration: none;
+    border-radius: 10px;
+    transition: .3s;
+    border: 1px solid gray;
+}
+
+.button-del {
+    border-radius: 10px;
+    transition: .3s;
+    border: 1px solid gray;
+}
+
+/* 버튼에 호버 효과 적용 */
+.button-del:hover {
+    background-color: red;
+    color: red;
+    border-radius: 10px;
+    transition: .3s;
+    border: 1px solid gray;
+}
+
+/* 링크 버튼에 호버 효과 적용 */
+.button-del a:hover {
+    color: white;
+    text-decoration: none;
+    border-radius: 10px;
+    transition: .3s;
+    border: 1px solid gray;
+}
+
+.button-serch{
+
+}
+
+.button-add{
+    border-radius: 10px;
+    transition: .3s;
+    background-color: aqua;
+    color: white;
+    border: 1px solid gray;
+    width: 60px;
+    height: 40px;
+}
+
+.button-re{
+    border-radius: 10px;
+    transition: .3s;
+    background-color: gray;
+    color: white;
+    border: 1px solid gray;
+    width: 60px;
+    height: 40px;
 }

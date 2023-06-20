@@ -34,7 +34,7 @@ body {
 .user-pic-wrapper{
     display: flex;
     justify-content: center;
-    height: 35%;
+    height: 150px;
 }
 
 .user-pic-wrapper img{
@@ -105,6 +105,8 @@ body {
     border: none;
     box-shadow: rgba(0, 0, 0, 0.5) 0px 1px 4px;
     resize: none;
+    font-weight: 600;
+    color: gray;
 }
 
 .intro-upload-button {
@@ -220,6 +222,8 @@ h3 {
     background: orange;
     width: 100%;
     height: 200px;
+    margin-left: 10px;
+    margin-right: 10px;
 }
 
 .pet-card {
@@ -234,20 +238,34 @@ h3 {
 }
 .pet-card-detail {
     display: flex;
-    flex: 0 0 373px; /* 각 요소의 너비를 500px로 지정 */
-    margin-right: 20px; /* 요소 사이의 간격을 조절 */
-    background-color: floralwhite;
+    flex: 0 0 363px; /* 각 요소의 너비를 500px로 지정 */
+    margin: 10px; /* 요소 사이의 간격을 조절 */
+    background-color: antiquewhite;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 .pet-card-img {
     background-color: ghostwhite;
     margin: 1rem;
-    width: 40%;
-    height: 80%;
+    width: 130px;
+    height: 130px;
+    border-radius: 100px;
+}
+
+.pet-card-create-img {
+    background-color: ghostwhite;
+    margin: 1rem;
+    width: 130px;
+    height: 130px;
     border-radius: 100px;
 }
 
 .pet-info {
-    margin: 35px;
+    margin: 30px;
+}
+
+.pet-create-info {
+    margin : 30px;
+    margin-top: 50px;
 }
 
 

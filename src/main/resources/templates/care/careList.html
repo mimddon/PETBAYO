@@ -6,15 +6,15 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link rel="stylesheet" href="/css/careList.css">
-    <script src="/js/myPageView.js"></script>
+<!--    <script src="/js/myPageView.js"></script>-->
 
 </head>
 <body>
 <header th:insert="common/header.html"></header>
 <div style="width: 100%; background-color: lavender;">
-    <h3 style="margin: 0 auto; max-width: 1200px;padding: 30px;">돌봄이를 찾아보세요</h3>
+    <h3 style="margin: 0 auto; max-width: 1200px;padding: 30px;font-weight: 700;font-size: 20pt;">돌봄이를 찾아보세요</h3>
     <div style="margin: 0 auto; max-width: 1200px; padding: 40px;">
-        <a class="goBook" href="/book/bookList" style="background-color: #fffdce; width: 200px;font-size: 14pt;padding: 15px;">반려동물의 특성 알아보기</a>
+        <a class="goBook" href="/book/bookList">반려동물의 특성 알아보기</a>
     </div>
 </div>
 <main style="width: 1200px; margin: 0 auto;">
@@ -288,7 +288,7 @@
 
 
 
-        function updateListAndMarkers() {
+         function updateListAndMarkers() {
             clearListAndMarkers();
 
             $.ajax({
@@ -327,30 +327,32 @@
                                 circleChange();
 
                                 if (number >= distanceInM) {
-                                    tableBody = `
-                                <div style="width:100%;">
+                                    makeImgSrc(userInfo).then(imgUrl => {
+                                        tableBody = `
+                                            <div style="width:100%;">
 
-                                        <div class="careListBox" data-index="${i}">
+                                                    <div class="careListBox" data-index="${i}">
 
-                                            <div class="careListBox-user">
-                                                <div class="careListBox-user-cp">Care Point : 30</div>
-                                                <div class="user-pic-wrapper" id="${userInfo.userId}"></div>
-                                                <div class="careListBox-user-nickname">${userInfo.nickname}</div>
-                                            </div>
+                                                        <div class="careListBox-user">
+                                                            <div class="careListBox-user-cp">Care Point : 30</div>
+                                                            <div class="user-pic-wrapper" id="${userInfo.userId}">
+                                                                <img src="${imgUrl}">
+                                                            </div>
+                                                            <div class="careListBox-user-nickname">${userInfo.nickname}</div>
+                                                        </div>
 
-                                            <div class="careListBox-text">
-                                                <a href="/care/careView/${data[i].textId}">${data[i].title}</a>
-                                                <div class="careListBox-text-price">시간 당  : ${data[i].price} 원</div>
-                                                <div class="careListBox-text-distance">${distanceInM} m</div>
-                                            </div>
+                                                        <div class="careListBox-text">
+                                                            <a href="/care/careView/${data[i].textId}">${data[i].title}</a>
+                                                            <div class="careListBox-text-price">시간 당  : ${data[i].price} 원</div>
+                                                            <div class="careListBox-text-distance">${distanceInM} m</div>
+                                                        </div>
 
-                                        </div>
+                                                    </div>
 
-                                </div>`;
+                                            </div>`;
+                                        $('#careTableBody').append(tableBody);
+                                    });
 
-                                    $('#careTableBody').append(tableBody);
-
-                                    console.log(tableBody);
 
                                     let imageSize = new kakao.maps.Size(24, 35); //마커 이미지의 이미지 크기입니다
 

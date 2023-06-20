@@ -28,7 +28,13 @@
       <label for="writer">작성자:</label>
       <input id="writer" name="writer" type="text" class="form-control" th:value="${item.writer}">
     </div>
-
+    <div class="form-group mt-2">
+      <label for="fileInput">파일 추가:</label>
+      <input type="file" id="fileInput" name="file" class="form-control">
+      <div class="form-group mt-2">
+        <button type="button" id="addFile" class="btn btn-sm btn-success">파일 추가</button>
+      </div>
+    </div>
     <div class="form-group mt-2" th:each="file, stat : ${files}">
       <div>
         <label th:text="${file.original_name}"></label>
@@ -45,6 +51,28 @@
 
 <script>
   $(document).ready(function() {
+    $("#addFile").click(function() {
+      var file = $('#fileInput')[0].files[0];
+      var formData = new FormData();
+      var petId = $("input[name='petId']").val();
+      formData.append('file', file);
+
+      $.ajax({
+        url: '/file/' + petId,
+        type: 'POST',
+        data: formData,
+        processData: false,
+        contentType: false,
+        success: function(result) {
+          // Do something with the result
+          location.reload();
+        },
+        error: function(err) {
+          // Handle error
+          console.error(err);
+        }
+      });
+    });
     $(".btn-danger").click(function() {
       var fileId = $(this).attr("data-id");
       $.ajax({
