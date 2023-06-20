@@ -15,6 +15,8 @@ public interface UserDao {
 
     User findOne(int userId);
 
+    User findByEmail(String email);
+
     void updateProfile(User user);
 
     void uploadIntro(User user, String intro);

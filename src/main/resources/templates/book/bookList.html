@@ -74,9 +74,11 @@
                         <p class="card-text" th:text="'작성자: ' + ${book.writer}"></p>
                         <button type="button" class="btn btn-primary"
                                 data-toggle="modal" th:data-target="'#modal' + ${book.petId}">상세보기</button>
-                        <button class="btn btn-primary" data-toggle="modal">
-                            <a th:href="@{/book/delete/{id}(id=${book.petId})}">삭제</a>
-                        </button>
+                        <div th:if="${isAdmin}">
+                            <button class="btn btn-primary" data-toggle="modal">
+                                <a th:href="@{/book/delete/{id}(id=${book.petId})}">삭제</a>
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -91,9 +93,11 @@
                 <button type="button" class="btn btn-primary" data-toggle="modal"
                         th:data-target="'#modal' + ${book.petId}">상세보기
                 </button>
-                <button class="btn btn-primary" data-toggle="modal">
-                    <a th:href="@{/book/delete/{id}(id=${book.petId})}">삭제</a>
-                </button>
+                <div th:if="${isAdmin}">
+                    <button class="btn btn-primary" data-toggle="modal">
+                        <a th:href="@{/book/delete/{id}(id=${book.petId})}">삭제</a>
+                    </button>
+                </div>
             </div>
 
         </div>
@@ -118,14 +122,18 @@
                             <img class="card-img-top" th:src="@{'/upload-files/' + ${img}}" alt="Book image">
                         </div>
                         <p th:text="${book.description}"> </p>
-                        <a th:href="@{/book/update/{id}(id=${book.petId})}">수정</a>
+                        <div th:if="${isAdmin}">
+                            <a th:href="@{/book/update/{id}(id=${book.petId})}">수정</a>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-<button class="btn btn-danger"><a href="/bookCreate">등록</a></button>
+<div th:if="${isAdmin}">
+    <button class="btn btn-danger"><a href="/bookCreate">등록</a></button>
+</div>
 <button><a href="/book/bookList">이전</a></button>
 </div>
 <button id="chatButton" onclick="openChat()">채팅</button>
