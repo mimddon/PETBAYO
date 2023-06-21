@@ -14,6 +14,98 @@
     <h3>펫 종 등록</h3>
   </div>
 
+  <style>
+    /* Custom styles for the form */
+    body {
+      background-color: #f7f7f7;
+    }
+    .container {
+      max-width: 450px;
+      margin: 50px auto;
+      padding: 20px;
+      background-color: #fff;
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      display: flex;
+      flex-direction: column;
+    }
+
+    h3 {
+      margin-top: 0;
+    }
+    .form-group {
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+    }
+    label {
+      font-weight: bold;
+      flex: 0 0 60px; /* Adjust the width as needed */
+    }
+    input[type="text"] {
+      flex: 1;
+      max-width: 200px; /* Adjust the width as needed */
+    }
+    textarea {
+      flex: 1;
+      resize: vertical; /* Allow vertical resizing */
+      min-height: 120px; /* Set a minimum height */
+      padding: 8px;
+      font-family: Arial, sans-serif; /* Use a readable font */
+      line-height: 1.5; /* Increase line height for better readability */
+    }
+    .file_list {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start; /* Align items to the left */
+    }
+    .file_input {
+      display: flex;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+    .file_input input[type="text"] {
+      flex: 1;
+      margin-right: 10px;
+    }
+    .btns {
+      margin-right: 10px;
+      padding: 5px 10px; /* Adjust the padding as needed */
+      border: none;
+      border-radius: 3px;
+      cursor: pointer;
+      font-weight: bold;
+      color: #fff;
+    }
+    .del_btn {
+      background-color: #e74c3c;
+    }
+    .fn_add_btn {
+      background-color: #3498db;
+    }
+    button[type="submit"],
+    button[type="button"] {
+      cursor: pointer;
+    }
+    .btn-primary {
+      background-color: #3498db;
+      color: #fff;
+    }
+    .btn-secondary {
+      background-color: #95a5a6;
+      color: #fff;
+    }
+    .description-input {
+      height: auto; /* Allow the input height to expand dynamically */
+      min-height: 120px; /* Set a minimum height */
+      padding: 8px;
+      font-family: Arial, sans-serif; /* Use a readable font */
+      line-height: 1.5; /* Increase line height for better readability */
+      resize: vertical; /* Allow vertical resizing (works only in certain browsers) */
+    }
+
+  </style>
+
   <script>
     function selectFile(element) {
 
@@ -46,7 +138,7 @@
       fileDiv.innerHTML =`
             <div class="file_input">
                 <input type="text" readonly />
-                <label> 첨부파일
+                <label>
                     <input type="file" name="files" onchange="selectFile(this);" />
                 </label>
             </div>
@@ -77,24 +169,23 @@
 
 
     <div class="form-group mt-2">
-      <label>설명</label>
-      <input id="description" name="description" type="text" class="form-control" th:value="${description}">
+      <label>설명:</label>
+      <textarea id="description" name="description" type="text" class="form-control description-input" th:value="${description}"></textarea>
     </div>
 
 
     <div class="form-group mt-2">
-      <label>작성자</label>
+      <label>작성자:</label>
       <input id="writer" name="writer" type="text" class="form-control" th:value="${writer}">
     </div>
 
     <tr>
-      <th>첨부파일</th>
       <td colspan="3">
         <div class="file_list">
           <div>
             <div class="file_input">
               <input type="text" readonly />
-              <label> 첨부파일
+              <label>
                 <input id="file" type="file" name="files" onchange="selectFile(this);"/>
               </label>
             </div>
