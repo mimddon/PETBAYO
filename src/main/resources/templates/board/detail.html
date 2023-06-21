@@ -3,31 +3,148 @@
 <head>
     <meta charset="UTF-8" />
     <title>게시판 - 상세 페이지</title>
+    <style>
 
+    .container1 {
+    max-width: 1200px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+        margin-top: 20px;
+    }
+
+
+    h2 {
+    margin-bottom: 10px;
+    font-size: 24px;
+    }
+
+
+    .date,
+    .cnt {
+    margin-bottom: 5px;
+    font-size: 14px;
+    }
+
+
+    ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    font-size: 14px;
+    }
+
+    li {
+    margin-bottom: 5px;
+    }
+
+
+    .btn {
+    padding: 8px 16px;
+    font-size: 16px;
+    text-decoration: none;
+    border-radius: 4px;
+    cursor: pointer;
+    }
+
+    .btn-primary {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    }
+
+    .btn-secondary {
+    background-color: #6c757d;
+    color: #fff;
+    border: none;
+    }
+
+
+    #commentContainer {
+    margin-top: 10px;
+    }
+
+    #commentContent {
+    resize: none;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 5px;
+    margin-bottom: 5px;
+    font-size: 14px;
+        width: 1155px;
+    }
+
+    #bodyDiv{
+        width:1200px;
+    margin:0 auto;
+    }
+
+    #pTag{
+    display:flex;
+
+    }
+
+    #cp{
+        display: flex;
+        justify-content: space-between;
+        margin-right: 32px;
+
+    }
+
+    #title{
+        font-size: 21px;
+        font-weight: 700;
+        margin-left: 26px;
+
+
+    }
+    .reply{
+        border-bottom: 1px solid black;
+
+    }
+
+    #content1{
+        height: 500px;
+        border: 1px solid #c7c7c7;
+        width: 1100px;
+        border-radius: 10px;
+        margin: 0 auto;
+    }
+    #content2{
+        margin-top: 30px;
+    }
+    </style>
 </head>
 <body>
 
 <header th:insert="common/header.html"></header>
-<div class="container">
-    <h2 th:text="${board.qsTitle}"></h2>
-    <p>작성자: <span th:text="${board.userId}"></span></p>
-    <p>작성일: <span th:text="${#dates.format(board.createdDate, 'yyyy-MM-dd HH:mm')}"></span></p>
-    <p>조회수: <span th:text="${board.viewCnt}"></span></p>
-    <ul th:each="comm : ${comment}">
-        <li th:text="${comm.contents}"></li>
-    </ul>
-    <div th:text="${board.content}"></div>
-    <a href="#" th:href="@{/board/update/{qsId}(qsId=${board.qsId})}" class="btn btn-primary">수정</a>
+<div id="bodyDiv">
+<div class="container1">
+    <div id="cp">
+    <h2 id="title" th:text="${board.qsTitle}"></h2>
+    <div id="pTag">
+    <p class="date">작성일: <span th:text="${#dates.format(board.createdDate, 'yyyy-MM-dd HH:mm')}"></span></p>
+    <p class="cnt">조회수: <span th:text="${board.viewCnt}"></span></p>
+    </div>
+    </div>
+
+
+
+    <div id="content1" th:text="${board.content}"></div>
+    <a href="#" th:if="${isAdmin}"th:href="@{/board/update/{qsId}(qsId=${board.qsId})}" class="btn btn-primary">수정</a>
     <button id="commentBtn" class="btn btn-secondary">댓글</button>
-    <td>
-        <button onclick="confirmDelete(${board.qsId})">삭제</button>
-    </td>
+    <div id="content2">
+    <ul th:each="comm : ${comment}">
+        <li class="reply" th:text="${comm.contents}"></li>
+    </ul>
+    </div>
     <form method="post" th:action="@{'/board/detail/' + ${board.qsId} + '/comment/create'}">
     <div id="commentContainer" style="display: none;">
         <textarea id="commentContent" rows="5" name="contents" style="resize: none; border: 1px solid #ccc; border-radius: 5px; padding: 5px;"></textarea>
         <button id="commentSubmit" class="btn btn-primary">댓글 작성</button>
     </div>
     </form>
+</div>
 </div>
 
 
