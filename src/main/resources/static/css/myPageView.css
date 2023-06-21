@@ -108,6 +108,7 @@ body {
     resize: none;
     font-weight: 600;
     color: gray;
+    padding: 15px;
 }
 
 .intro-upload-button {

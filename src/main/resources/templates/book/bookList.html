@@ -21,9 +21,9 @@
 
 <div class="container">
 
-    <form action="/search.html" method="get">
+    <form action="/book/search" method="get">
         <div class="search-container">
-            <div class="search-input-container">
+            <div class="search-input-container" style="margin-left: 16%;">
                 <input type="text" id="search-input" name="keyword" style="white-space: nowrap; text-align: center;" placeholder="검색어를 입력하세요">
             </div>
             <!--search-category-container 부분 지우면 오류뜸 원인찾기 -->
@@ -119,8 +119,8 @@
     </div>
 </div>
 
-<br><div th:if="${isAdmin}" class="d-inline"><br>
-    <button class="btn-gradient blue center-bottom">
+<br><div th:if="${isAdmin}" style="margin-top: 20px;"><br>
+    <button class="btn-gradient blue center-bottom"  >
         <a href="/bookCreate" class="no-underline">글작성</a>
     </button>
 </div>

@@ -53,3 +53,31 @@ async function makeImgSrc(userInfo) {
         throw error;
     }
 }
+function getKoreanAge(birth) {
+    const today = new Date();
+    const birthYear = birth.substr(0, 4);
+    const birthMonth = birth.substr(4, 2);
+    const birthDay = birth.substr(6, 2);
+
+    const age = today.getFullYear() - parseInt(birthYear) + 1;
+
+    if (
+        today.getMonth() + 1 < parseInt(birthMonth) ||
+        (today.getMonth() + 1 === parseInt(birthMonth) && today.getDate() < parseInt(birthDay))
+    ) {
+        return age - 1;
+    }
+
+    return age;
+}
+function getGenderString(gender) {
+    if (gender === 0) {
+        return "남자";
+    } else if (gender === 1) {
+        return "여자";
+    } else {
+        return ""; // 다른 값이 들어올 경우 빈 문자열 반환
+    }
+}
+
+
