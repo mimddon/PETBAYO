@@ -101,10 +101,10 @@
             <div class="modal-dialog modal-lg modal-dialog-centered" >
                 <div class="modal-content" >
                     <div class="modal-header">
+                        <h5 class="modal-title" th:text="${book.species}"></h5>
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                     </div>
                     <div class="modal-body">
-                        <p class="card-text">작성자: <span th:text="${book.writer}"></span></p>
                         <div th:each="img : ${#objects.nullSafe(book.imgs, {})}">
                             <img class="card-img-top" th:src="@{'/upload-files/' + ${img}}" alt="Book image">
                         </div>
