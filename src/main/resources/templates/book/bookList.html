@@ -18,15 +18,14 @@
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
-
 <header th:insert="common/header.html"></header>
 
 <div class="container">
 
-    <form action="/book/search" method="get">
+    <form action="/search.html" method="get">
         <div class="search-container">
             <div class="search-input-container">
-                <input type="text" id="search-input" name="keyword" style="white-space: nowrap;" placeholder="검색어를 입력하세요">
+                <input type="text" id="search-input" name="keyword" style="white-space: nowrap; text-align: center;" placeholder="검색어를 입력하세요">
             </div>
             <!--search-category-container 부분 지우면 오류뜸 원인찾기 -->
             <div class="search-category-container">
@@ -39,7 +38,7 @@
             </div>
         </div>
     </form>
-
+</div>
     <div class="result-container">
         <ul id="result-list">
 
@@ -60,7 +59,7 @@
 
                             <div th:if="${isAdmin}">
                                 <button class="btn-two yellow mini" data-toggle="modal" style="color:white;">
-                                <a th:href="@{/book/update/{id}(id=${book.petId})}">수정</a>
+                                    <a th:href="@{/book/update/{id}(id=${book.petId})}">수정</a>
                                 </button>
                             </div>
 
@@ -120,17 +119,18 @@
         </div>
     </div>
 </div>
-    <div th:if="${isAdmin}" class="d-inline">
-        <button class="btn-3d blue center-bottom">
-            <a href="/bookCreate" class="no-underline">글작성</a>
-        </button>
-    </div>
+
+<br><div th:if="${isAdmin}" class="d-inline"><br>
+    <button class="btn-gradient blue center-bottom">
+        <a href="/bookCreate" class="no-underline">글작성</a>
+    </button>
+</div>
 
 <div class="right-bottom">
-<button class="btnc" onclick="openChat()">
-    <span>채팅</span>
-     <div class="dot"></div>
-</button>
+    <button class="btnc" onclick="openChat()">
+        <span>채팅</span>
+        <div class="dot"></div>
+    </button>
 </div>
 
 <script>
