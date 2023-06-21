@@ -8,7 +8,6 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="/css/pet-book.css">
     <link rel="stylesheet" type="text/css" href="/css/button.css">
-    <link rel="stylesheet" type="text/css" href="/css/chatting.css">
 
 </head>
 
@@ -126,18 +125,21 @@
     </button>
 </div>
 
-<div class="right-bottom">
-    <button class="btnc" onclick="openChat()">
-        <span>채팅</span>
-        <div class="dot"></div>
-    </button>
-</div>
+<!--가라 채팅 -->
+<a th:insert="common/chat.html"/>
+<!--진짜 채팅 -->
+<!--<div class="right-bottom">-->
+<!--    <button class="btnc" onclick="openChat()">-->
+<!--        <span>채팅</span>-->
+<!--        <div class="dot"></div>-->
+<!--    </button>-->
+<!--</div>-->
 
-<script>
-    function openChat() {
-        window.open('/chat', 'Chat', 'width=800,height=600,scrollbars=yes,status=no');
-    }
-</script>
+
+<!--<script>-->
+<!--    function openChat() {-->
+<!--        window.open('/chat', 'Chat', 'width=800,height=600,scrollbars=yes,status=no');-->
+<!--    }-->
+<!--</script>-->
 </body>
-
 </html>
