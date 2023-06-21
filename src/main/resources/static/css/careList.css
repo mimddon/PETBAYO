@@ -73,7 +73,7 @@
 .careListBox-text a {
     font-weight: 600;
     color: rgb(36, 38, 44);
-    font-size: 14pt;
+    font-size: 18px;
     text-decoration: none;
     text-align: initial;
     display: block;
@@ -97,8 +97,8 @@
     line-height: 45px;
     text-align: center;
     border-radius: 100px;
-    position: fixed;
-    bottom: 5%;
-    left: 25%;
     background-color: #6abaff;
+    position: absolute;
+    bottom: -13%;
+    right: 15%;
 }

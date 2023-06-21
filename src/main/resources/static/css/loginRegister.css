@@ -130,9 +130,19 @@ body.active{
 .form form input[value="Sign Up"]{
     background: #acacac;
     border: none;
-    max-width: 100px;
+    width: 100%;
     color: #fff;
     cursor: pointer;
+}
+.form form input[value="Sign Up"] {
+    background: #acacac;
+    border: none;
+    width: 100%;
+    color: #fff;
+    cursor: pointer;
+}
+.form form input[value="Sign Up"]:hover {
+    background: #6dbbff;
 }
 a{
     color: #333;
@@ -208,7 +218,7 @@ a{
 }
 
  .gender-active {
-     background-color: lightblue!important;
+     background-color: #6dbbff!important;
  }
 
 .input-wrapper {
