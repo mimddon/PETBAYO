@@ -353,7 +353,7 @@
                                                             <div class="careListBox-text-userInfo">
                                                                 <div class="careListBox-text-gender" style="color: ${userInfo.gender == 0 ? '#6b6bff' : '#ff4df0'}">#${getGenderString(userInfo.gender)}</div>
 
-                                                                <div class="careListBox-text-birth">#${getKoreanAge(userInfo.birth)} 세</div>
+                                                                <div class="careListBox-text-birth">#${getKoreanAge(userInfo.birth)}세</div>
                                                             </div>
                                                             <div class="careListBox-text-distance">${distanceInM} m</div>
                                                         </div>
@@ -419,6 +419,7 @@
 
                         var clickLatLng = new kakao.maps.LatLng(clickedData.latitude, clickedData.longitude);
                         map.setCenter(clickLatLng); // 클릭한 마커의 좌표를 중심좌표로 설정
+                        coll
                     });
 
                     // 호버 이벤트 위임

@@ -34,7 +34,7 @@ public class PetController {
         return "redirect:/mypage/" + userId;
     }
 
-    @GetMapping("/care/delete/{petId}/{userId}")
+    @GetMapping("/pet/delete/{petId}/{userId}")
     public String petDelete(@PathVariable int petId, @PathVariable int userId) {
         service.petDelete(petId);
 

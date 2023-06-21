@@ -48,7 +48,7 @@
                     <h2 th:text="${'Care Point : ' + item.carePoint}" class="cpView"></h2>
                 </div>
                 <!--        유저사진-->
-                <div class="user-pic-wrapper" th:id="${item.userId}">
+                <div class="user-pic-wrapper" th:id="${item.userId}" style="width: 140px;height: 140px;margin: 0 auto;border-radius: 100px;margin-bottom: 10px;background-image: url(/img/userImgDefault.png);">
 
                 </div>
                 <div class="user-img-form">
@@ -200,15 +200,35 @@
             <div class="follower-card">
                 <div class="follower">Post List</div>
                 <div class="follower-pics-wrapper">
-                    <div>
-                        <table>
-                            <thead>
-                            <tr style="font-size: 18px;">
-                                <th>Title</th>
-                            </tr>
-                            </thead>
-                        </table>
-                    </div>
+
+
+                    <!--<div style="width:100%;">
+
+                        <div class="careListBox">
+
+                            <div class="careListBox-user">
+                                <div class="careListBox-user-cp">Care Point : 270</div>
+                                <div class="user-pic-wrapper" th:id="${item.userId}">
+
+                                </div>
+                                <div class="careListBox-user-nickname" th:text="${item.nickname}"></div>
+                            </div>
+
+                            <div class="careListBox-text">
+                                <a href="/care/careView/"}>강아지 돌봐드려요</a>
+                                <div class="careListBox-text-price">시간 당  : 12000 원</div>
+                                <div class="careListBox-text-userInfo">
+                                    <div class="careListBox-text-gender" style="">#남자</div>
+
+                                    <div class="careListBox-text-birth">#25세</div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>-->
+
+
                 </div>
             </div>
 
@@ -220,6 +240,59 @@
                         Review
                     </div>
                 </div>
+
+                <!--<div style="display: flex;width: 100%;border-bottom: 2px solid #dddddd; padding-bottom: 12px;padding-top: 12px;">
+                    <div style="background-image: url(/img/review1.png); width: 80px;height: 80px;border-radius: 100px;margin-left: 10px;margin-right: 20px;">
+
+                    </div>
+                    <div>
+                        <div style="font-size: 14px; font-weight: bold; margin-bottom: 10px;">
+                            명토끼
+                        </div>
+                        <div style="font-size: 15px;">
+                            정말 신경많이써주시고 먹이도 잘 챙겨주셔서 감사해요!
+                        </div>
+                        <div style="font-size: 12px;margin-top: 10px;">
+                            2023-06-21
+                        </div>
+                    </div>
+                </div>
+
+                <div style="display: flex;width: 100%;border-bottom: 2px solid #dddddd; padding-bottom: 12px;padding-top: 12px;">
+                    <div style="background-image: url(/img/review2.png); width: 80px;height: 80px;border-radius: 100px;margin-left: 10px;margin-right: 20px;">
+
+                    </div>
+                    <div>
+                        <div style="font-size: 14px; font-weight: bold; margin-bottom: 10px;">
+                            왈왈강아지
+                        </div>
+                        <div style="font-size: 15px;">
+                            PetSitter 님 정말 잘 돌봐주셔서 감사합니다!
+                        </div>
+                        <div style="font-size: 12px;margin-top: 10px;">
+                            2023-06-18
+                        </div>
+                    </div>
+                </div>
+
+                <div style="display: flex;width: 100%;border-bottom: 2px solid #dddddd; padding-bottom: 12px;padding-top: 12px;">
+                    <div style="background-image: url(/img/review3.png); width: 80px;height: 80px;border-radius: 100px;margin-left: 10px;margin-right: 20px;">
+
+                    </div>
+                    <div>
+                        <div style="font-size: 14px; font-weight: bold; margin-bottom: 10px;">
+                            고오양이
+                        </div>
+                        <div style="font-size: 15px;">
+                            저의 소중한 반려동물을 잘 돌봐주셔서 감사합니다
+                        </div>
+                        <div style="font-size: 12px;margin-top: 10px;">
+                            2023-06-15
+                        </div>
+                    </div>
+                </div>-->
+
+
             </div>
 
         </div>

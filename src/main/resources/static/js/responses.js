@@ -11,8 +11,8 @@ function getBotResponse(input) {
     // Simple responses
     if (input == "지금 펫 돌봄 가능 한가요?") {
         return "네 가능합니다";
-    } else if (input == "지금 이쪽으로 와주세요") {
-        return "넵";
+    } else if (input == "몆 시간 가능하신가요?") {
+        return "3시간까지 가능합니다";
     } else {
         return "Try asking something else!";
     }

@@ -32,8 +32,8 @@
     width: 95%;
 }
 .careListBox.hovered {
-    outline: 2px solid #35b0ff;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    /*outline: 2px solid #35b0ff;*/
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
 }
 .custom-infowindow .custom-infowindow-close {
     top: -1px;
@@ -82,12 +82,13 @@
     text-align: initial;
     position: relative;
     top: 25px;
-    font-size: 11pt;
+    font-size: 15px;
 }
 .careListBox-text-userInfo {
     display: flex;
     position: relative;
     top: 30px;
+    font-size: 15px;
 }
 .careListBox-text-gender {
     margin-right: 10px;
