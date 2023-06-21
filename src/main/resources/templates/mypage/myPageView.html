@@ -31,7 +31,7 @@
 </head>
 <body>
 <header th:insert="common/header.html"></header>
-<div>
+<div style="background-color: #EEEEEE">
     <div th:if="${session.user == null}">
         <script>
             alert("세션이 만료되었습니다. 다시 로그인해주세요.");
@@ -181,7 +181,7 @@
 
                     <div class="pet-form-group" style="margin-bottom: 30px;">
                         <label>반려동물 사진 :</label>
-                        <label for="pet-profile" style="cursor: pointer;margin: 10px;padding: 10px;background-color: #eeeeee;width: 50px;border-radius: 11px;">
+                        <label for="pet-profile" style="cursor: pointer;margin: 10px;padding: 10px;background-color: #dddddd;width: 50px;border-radius: 11px;">
                             <i style="text-align: center;margin-left: 6px;" class="fas fa-camera"></i>
                         </label>
                         <input id="pet-profile" type="file" name="petProfile" style="display: none"/>
