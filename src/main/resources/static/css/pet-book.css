@@ -10,7 +10,7 @@ h1 {
 }
 /* 앨범 */
 .card {
-    margin-bottom: 50px;
+    margin-bottom: 20px;
     border: none;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
@@ -81,6 +81,11 @@ h1 {
     }
 }
 /* 검색창 */
+.search-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
 
 #search-input {
     flex: 1;
@@ -99,12 +104,9 @@ h1 {
 .search-container {
     position: relative;
     text-align: center;
-    display: flex;
-    align-items: center;
     width: 400px;
     margin: 0 auto;
-    margin-bottom: 20px;
-    transform: translate(15%, 20%);
+    transform: translateY(20%);
 }
 
 #search-input {
