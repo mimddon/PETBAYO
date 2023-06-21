@@ -84,9 +84,19 @@
     top: 25px;
     font-size: 11pt;
 }
+.careListBox-text-userInfo {
+    display: flex;
+    position: relative;
+    top: 30px;
+}
+.careListBox-text-gender {
+    margin-right: 10px;
+}
+
+
 .careListBox-text-distance {
     position: relative;
-    top: 70px;
+    top: 45px;
     text-align: end;
     font-size: 10pt;
     margin-right: 10px;
@@ -97,7 +107,7 @@
     line-height: 45px;
     text-align: center;
     border-radius: 100px;
-    background-color: #6abaff;
+    background-color: rgb(82, 151, 255);
     position: absolute;
     bottom: -13%;
     left: 15%;

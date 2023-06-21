@@ -131,7 +131,6 @@
             <th scope="col">질문</th>
             <th scope="col">답변</th>
             <th scope="col">작성일</th>
-            <th scope="col">작성자</th>
             <th scope="col">조회수</th>
         </tr>
         </thead>
@@ -141,7 +140,6 @@
             <td> <a th:href="@{/board/detail/{qsId}(qsId=${board.qsId})}" th:text="${board.qsTitle}" th:onclick="'showDetail(\'' + ${board.qsId} + '\')'"></a></td>
             <td> <a th:href="@{/board/detail/{qsId}(qsId=${board.qsId})}" th:text="${board.content}" th:onclick="'showDetail(\'' + ${board.qsId} + '\')'"></a></td>
             <td><a th:href="@{/board/detail/{qsId}(qsId=${board.qsId})}" th:text="${#dates.format(board.createdDate, 'yyyy-MM-dd')}" th:onclick="'showDetail(\'' + ${board.qsId} + '\')'"></a></td>
-            <td><a th:href="@{/board/detail/{qsId}(qsId=${board.qsId})}" th:text="${board.userId}" th:onclick="'showDetail(\'' + ${board.qsId} + '\')'"></a></td>
             <td th:text="${board.viewCnt}"></td>
         </tr>
         </tbody>
@@ -156,7 +154,10 @@
         if (confirm("정말로 삭제하시겠습니까?")) {
             window.location.href = '/board/delete/' + qsId;
         }
+
+
     }
+
 </script>
 
 </body>
