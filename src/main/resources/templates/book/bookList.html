@@ -7,23 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="/css/pet-book.css">
-    <link rel="stylesheet" type="text/css" href="/css/nav.css">
-    <style>
-        #chatButton {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            border: none;
-            color: white;
-            padding: 15px 32px;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-            font-size: 16px;
-            border-radius: 50%;
-            background-color: #555555;
-        }
-    </style>
+    <link rel="stylesheet" type="text/css" href="/css/button.css">
+    <link rel="stylesheet" type="text/css" href="/css/chatting.css">
 
 </head>
 
@@ -71,9 +56,16 @@
                         <h5 class="card-title" th:text="${book.species}"></h5>
                         <p class="card-text" th:text="'작성자: ' + ${book.writer}"></p>
                         <div class="btn-group">
-                            <button type="button" class="button" data-toggle="modal" th:data-target="'#modal' + ${book.petId}">상세보기</button>
+                            <button type="button" class="btn-two cyan mini"  data-toggle="modal" th:data-target="'#modal' + ${book.petId}" style="margin-right: 160px;">상세보기</button>
+
                             <div th:if="${isAdmin}">
-                                <button class="button-del" data-toggle="modal">
+                                <button class="btn-two yellow mini" data-toggle="modal" style="color:white;">
+                                <a th:href="@{/book/update/{id}(id=${book.petId})}">수정</a>
+                                </button>
+                            </div>
+
+                            <div th:if="${isAdmin}">
+                                <button class="btn-two red mini" data-toggle="modal" style="color: white;">
                                     <a th:href="@{/book/delete/{id}(id=${book.petId})}">삭제</a>
                                 </button>
                             </div>
@@ -121,9 +113,7 @@
                             <img class="card-img-top" th:src="@{'/upload-files/' + ${img}}" alt="Book image">
                         </div>
                         <p th:text="${book.description}"> </p>
-                        <div th:if="${isAdmin}">
-                            <a th:href="@{/book/update/{id}(id=${book.petId})}">수정</a>
-                        </div>
+
                     </div>
                 </div>
             </div>
@@ -131,13 +121,17 @@
     </div>
 </div>
     <div th:if="${isAdmin}" class="d-inline">
-        <button class="button-add"><a href="/bookCreate">등록</a></button>
+        <button class="btn-3d blue center-bottom">
+            <a href="/bookCreate" class="no-underline">글작성</a>
+        </button>
     </div>
-    <div class="d-inline">
-        <button class="button-re"><a href="/book/bookList">이전</a></button>
-    </div>
-<button id="chatButton" onclick="openChat()">채팅</button>
 
+<div class="right-bottom">
+<button class="btnc" onclick="openChat()">
+    <span>채팅</span>
+     <div class="dot"></div>
+</button>
+</div>
 
 <script>
     function openChat() {
