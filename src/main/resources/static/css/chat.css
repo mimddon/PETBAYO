@@ -1,8 +1,8 @@
 .chat-bar-collapsible {
     position: absolute;
-    bottom: 0;
-    right: 50px;
-    width: 23%;
+    bottom: -160px;
+    right: 40px;
+    width: 16%;
     box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
 }
 
@@ -38,7 +38,7 @@
 }
 
 .outer-container {
-    min-height: 500px;
+    min-height: 410px;
     bottom: 0%;
     position: relative;
 }

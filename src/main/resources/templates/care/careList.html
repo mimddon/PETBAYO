@@ -350,6 +350,11 @@
                                                         <div class="careListBox-text">
                                                             <a href="/care/careView/${data[i].textId}">${data[i].title}</a>
                                                             <div class="careListBox-text-price">시간 당  : ${data[i].price} 원</div>
+                                                            <div class="careListBox-text-userInfo">
+                                                                <div class="careListBox-text-gender" style="color: ${userInfo.gender == 0 ? '#6b6bff' : '#ff4df0'}">#${getGenderString(userInfo.gender)}</div>
+
+                                                                <div class="careListBox-text-birth">#${getKoreanAge(userInfo.birth)} 세</div>
+                                                            </div>
                                                             <div class="careListBox-text-distance">${distanceInM} m</div>
                                                         </div>
 
@@ -406,6 +411,7 @@
 
                     }
 
+
                     // 클릭 이벤트 위임
                     $('#careTableBody').on('click', '.careListBox', function() {
                         const index = $(this).data('index');
@@ -454,6 +460,7 @@
            onclick="alert('로그인이 필요합니다.'); location.href='/loginRegister';"
            class="careAdd-button"><i class="fas fa-pen fa-xl" style="color: #ffffff;"></i></a>
     </div>
+    <div th:insert="common/chat.html"></div>
 
 
 

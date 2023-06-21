@@ -31,7 +31,7 @@
 </head>
 <body>
 <header th:insert="common/header.html"></header>
-<div style="background-color: #EEEEEE">
+<div style="background-color: #EEEEEE;height: 1000px;">
     <div th:if="${session.user == null}">
         <script>
             alert("세션이 만료되었습니다. 다시 로그인해주세요.");
