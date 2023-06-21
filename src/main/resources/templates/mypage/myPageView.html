@@ -7,6 +7,27 @@
     <script th:src="@{/js/getKoreanAge.js}"></script>
     <link rel="stylesheet" href="/css/myPageView.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script th:inline="javascript">
+        document.addEventListener("DOMContentLoaded", function() {
+            var modal = document.getElementById("myModal");
+            var btn = document.getElementsByClassName("pet-card-create-img")[0];
+            var span = document.getElementsByClassName("close")[0];
+
+            btn.addEventListener("click", function() {
+                modal.style.display = "block"; // 모달 열기
+            });
+
+            span.addEventListener("click", function() {
+                modal.style.display = "none"; // 모달 닫기
+            });
+
+            window.addEventListener("click", function(event) {
+                if (event.target == modal) {
+                    modal.style.display = "none"; // 모달 외부 클릭 시 닫기
+                }
+            });
+        });
+    </script>
 </head>
 <body>
 <header th:insert="common/header.html"></header>
@@ -85,51 +106,27 @@
 
                 <!--    반려동물 보여주기-->
                 <div class="pet-card">
-                    <div class="pet-card-detail">
-                        <p class="pet-card-img"></p>
-                        <div class="pet-info">
-                            <p>종: 포메라니안</p>
-                            <p>이름: 나비</p>
-                            <p>성별: 암컷</p>
-                        </div>
 
-                    </div>
-                    <div class="pet-card-detail">
-                        <p class="pet-card-img"></p>
-                        <div class="pet-info">
-                            <p>종: 포메라니안</p>
-                            <p>이름: 나비</p>
-                            <p>성별: 암컷</p>
-                        </div>
-                    </div>
-                    <div class="pet-card-detail">
-                        <p class="pet-card-img"></p>
-                        <div class="pet-info">
-                            <p>종: 포메라니안</p>
-                            <p>이름: 나비</p>
-                            <p>성별: 암컷</p>
-                        </div>
-                    </div>
-                    <div class="pet-card-detail">
-                        <p class="pet-card-img"></p>
-                        <div class="pet-info">
-                            <p>종: 포메라니안</p>
-                            <p>이름: 나비</p>
-                            <p>성별: 암컷</p>
-                        </div>
-                    </div>
-                    <div class="pet-card-detail">
-                        <p class="pet-card-img"></p>
-                        <div class="pet-info">
-                            <p>종: 포메라니안</p>
-                            <p>이름: 나비</p>
-                            <p>성별: 암컷</p>
-                        </div>
-                    </div>
-                    <div class="pet-card-detail">
-                        <a class="pet-card-create-img">
+                    <!--    반려동물 카드     -->
+                    <div class="pet-card-detail" th:each="pet : ${pet}">
+                        <div class="pet-card-img">
+                            <div class="pet-img" th:id="${pet.petId}">
 
-                        </a>
+                            </div>
+                        </div>
+                        <div class="pet-info">
+                            <p>품종: <span th:text="${pet.petBreed}"></span></p>
+                            <p>이름: <span th:text="${pet.petName}"></span></p>
+                            <p>성별: <span th:text="${pet.petGender == 0 ? '수컷' : '암컷'}"></span></p>
+                        </div>
+                    </div>
+
+
+
+
+                    <!--    반려동물 카드추가   -->
+                    <div class="pet-card-detail">
+                        <a class="pet-card-create-img" href="#" style="background-image: url(/img/petAdd.png)"></a>
                         <div class="pet-create-info">
                             <p style="margin-bottom: 5px;">반려동물을</p>
                             <p>소개해주세요!</p>
@@ -141,6 +138,59 @@
 
             </div>
 
+        </div>
+
+        <div id="myModal" class="modal">
+            <div class="modal-content" style="background-image: url(/img/petCreate.png);">
+                <span class="close">&times;</span>
+
+                <!-- 반려동물 정보 작성 폼 -->
+                <form th:action="@{/petCreate/__${item.userId}__}" method="POST" class="pet-form" enctype="multipart/form-data">
+                    <input type="hidden" name="userId" th:value="${item.userId}">
+
+                    <div class="pet-form-group">
+                        <label for="petBreed">품종 :</label>
+                        <input type="text" id="petBreed" name="petBreed" required>
+                    </div>
+
+                    <div class="pet-form-group">
+                        <label for="petName">이름 :</label>
+                        <input type="text" id="petName" name="petName" required>
+                    </div>
+
+                    <div class="pet-form-group">
+                        <label for="petAge">나이 :</label>
+                        <input type="number" id="petAge" name="petAge" required>
+                    </div>
+
+                    <div class="pet-form-group-gender">
+                        <label>성별 :</label>
+                        <div style="width: 45%; text-align: center;">
+                            <label>
+                                <input type="radio" name="petGender" value="0" required>
+                                수컷
+                            </label>
+                        </div>
+                        <div style="width: 33%;">
+                            <label>
+                                <input type="radio" name="petGender" value="1" required>
+                                암컷
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="pet-form-group" style="margin-bottom: 30px;">
+                        <label>반려동물 사진 :</label>
+                        <label for="pet-profile" style="cursor: pointer;margin: 10px;padding: 10px;background-color: #eeeeee;width: 50px;border-radius: 11px;">
+                            <i style="text-align: center;margin-left: 6px;" class="fas fa-camera"></i>
+                        </label>
+                        <input id="pet-profile" type="file" name="petProfile" style="display: none"/>
+                    </div>
+
+
+                    <button type="submit" class="pet-card-button">반려동물 생성</button>
+                </form>
+            </div>
         </div>
 
         <div class="row2">

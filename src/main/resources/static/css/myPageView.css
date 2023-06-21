@@ -157,12 +157,14 @@ h2 {
 .follow-button {
     display: flex;
     justify-content: center;
-    background: #32B2E9;
+    background: #e5f4ff;
     width: 100%;
     height: 30px;
-    color: white;
+    color: dimgray;
     font-family: Helvetica Neue;
     border-radius: 20px;
+    font-weight: bold;
+    padding-top: 3px;
 }
 
 .report {
@@ -240,8 +242,10 @@ h3 {
     display: flex;
     flex: 0 0 363px; /* 각 요소의 너비를 500px로 지정 */
     margin: 10px; /* 요소 사이의 간격을 조절 */
-    background-color: antiquewhite;
+    background-color: #eff8ff;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    color: gray;
+    font-weight: bold;
 }
 .pet-card-img {
     background-color: ghostwhite;
@@ -473,4 +477,89 @@ h3 {
     background: #FFB337
 ; /* WebKit/Blink Browsers */
 }
+
+/* 모달 스타일 */
+.modal {
+    display: none; /* 모달 초기에 숨김 */
+    position: fixed;
+    z-index: 9999;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 10% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 20%!important;
+    border-radius: 10px!important;
+}
+
+.close {
+    color: #aaaaaa;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    width: 25px;
+    height: 25px;
+    position: relative;
+    left: 98%;
+    bottom: 30px;
+    text-align: center;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.pet-form {
+    font-weight: bold;
+    color: dimgray;
+}
+.pet-form-group {
+    margin: 25px;
+}
+.pet-form-group input {
+    width: 75%;
+    border: 1.5px solid darkgray;
+    border-radius: 12px;
+    padding-left: 11px;
+}
+.pet-form-group-gender {
+    margin: 25px;
+    display: flex;
+    margin-bottom: 30px;
+}
+.pet-card-button {
+    border-radius: 20px;
+    border: none;
+    background-color: #dbefff;
+    color: dimgray;
+    padding: 10px;
+    font-size: 12pt;
+    width: 84%;
+    margin: 0 auto;
+    display: block;
+    font-weight: bold;
+    margin-bottom: 40px;
+}
+
+.pet-img {
+    width: 100%;
+    height: 100%;
+}
+.pet-img img {
+    width: 100%;
+    height: 100%;
+    border-radius: 100px;
+}
+
 

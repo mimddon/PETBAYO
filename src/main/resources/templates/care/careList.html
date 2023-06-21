@@ -6,20 +6,22 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link rel="stylesheet" href="/css/careList.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
 <!--    <script src="/js/myPageView.js"></script>-->
 
 </head>
 <body>
 <header th:insert="common/header.html"></header>
-<div style="width: 100%; background-color: lavender;">
+<div style="width: 100%; background-image: url(/img/petcareBack.png); margin-bottom: 23px;">
     <h3 style="margin: 0 auto; max-width: 1200px;padding: 30px;font-weight: 700;font-size: 20pt;">돌봄이를 찾아보세요</h3>
-    <div style="margin: 0 auto; max-width: 1200px; padding: 40px;">
+    <div style="margin: 0 auto; max-width: 1200px; padding: 40px;padding-left: 20px;">
         <a class="goBook" href="/book/bookList">반려동물의 특성 알아보기</a>
     </div>
 </div>
 <main style="width: 1200px; margin: 0 auto;">
-    <div style="width: 30%;height:800px;float: left;box-shadow: -1px 1px 0 0.05rem rgba(0,0,0,0.2);overflow: auto">
-        <div style="text-align: center; font-size: 24px;">
+    <div style="width: 30%;height:800px;float: left;box-shadow: -1px 1px 0 0.05rem rgba(0,0,0,0.2);overflow: auto;">
+        <!--<div style="text-align: center; font-size: 24px;">
             <h4 style="padding-top: 10px; margin-top: 10px;font-size: 20px;">추천 돌봄이</h4>
             <table style="width:100%;">
                 <tbody>
@@ -28,10 +30,14 @@
                     </tr>
                 </tbody>
             </table>
-        </div>
-        <div style="text-align: center; font-size: 24px;">
-            <h4 style="padding-top: 10px; margin-top: 10px; font-size: 20px;">일반 돌봄이</h4>
+        </div>-->
+        <div  style="text-align: center; font-size: 24px;">
+
+<!--            <h4 style="padding-top: 10px; margin-top: 10px; font-size: 20px;">돌봄이</h4>-->
             <div style="width:100%;">
+                <div id="care-box">
+                    돌봄이 리스트
+                </div>
                 <div id="careTableBody">
 
                 </div>
@@ -442,11 +448,11 @@
     <div class="mt-2">
         <a href="/careCreate"
            th:if="${session.user != null}"
-           class="btn btn-sm btn-primary" style="width: 70px;">글쓰기</a>
+           class="careAdd-button"><i class="fas fa-pen fa-xl" style="color: #ffffff;"></i></a>
         <a href="javascript:void(0);"
            th:if="${session.user == null}"
            onclick="alert('로그인이 필요합니다.'); location.href='/loginRegister';"
-           class="btn btn-sm btn-primary" style="width: 70px;">글쓰기</a>
+           class="careAdd-button"><i class="fas fa-pen fa-xl" style="color: #ffffff;"></i></a>
     </div>
 
 
