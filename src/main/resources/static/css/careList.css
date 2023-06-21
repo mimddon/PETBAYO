@@ -11,7 +11,7 @@
 }
 .goBook:hover {
     text-decoration: none; /* 밑줄 제거 */
-    color: #6abaff; /* 호버 시에 변경할 색상 설정 */
+    color: #456391; /* 호버 시에 변경할 색상 설정 */
 }
 .title {font-weight:bold;display:block;}
 .hAddr {position:absolute;left:3px;top:3px;border-radius: 3px;background:#fff;background:rgba(255,255,255,0.8);z-index:2;padding:5px;box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 2px 0px;}
@@ -100,5 +100,5 @@
     background-color: #6abaff;
     position: absolute;
     bottom: -13%;
-    right: 15%;
+    left: 15%;
 }
