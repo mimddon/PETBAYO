@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html xmlns xmlns:th="http://www.w3.org/1999/xhtml" :th="http://www.thymeleaf.org">
+
+<head>
+  <title>펫북</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="/css/pet-book.css">
+  <link rel="stylesheet" type="text/css" href="/css/nav.css">
+  <style>
+    #chatButton {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      border: none;
+      color: white;
+      padding: 15px 32px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      border-radius: 50%;
+      background-color: #555555;
+    }
+  </style>
+
+</head>
+
+
+<body>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+
+<header th:insert="common/header.html"></header>
+
+<div class="container">
+
+  <form action="/book/search" method="get">
+    <div class="search-container">
+      <div class="search-input-container">
+        <input type="text" id="search-input" name="keyword" placeholder="검색어를 입력하세요">
+        <button id="search-button">검색</button>
+      </div>
+      <!--search-category-container 부분 지우면 오류뜸 원인찾기 -->
+      <div class="search-category-container">
+        <select id="search-category" name="category">
+          <option value="all" selected>전체</option>
+          <option value="dog">개</option>
+          <option value="cat">고양이</option>
+          <option value="other">기타</option>
+        </select>
+      </div>
+    </div>
+  </form>
+
+  <div class="result-container">
+    <ul id="result-list">
+
+    </ul>
+  </div>
+  <div class="container">
+    <div class="row" >
+      <!-- 전체 게시글 -->
+      <div class="col-md-4" th:each="book : ${book}">
+        <div class="card">
+          <img class="card-img-top" th:if="${book.imgs != null && book.imgs.size() > 0}" th:src="@{'/upload-files/' + ${book.imgs[0]}}" alt="Book image">
+          <img class="card-img-top" th:if="${book.imgs == null || book.imgs.size() == 0}" src="/img/default.png" alt="Default image">
+          <div class="card-body">
+            <h5 class="card-title" th:text="${book.species}"></h5>
+            <p class="card-text" th:text="'작성자: ' + ${book.writer}"></p>
+            <button type="button" class="btn btn-primary"
+                    data-toggle="modal" th:data-target="'#modal' + ${book.petId}">상세보기</button>
+            <div th:if="${isAdmin}">
+              <button class="btn btn-primary" data-toggle="modal">
+                <a th:href="@{/book/delete/{id}(id=${book.petId})}">삭제</a>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- 검색 결과 게시글 -->
+  <div class="col-md-4" th:each="book : ${searchResults}" >
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title" th:text="${book.species}"></h5>
+        <p class="card-text" th:text="'작성자: ' + ${book.writer}"></p>
+        <button type="button" class="btn btn-primary" data-toggle="modal"
+                th:data-target="'#modal' + ${book.petId}">상세보기
+        </button>
+        <div th:if="${isAdmin}">
+          <button class="btn btn-primary" data-toggle="modal">
+            <a th:href="@{/book/delete/{id}(id=${book.petId})}">삭제</a>
+          </button>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+
+
+  <!--모달창 -->
+  <div th:each="book : ${book}">
+    <div class="modal fade"  th:id="'modal' + ${book.petId}">
+      <div class="modal-dialog modal-lg modal-dialog-centered" >
+        <div class="modal-content" >
+          <div class="modal-header">
+            <h5 class="modal-title" th:text="${book.species}"></h5>
+
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+          </div>
+          <div class="modal-body">
+            <p class="card-text">작성자: <span th:text="${book.writer}"></span></p>
+            <div th:each="img : ${#objects.nullSafe(book.imgs, {})}">
+              <img class="card-img-top" th:src="@{'/upload-files/' + ${img}}" alt="Book image">
+            </div>
+            <p th:text="${book.description}"> </p>
+            <div th:if="${isAdmin}">
+              <a th:href="@{/book/update/{id}(id=${book.petId})}">수정</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div th:if="${isAdmin}">
+  <button class="btn btn-danger"><a href="/bookCreate">등록</a></button>
+</div>
+<button><a href="/book/bookList">이전</a></button>
+</div>
+<button id="chatButton" onclick="openChat()">채팅</button>
+
+
+<script>
+  function openChat() {
+    window.open('/chat', 'Chat', 'width=800,height=600,scrollbars=yes,status=no');
+  }
+</script>
+</body>
+
+</html>
